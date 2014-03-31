@@ -1,0 +1,47 @@
+%p#notice= notice
+
+%p
+  %b Lesson: #{link_to @question.lesson.name, @question.lesson}
+%p
+  %b Page: #{link_to @question.page.id, @question.page}
+%p
+  %b.u= @question.title
+%p
+  %b= @question.content.html_safe
+
+- unless @question.recordings.empty?
+  %h3 Recordings
+  %ul.undecorated_ul
+    - @question.recordings.each do |recording|
+      %li
+        %audio{:id => 'audio-player', 'data-fileurl' => recording.file.url, :src => recording.file.url}
+
+#waveform
+
+
+.controls
+  %button.btn{'data-action' => "back"}
+    %i.icon.icon-step-backward
+    Seek Backward
+
+  %button.btn{'data-action' => "play"}
+    %i.icon.icon-play
+    Play /
+    %i.icon.icon-pause
+    Pause
+
+  %button.btn{'data-action' => 'forth'}
+    %i.icon.icon-step-forward
+    Seek Forward
+
+  %button.btn.btn-success{'data-action' => 'green-mark'}
+    %i.icon.icon-flag
+    Set green mark
+
+  %button.btn.btn-danger{'data-action' => 'red-mark'}
+    %i.icon.icon-flag
+    Set red mark
+
+= link_to 'Edit', edit_question_path(@question)
+\|
+= link_to 'Back', questions_path

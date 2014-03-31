@@ -1,0 +1,24 @@
+%h1 Listing lessons
+
+%table.table.table-striped
+  %tr
+    %th Name
+    %th Courses
+    %th
+    %th
+    %th
+
+  - @lessons.each do |lesson|
+    %tr
+      %td= lesson.name
+      %td
+        - lesson.courses.each do |course|
+          = link_to course.name, course
+          %br 
+      %td= link_to 'Show', lesson
+      %td= link_to 'Edit', edit_lesson_path(lesson)
+      %td= link_to 'Destroy', lesson, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Lesson', new_lesson_path

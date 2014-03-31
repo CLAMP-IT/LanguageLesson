@@ -1,0 +1,2 @@
+class MatchingQuestion < Question
+end

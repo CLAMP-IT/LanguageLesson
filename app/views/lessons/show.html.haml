@@ -1,0 +1,22 @@
+%p#notice= notice
+
+%p
+  %b Courses
+  %ul
+    - @lesson.courses.each do |course|
+      %li= link_to course.name, course
+%p
+  %b Name:
+  = @lesson.name
+
+%h3 Pages
+#pages_box
+  %ul
+    - @lesson.pages.rank(:row_order).each do |page|
+      %li= link_to page.title, page
+
+= link_to 'New Question', new_lesson_question_path(@lesson)
+
+= link_to 'Edit', edit_lesson_path(@lesson)
+\|
+= link_to 'Back', lessons_path

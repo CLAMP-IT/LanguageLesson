@@ -1,0 +1,31 @@
+= form_for @lesson, :html => {:class => 'form-horizontal'} do |f|
+  - if @lesson.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@lesson.errors.count, "error")} prohibited this lesson from being saved:"
+      %ul
+        - @lesson.errors.full_messages.each do |msg|
+          %li= msg
+
+  -#.control-group
+  -#  = f.label :course, :class => 'control-label'
+  -#  .controls= f.text_field :course
+  .control-group
+    = f.label :name, :class => 'control-label'
+    .controls= f.text_field :name
+  .control-group
+    = f.label :graded, :class => 'control-label'
+    .controls= f.check_box :graded
+  .control-group
+    = f.label :auto_grading, :class => 'control-label'
+    .controls= f.check_box :auto_grading
+  .control-group
+    = f.label :hide_previous_answer, :class => 'control-label'
+    .controls= f.check_box :hide_previous_answer
+  .control-group
+    = f.label :submission_limited, :class => 'control-label'
+    .controls= f.check_box :submission_limited
+  .control-group
+    = f.label :submission_limit, :class => 'control-label'
+    .controls= f.text_field :submission_limit
+  .actions
+    = f.submit 'Save'

@@ -6,7 +6,7 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module LanguageLessonNew
+module LanguageLesson
   class Application < Rails::Application
 
     # don't generate RSpec tests for views and helpers
@@ -31,5 +31,7 @@ module LanguageLessonNew
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
+
+    Rails.application.assets.register_postprocessor('application/javascript', Sprockets::StrictMode)
   end
 end

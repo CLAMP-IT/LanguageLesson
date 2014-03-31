@@ -1,0 +1,23 @@
+%p#notice= notice
+
+%p
+  %b Lesson:
+  = link_to @question.lesson.name, @question.lesson
+%p
+  %b Page:
+  = link_to @question.page.id, @question.page
+%p
+  %b Name:
+  = @question.title
+%p
+  %b Text:
+  = @question.content.html_safe
+
+- unless @question.recordings.empty?
+  %h3 Recordings
+  %ul
+    - @question.recordings.each do |recording|
+      %li <audio controls src="#{recording.file.url}"></audio>
+= link_to 'Edit', edit_question_path(@question)
+\|
+= link_to 'Back', questions_path

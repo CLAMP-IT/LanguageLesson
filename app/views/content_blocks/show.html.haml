@@ -1,0 +1,20 @@
+%p#notice= notice
+
+%p
+  %b Page:
+  = @content_block.page_element.page.title
+
+%p
+  %b Content:
+  = @content_block.content.html_safe
+
+- unless @content_block.recordings.empty?
+  %h3 Recordings
+  %ul
+    - @question.recordings.each do |recording|
+      %li
+        %audio{:id => 'audio-player', 'controls' => '', 'data-fileurl' => recording.file.url, :src => recording.file.url}
+  
+= link_to 'Edit', edit_content_block_path(@content_block)
+\|
+= link_to 'Back', content_blocks_path

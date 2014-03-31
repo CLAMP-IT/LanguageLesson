@@ -1,0 +1,26 @@
+= form_for @question do |f|
+  - if @question.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@question.errors.count, "error")} prohibited this question from being saved:"
+      %ul
+        - @question.errors.full_messages.each do |msg|
+          %li= msg
+  .field
+    = f.label :name
+    = f.text_area :name, size: '40x6'
+  .field
+    = f.label :text
+    = f.text_area :text, size: '40x6'
+  .field
+    = f.label 'Sound Recording'
+    #recordingControls
+      <button onclick="startRecording(this);">record</button>
+      <button onclick="stopRecording(this);" disabled>stop</button>    
+  .actions
+    = f.submit 'Save'
+
+%h2 Log
+%pre{:id => 'log'}
+
+%h2 Recordings
+%ul{:id => 'recordingslist'}    
