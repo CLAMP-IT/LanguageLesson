@@ -1,0 +1,22 @@
+%h1 Listing lesson attempts
+
+%table.table.table-striped
+  %tr
+    %th Course
+    %th Lesson
+    %th User
+    %th Created at
+    %th
+    %th
+    %th
+
+  - @lesson_attempts.each do |attempt|
+    %tr
+      %td= attempt.lesson.courses.first.name if attempt.lesson.courses.first
+      %td= attempt.lesson.name
+      %td= attempt.user.name
+      %td= attempt.created_at.strftime("%b %d/%Y %l:%M %p")
+      %td= link_to 'Show', attempt
+      %td= link_to 'Edit', edit_lesson_path(attempt)
+      %td= link_to 'Destroy', attempt, :method => :delete, :data => { :confirm => 'Are you sure?' }
+

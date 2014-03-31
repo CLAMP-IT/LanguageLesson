@@ -1,0 +1,17 @@
+%p#notice= notice
+
+%p
+  %b Moodle:
+  = @course.moodle_id
+%p
+  %b Name:
+  = @course.name
+
+%h3 Lessons
+%ul
+  - @course.lessons.each do |lesson|
+    %li= link_to lesson.name, lesson
+
+= link_to 'Edit', edit_course_path(@course)
+\|
+= link_to 'Back', courses_path

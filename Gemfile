@@ -31,3 +31,7 @@ group :test do
   gem 'email_spec'
   gem 'launchy'
 end
+gem 'paperclip', "~> 3.0"
+gem 'rails-backbone'
+gem 'ranked-model'
+gem 'sprockets-strict-mode'

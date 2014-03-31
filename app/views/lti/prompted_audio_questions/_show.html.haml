@@ -1,0 +1,22 @@
+%p
+  %b.u= pageable.title
+%p
+  %b= pageable.content.html_safe
+
+%hr
+
+= form_for [:lti, lesson_attempt, QuestionAttempt.new], :remote => true, :html => { :multipart => true } do
+  = hidden_field_tag :question_id, pageable.id
+
+#recordingControls
+  %b Record a response
+  %button.btn.btn-danger{:onclick => "startRecording(this)"}Record
+  %button.btn{:onclick => "stopRecording(this)", :disabled => true}Stop
+
+#log.hidden
+  %h2 Log
+  %pre#log
+
+#recording_list
+  %h2 Recordings
+  %ul#recordingslist

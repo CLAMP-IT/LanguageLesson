@@ -1,0 +1,2 @@
+class DescriptionQuestion < Question
+end

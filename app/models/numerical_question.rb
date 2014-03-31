@@ -1,0 +1,2 @@
+class NumericalQuestion < Question
+end

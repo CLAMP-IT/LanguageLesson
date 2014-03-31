@@ -1,0 +1,2 @@
+class TrueFalseQuestion < Question
+end

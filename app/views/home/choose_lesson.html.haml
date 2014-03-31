@@ -1,0 +1,12 @@
+.row
+  .span12= @user.inspect
+
+.row
+  .span12= @course.inspect
+
+.row
+  .span12
+    %ul
+    - session.each do |key|
+      %li #{key}: #{params[:key]}  
+

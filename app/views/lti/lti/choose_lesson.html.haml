@@ -1,0 +1,6 @@
+%h2= @course.name
+
+%h3 Choose a Lesson
+%ul.undecorated_ul
+  - @course.lessons.each do |lesson|
+    %li= link_to lesson.name, lti_start_lesson_path(lesson)

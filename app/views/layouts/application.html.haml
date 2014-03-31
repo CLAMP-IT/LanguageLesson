@@ -2,14 +2,19 @@
 %html
   %head
     %meta{:name => "viewport", :content => "width=device-width, initial-scale=1.0"}
-    %title= content_for?(:title) ? yield(:title) : 'Language Lesson New'
-    %meta{:name => "description", :content => "#{content_for?(:description) ? yield(:description) : 'Language Lesson New'}"}
+    %title= content_for?(:title) ? yield(:title) : 'Language Lesson'
+    %meta{:name => "description", :content => "#{content_for?(:description) ? yield(:description) : 'Language Lesson'}"}
     = stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true
     = javascript_include_tag "application", "data-turbolinks-track" => true
+    = javascript_include_tag "#{params[:controller]}_#{params[:action]}"
     = csrf_meta_tags
   %body
     %header
       = render 'layouts/navigation'
     %main{:role => "main"}
-      = render 'layouts/messages'
-      = yield
+      .container
+        .content
+          .row
+            .span12
+              = render 'layouts/messages'
+              = yield

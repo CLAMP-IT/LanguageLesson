@@ -1,0 +1,14 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @lesson_attempt.lesson.name
+
+%ul
+  - @lesson_attempt.question_attempts.each do |question_attempt|
+    = question_attempt.id
+    %ul
+      - question_attempt.recordings.each do |recording|
+        %span.simple-audio-player{'data-src' => recording.file.url}
+
+

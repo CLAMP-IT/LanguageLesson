@@ -1,0 +1,2 @@
+class ShortAnswerQuestion < Question
+end

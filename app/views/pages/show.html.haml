@@ -1,0 +1,24 @@
+%p#notice= notice
+
+%p
+  %b Lesson:
+  = @page.lesson.name
+
+%h3 Elements
+.row
+  %table.span4.table.table-striped
+    %thead
+      %tr
+        %th Type
+        %th Title
+        %th Actions
+    %tbody
+      - @page.page_elements.rank(:row_order).each do |element| 
+        %tr
+          %td= element.pageable.class
+          %td= element.pageable.title
+          %td= link_to "Show", element.pageable
+
+= link_to 'Edit', edit_page_path(@page)
+\|
+= link_to 'Back', pages_path
