@@ -13,9 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
-//= require underscore
-//= require backbone
-//= require backbone_rails_sync
-//= require backbone_datalink
-//= require backbone/language_lesson
-//= require_tree ./jPlayer
+//= require lib/underscore
+//= require lib/backbone
+//= require lib/marionette
+

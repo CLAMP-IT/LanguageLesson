@@ -1,0 +1,10 @@
+.lesson_element.ContentBlock
+  .title
+    %h4 #{@title}
+  .lesson_content #{@content}
+  .buttons
+    %button.prev 
+      %i.glyphicon.glyphicon-arrow-left
+    %button
+      %i.glyphicon.glyphicon-arrow-right
+

@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 ruby '2.0.0'
-gem 'rails', '4.1.0.rc1'
+gem 'rails', '4.1.0'
 gem 'sass-rails', '~> 4.0.1'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
@@ -9,12 +9,13 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'spring',        group: :development
-gem 'bootstrap-sass', '>= 3.0.0.0'
+gem 'bootstrap-sass', '~> 3.1.1'
 gem 'haml-rails'
 gem 'pg'
-gem 'simple_form'
+gem 'simple_form',  github: 'plataformatec/simple_form'
 group :development do
   gem 'better_errors'
+  #gem 'sprockets_better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_19, :mri_20, :rbx]
   gem 'html2haml'
   gem 'quiet_assets'
@@ -32,6 +33,14 @@ group :test do
   gem 'launchy'
 end
 gem 'paperclip', "~> 3.0"
-gem 'rails-backbone'
+#gem 'rails-backbone'
 gem 'ranked-model'
 gem 'sprockets-strict-mode'
+gem 'eco'
+gem 'haml_coffee_assets'
+gem 'execjs'
+gem 'gon'
+gem "rabl"
+gem "oj"
+gem "js-routes"
+

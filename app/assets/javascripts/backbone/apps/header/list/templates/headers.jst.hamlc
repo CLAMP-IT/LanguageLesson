@@ -1,0 +1,8 @@
+#header.navbar
+  .navbar-inner
+    .container
+      .row
+        .pull-left
+          %span.brand Language Lesson w/ Backbone
+        %ul.nav.pull-right
+

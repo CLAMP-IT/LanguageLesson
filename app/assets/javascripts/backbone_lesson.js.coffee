@@ -1,0 +1,2 @@
+$ ->
+   LanguageLesson.start()

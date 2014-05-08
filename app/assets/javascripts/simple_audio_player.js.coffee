@@ -33,16 +33,17 @@ SimpleAudio.checkForEnd = () ->
   audio_element.pause()
   icon.toggleClass('icon-play icon-pause')
   progress.value = 0
-  
-$ ->
+
+SimpleAudio.activate = () ->
   # Simple audio player
   $(".simple-audio-player").each (element) ->
+    console.log element
     src = $(this).data('src')
 
     append = """
       <audio class="audio_element" src="#{src}"></audio>
-      <button class="btn" onclick='SimpleAudio.togglePlayLocal(this)'><i class='icon playicon icon-play'></i></button>
-      <button class="btn" onclick='SimpleAudio.rewind(this)'><i class='icon icon-step-backward'></i></button>
+      <button class="btn" onclick='SimpleAudio.togglePlayLocal(this)'><i class='glyphicon glyphicon-play'></i></button>
+      <button class="btn" onclick='SimpleAudio.rewind(this)'><i class='glyphicon glyphicon-step-backward'></i></button>
       <progress class="seekbar" value="0" max="100"><span>0</span>% played</progress>
     """
     
@@ -50,4 +51,7 @@ $ ->
     audio_element = $(this).find('.audio_element').get(0)
     audio_element.addEventListener('timeupdate', SimpleAudio.updateProgress, false)
     audio_element.addEventListener('ended', SimpleAudio.checkForEnd, false)
+  
+#$ ->
+#  SimpleAudio.activate()
     

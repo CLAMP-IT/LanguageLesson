@@ -33,5 +33,11 @@ module LanguageLesson
     # config.i18n.default_locale = :de
 
     Rails.application.assets.register_postprocessor('application/javascript', Sprockets::StrictMode)
+
+    config.assets.precompile << /(^[^_\/]|\/[^_])[^\/]*$/
+
+    config.sass.preferred_syntax = :sass
+    config.sass.line_comments = false
+    config.sass.cache = false
   end
 end

@@ -45,6 +45,8 @@ LanguageLesson::Application.routes.draw do
   get '/home/backbone' => 'home#backbone'
   get '/home/test' => 'home#test'
 
+  get '/backbone/lesson(/:id)' => 'backbone#lesson'
+
   root :to => "home#index"
 
   #match '/home/start_lti' => 'home#start_lti', :as => 'start_lti'

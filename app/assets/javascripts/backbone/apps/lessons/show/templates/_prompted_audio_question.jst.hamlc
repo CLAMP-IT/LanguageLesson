@@ -1,0 +1,11 @@
+.lesson_element.PromptedAudioQuestion
+  #element-title
+    %h4 #{@title}
+  #element-content #{@content}
+    #waveform
+    #wave-timeline
+  .buttons
+    %button.prev 
+      %i.glyphicon.glyphicon-arrow-left
+    %button
+      %i.glyphicon.glyphicon-arrow-right

@@ -1,0 +1,6 @@
+.lesson_element.BareElement
+  %h4.title #{@title}
+  .lesson_content #{@content}
+  .buttons
+    %button.prev &laquo;
+    %button.next &raquo;

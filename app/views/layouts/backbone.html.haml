@@ -1,0 +1,15 @@
+!!!
+%html
+  %head
+    %title= content_for?(:title) ? yield(:title) : 'Language Lesson'
+    %meta{:name => "description", :content => "#{content_for?(:description) ? yield(:description) : 'Language Lesson'}"}
+    = include_gon
+    <script type="text/javascript" src="//use.typekit.net/mvx8fwb.js"></script>
+    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+    = stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => false
+    = javascript_include_tag "backbone_base", "data-turbolinks-track" => false
+    = javascript_include_tag "#{params[:controller]}_#{params[:action]}"
+    = csrf_meta_tags
+  %body
+    %main{:role => "main"}
+      #vontents.col-xs-6.center-block= yield
