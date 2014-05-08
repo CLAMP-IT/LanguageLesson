@@ -1,0 +1,4 @@
+- console.log @
+#elements_counter 
+  %h4#element_count 1 of #{@.page_elements.length}
+#elements
