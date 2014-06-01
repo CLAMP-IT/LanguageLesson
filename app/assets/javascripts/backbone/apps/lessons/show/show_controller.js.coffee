@@ -1,7 +1,7 @@
 @LanguageLesson.module "LessonsApp.Show", (Show, App, Backbone, Marionette, $, _) ->      
   Show.Controller =
     showLesson: (id) ->
-      App.request "lesson:entity", (lesson) =>
+      App.request "lesson:entity", id, (lesson) =>
         @layout = @getLayoutView(lesson)
                         
         @layout.on "show", =>
