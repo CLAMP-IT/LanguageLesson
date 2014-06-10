@@ -3,6 +3,7 @@
     appRoutes:
       "lessons/new" : "createLesson"
       "lessons/:id" : "showLesson"
+      "lessons/:id/attempt" : "attemptLesson"
         
     API =
       showLesson: (id) ->
@@ -11,6 +12,9 @@
       createLesson: ->
         LessonsApp.Create.Controller.createLesson()
 
+      attemptLesson: ->
+        LessonsApp.Attempt.Controller.attemptLesson()
+                
     App.addInitializer ->
       new LessonsApp.Router
         controller: API
