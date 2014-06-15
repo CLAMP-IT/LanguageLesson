@@ -1,0 +1,7 @@
+.lesson_element.ContentBlock
+  .title
+    %h4 #{@title}
+  .lesson_content #{@content}
+  != JST['backbone/apps/lessons/attempt/templates/_buttons']()
+
+
