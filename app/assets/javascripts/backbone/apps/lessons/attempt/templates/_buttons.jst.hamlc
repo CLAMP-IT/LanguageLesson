@@ -1,0 +1,5 @@
+.buttons
+  %button.prev 
+    %i.glyphicon.glyphicon-arrow-left
+  %button.next     
+    %i.glyphicon.glyphicon-arrow-right

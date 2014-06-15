@@ -1,0 +1,11 @@
+.lesson_element.PromptedAudioQuestion
+  .title
+    %h4= @title
+  #element-content #{@content}
+  #waveform
+  #wave-timeline
+  #recordingControls
+    %button.js-record-begin record
+    %button.js-record-end stop
+  != JST['backbone/apps/lessons/attempt/templates/_buttons']()
+
