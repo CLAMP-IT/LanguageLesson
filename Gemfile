@@ -46,3 +46,4 @@ gem "oj"
 gem "js-routes"
 gem 'font-awesome-rails'
 gem 'medium-editor-rails'
+gem 'backbone-associations-rails'

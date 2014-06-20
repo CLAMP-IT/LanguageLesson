@@ -37,6 +37,7 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.3.6)
     arel (5.0.1.20140414130214)
+    backbone-associations-rails (0.6.1)
     better_errors (1.1.0)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
@@ -241,6 +242,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  backbone-associations-rails
   better_errors
   binding_of_caller
   bootstrap-sass
