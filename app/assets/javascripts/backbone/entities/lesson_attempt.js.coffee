@@ -19,7 +19,7 @@
         lesson_id: lesson_id
         user_id: user_id
 
-      # lessonAttempt.save()
+      lessonAttempt.save()
 
       App.request "lesson:entity", lesson_id, (lesson) =>
         lessonAttempt.lesson = lesson
