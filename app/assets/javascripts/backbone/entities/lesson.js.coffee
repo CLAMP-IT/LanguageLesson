@@ -6,7 +6,7 @@
   
   class Entities.Lesson extends Entities.Model
     urlRoot: -> Routes.lessons_path()
-  
+
   API =
      getLessonEntity: (id, cb) ->
        lesson = new Entities.Lesson
