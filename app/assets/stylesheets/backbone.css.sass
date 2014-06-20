@@ -10,22 +10,25 @@
 
 .lesson_element
   background-color: #eee
-  margin-bottom: 5px
   padding: 5px 5px 10px 15px
-
+  border: 1px solid orange
+    
 .PromptedAudioQuestion
   background-color: #6699FF
   color: #000402
   border: 5px solid #C5CEE0
-  #element-title
-    //@extend .col-xs-9
+
+  .element-title
     background-color: #C5CEE0
     padding: 0px 0 0 4px
-    width: 60%
-      
+    font-size: 120%
+    margin: 0 0 5px 10px
+    float: left
+
   #element-content    
-    // @extend .col-xs-11
     margin-top: 10px
+  #waveform
+    margin: 10px 0 10px 0
       
 .ContentBlock
   background-color: #00CC66
@@ -36,7 +39,7 @@
   margin-bottom: 15px
 
 .buttons
-  margin-top: 15px
+  margin: 15px 0 10px 0
 
 h1
   font-family: "chaparral-pro",sans-serif
@@ -63,3 +66,16 @@ h4
   background-color: #BBB
   margin-bottom: 5px
   padding: 3px
+
+.recording
+  background-color: red
+
+#recordings-list
+  margin: 10px 0 0 0
+  padding: 0
+  list-style-type: none
+
+  li
+    list-style-type: none
+    margin: 0
+    padding: 0
