@@ -43,12 +43,12 @@ class LessonAttemptsController < ApplicationController
     @lesson_attempt = LessonAttempt.new(lesson_attempt_params)
 
     respond_to do |format|
-      if @lesson.save
-        format.html { redirect_to @lesson, notice: 'Lesson was successfully created.' }
-        format.json { render json: @lesson, status: :created, location: @lesson_attempt }
+      if @lesson_attempt.save
+        format.html { redirect_to @lesson_attempt, notice: 'Lesson was successfully created.' }
+        format.json { render json: @lesson_attempt, status: :created, location: @lesson_attempt }
       else
         format.html { render action: "new" }
-        format.json { render json: @lesson.errors, status: :unprocessable_entity }
+        format.json { render json: @lesson_attempt.errors, status: :unprocessable_entity }
       end
     end
   end
