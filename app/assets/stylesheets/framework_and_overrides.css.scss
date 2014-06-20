@@ -6,11 +6,6 @@
 
 // import the CSS framework
 @import "bootstrap";
-//@import "bootstrap/theme";
-//@import "_variables";
-//@import "_bootswatch";
-
-
 
 // make all images responsive by default
 img {
@@ -57,4 +52,3 @@ section {
   @extend .row;
   margin-top: 20px;
   }
-
