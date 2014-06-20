@@ -18,7 +18,7 @@
   
     # Begin by allowing movement forward but not back
     stepForward: true
-    stepBackward: false
+    stepBackward: true
     
     keys:
       'left': 'prev'
@@ -33,14 +33,18 @@
       elementsRegion: "#elements-region"
 
     preventSteppingForward: () ->
-      console.log 'preventing'
       @stepForward = false
 
     allowSteppingForward: ->
-      @stepForward = true      
+      @stepForward = true
+
+    preventSteppingBackward: () ->
+      @stepBackward = false
+
+    allowSteppingBackward: ->
+      @stepBackward = true        
 
     next: ->
-      console.log @stepForward
       if @stepForward
         App.trigger('lesson:next_element', @model)
 

@@ -2,7 +2,7 @@ class RecordingsController < ApplicationController
   def create
     @recording = Recording.new(recording_params)
 
-    respond_to do |format|
+    #respond_to do |format|
       if @recording.save
         render :nothing => true
         #    format.html { redirect_to @question, notice: 'Question was successfully created.' }
@@ -11,7 +11,8 @@ class RecordingsController < ApplicationController
         #    format.html { render action: "new" }
         #    format.json { render json: @question.errors, status: :unprocessable_entity }
       end
-    end
+    #end
+  end
 
   def recording_params
     params.require(:recording).permit!

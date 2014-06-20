@@ -24,6 +24,9 @@
 
       return
 
+    onShow: ->
+      $("#element_count").html("#{@currentView + 1} of #{@model.elements.length}")        
+    
     onRender: ->
       @showElementView()
 
@@ -37,7 +40,7 @@
         ).bind(@)
                                           
     previousView: (element) ->
-      if @currentViezw > 0
+      if @currentView > 0
         $('.lesson_element').fadeOut 200, ( ->
           @currentView -= 1
           @showElementView()
@@ -48,19 +51,19 @@
     showElementView: ->
       model = @model.elements.models[@currentView]
 
-      # Homegrown prototypal behavior
+      # Homegrown polymorphic behavior
       switch model.attributes.type
         when 'PromptedAudioQuestion'
           element = new Attempt.PromptedAudioQuestionElement
             model: @model.elements.models[@currentView]
+            lesson: @model
+            attempt: @options['attempt']
+            user: @options['user']
         when 'ContentBlock'
            element = new Attempt.ContentBlockElement
             model: @model.elements.models[@currentView]
-
-      #App.vent.on 'lesson:prevent_stepping_forward', (childView, model) ->
-      #  console.log 'preventing 1'
-      #  return
-      
+            lesson: @model
+            attempt: @options['attempt']
+            user: @options['user']
+            
       @elements.show element
-
-

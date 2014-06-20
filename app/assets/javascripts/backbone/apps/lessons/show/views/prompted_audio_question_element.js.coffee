@@ -31,7 +31,16 @@
         xcursorColor   : 'navy'
       
       wavesurfer.load( $(".simple-audio-player").data('src') )
-  
+
+      wavesurfer.on('selection-update', (selection) ->
+        console.log selection
+      )
+
+      #wavesurfer.mark
+      #  id: 99
+      #  percentage: 0.5322834525521346
+      #  position: 1.5297336126138814
+                  
       wavesurfer.on('ready', ->
         timeline = Object.create(WaveSurfer.Timeline)
 
@@ -39,3 +48,6 @@
           wavesurfer: wavesurfer,
           container: "#wave-timeline"
       )
+
+      RecorderControls.initialize()
+      

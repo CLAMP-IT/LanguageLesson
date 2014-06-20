@@ -7,13 +7,15 @@
         
     API =
       showLesson: (id) ->
-        LessonsApp.Show.Controller.showLesson(id)
+        controller = new LessonsApp.Show.Controller
+        controller.showLesson(id)
 
       createLesson: ->
         LessonsApp.Create.Controller.createLesson()
 
-      attemptLesson: ->
-        LessonsApp.Attempt.Controller.attemptLesson()
+      attemptLesson: (id) ->
+        controller = new LessonsApp.Attempt.Controller
+        controller.attemptLesson(id)
                 
     App.addInitializer ->
       new LessonsApp.Router
