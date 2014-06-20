@@ -11,5 +11,4 @@
     = javascript_include_tag "#{params[:controller]}_#{params[:action]}"
     = csrf_meta_tags
   %body
-    %main{:role => "main"}
-      #vontents.col-xs-6.center-block= yield
+    %main{:role => "main"}= yield
