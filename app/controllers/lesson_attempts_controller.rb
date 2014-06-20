@@ -40,7 +40,7 @@ class LessonAttemptsController < ApplicationController
   # POST /lessons
   # POST /lessons.json
   def create
-    @lesson_attempt = LessonAttempt.new(params[:lesson_attempt])
+    @lesson_attempt = LessonAttempt.new(lesson_attempt_params)
 
     respond_to do |format|
       if @lesson.save
@@ -79,5 +79,10 @@ class LessonAttemptsController < ApplicationController
       format.html { redirect_to lessons_url }
       format.json { head :no_content }
     end
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def lesson_attempt_params
+    params.require(:lesson_attempt).permit!
   end
 end
