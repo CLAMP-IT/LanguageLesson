@@ -6,8 +6,6 @@
 		mainRegion: "#main-region"
 		footerRegion: "#footer-region"
 	
-	#App.addInitializer ->
-
   App.on "initialize:before", (options) ->
     @currentUser = App.request "set:current:user", options.currentUser
 
