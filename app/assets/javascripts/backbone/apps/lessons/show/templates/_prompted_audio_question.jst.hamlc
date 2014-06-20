@@ -9,3 +9,6 @@
       %i.glyphicon.glyphicon-arrow-left
     %button
       %i.glyphicon.glyphicon-arrow-right
+  #recordingControls
+    <button onclick="RecorderControls.startRecording(this);">record</button>
+    <button onclick="RecorderControls.stopRecording(this);" disabled>stop</button>

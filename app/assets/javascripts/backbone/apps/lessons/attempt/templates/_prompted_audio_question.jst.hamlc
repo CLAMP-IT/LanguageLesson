@@ -7,5 +7,7 @@
   #recordingControls
     %button.js-record-begin record
     %button.js-record-end stop
+  #recordings
+    %ul#recordings-list
   != JST['backbone/apps/lessons/attempt/templates/_buttons']()
 
