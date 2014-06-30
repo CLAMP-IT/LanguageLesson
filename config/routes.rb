@@ -39,10 +39,11 @@ LanguageLesson::Application.routes.draw do
       resources :question_attempts
     end
     
-    get 'start' => 'lti#start', :as => 'start_lti'
+    post 'start' => 'lti#start', :as => 'start_lti'
     get 'choose_lesson' => 'lti#choose_lesson', :as => 'choose_lesson'
+    #post 'start_lesson/(:lesson_id)' => 'lessons#start_lesson', :as => 'start_lesson'
     get 'start_lesson/(:lesson_id)' => 'lessons#start_lesson', :as => 'start_lesson'
-    get 'lesson_attempts/start_attempt/(:lesson_id)' => 'lesson_attempts#start_attempt', :as => 'start_lesson_attempt'
+    post 'lesson_attempts/start_attempt/(:lesson_id)' => 'lesson_attempts#start_attempt', :as => 'start_lesson_attempt'
     get 'lesson_attempts/show_page_element/(:lesson_attempt_id)/(:page_element_id)' => 'lesson_attempts#show_page_element', :as => 'show_lesson_attempt_page_element'
   end
 
