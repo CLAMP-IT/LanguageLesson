@@ -47,3 +47,6 @@ gem "js-routes"
 gem 'font-awesome-rails'
 gem 'medium-editor-rails'
 gem 'backbone-associations-rails'
+gem 'oauth'
+gem 'ims-lti', :require => 'ims/lti'
+gem 'figaro'
