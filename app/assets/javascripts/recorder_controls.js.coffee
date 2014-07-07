@@ -4,6 +4,7 @@ window.RecorderControls = {}
 RecorderControls.audio_context = null
 RecorderControls.recorder = null
 RecorderControls.analyser = null
+RecorderControls.recording = false
 
 RecorderControls.initialize = ->
   unless RecorderControls.audio_context  
@@ -41,11 +42,15 @@ RecorderControls.startUserMedia = (stream) ->
   #RecorderControls.recorder.record()
   
 RecorderControls.startRecording = ->
+  RecorderControls.recording = true
+  
   RecorderControls.analyser = RecorderControls.audio_context.createAnalyser()
   RecorderControls.recorder && RecorderControls.recorder.record()
   console.log('Recording...')
 
 RecorderControls.stopRecording = ->
+  RecorderControls.recording = false
+  
   RecorderControls.recorder && RecorderControls.recorder.stop()
   console.log('Stopped recording.')
   
@@ -53,6 +58,12 @@ RecorderControls.stopRecording = ->
 
   #RecorderControls.recorder.clear()
 
+RecorderControls.toggleRecording = ->
+  unless RecorderControls.recording
+    RecorderControls.startRecording()
+  else
+    RecorderControls.stopRecording()
+  
 RecorderControls.upload = ->
   RecorderControls.recorder && RecorderControls.recorder.exportWAV((blob) ->
     url = URL.createObjectURL(blob)
