@@ -1,6 +1,8 @@
 class Lti::LtiController < ApplicationController
   layout 'lti'
 
+  after_action :allow_iframe
+
   def fetch_user  
     @user = User.find(session[:user_id])
   end
@@ -40,5 +42,11 @@ class Lti::LtiController < ApplicationController
     @user = User.find(session[:user_id])
                       
     @course = Course.find_by_name(session[:context_title])
+  end
+
+  private
+
+  def allow_iframe
+    response.headers.except! 'X-Frame-Options'
   end
 end
