@@ -39,6 +39,13 @@ class Lti::LtiController < ApplicationController
   end
 
   def choose_lesson
+    # F'd up
+    session[:init] = true
+
+    logger.debug "SESSION"
+    logger.debug session.inspect
+
+
     @user = User.find(session[:user_id])
                       
     @course = Course.find_by_name(session[:context_title])
