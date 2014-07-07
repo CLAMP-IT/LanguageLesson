@@ -1,0 +1,35 @@
+.lesson_element.PromptedAudioQuestion
+  .title
+    %h4= @question.title
+  #element-content #{@question.content}
+  #waveform
+  #wave-timeline
+  #recordingControls
+    %button.js-record-begin record
+    %button.js-record-end stop
+  #recordings
+    %ul#recordings-list
+  #recording
+    .response_wave
+    .controls
+      %button.btn{'data-action' => "back"}
+        %i.icon.icon-step-backward
+        Seek Backward
+
+      %button.btn{'data-action' => "play"}
+        %i.icon.icon-play
+        Play /
+        %i.icon.icon-pause
+        Pause
+
+      %button.btn{'data-action' => 'forth'}
+        %i.icon.icon-step-forward
+        Seek Forward
+
+      %button.btn.btn-success{'data-action' => 'green-mark'}
+        %i.icon.icon-flag
+        Set green mark
+
+      %button.btn.btn-danger{'data-action' => 'red-mark'}
+        %i.icon.icon-flag
+        Set red mark

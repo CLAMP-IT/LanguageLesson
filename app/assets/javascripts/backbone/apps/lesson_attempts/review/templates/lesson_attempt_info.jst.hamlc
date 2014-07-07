@@ -1,0 +1,6 @@
+.lesson_name
+  %b Lesson name: #{@lesson.name}
+.user_name
+  %b User name: #{@user.name}
+.question_attempts_count
+  %b Number of questions attempted: #{@question_attempts.length}

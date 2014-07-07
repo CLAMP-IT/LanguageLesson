@@ -1,0 +1,10 @@
+%form.responseForm
+  %button.btn.btn-default.btn-lg.js-record-toggle{:style => 'float: left'} 
+    %i.glyphicon.glyphicon-record			     
+  %audio#response-recording-audio
+  %button#play_button.btn.btn-default.btn-lg.js-record-play{:style => 'float: left', :disabled => true} 
+    %i.glyphicon.glyphicon-play
+  %button#remove_button.btn.btn-default.btn-lg.js-record-remove{:style => 'float: left', :disabled => true} 
+    %i.glyphicon.glyphicon-remove
+  %textarea.form-control{'placeholder' => "Add a note"}
+
