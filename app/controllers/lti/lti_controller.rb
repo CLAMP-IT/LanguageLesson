@@ -29,8 +29,8 @@ class Lti::LtiController < ApplicationController
 
     unless @user
       @user = User.create(:email => email_address,
-                         :name => params[:lis_person_name_full],
-                         :moodle_id => params[:user_id])
+                          :name => params[:lis_person_name_full],
+                          :moodle_id => params[:user_id])
     end
     
     session[:user_id] = @user.id
