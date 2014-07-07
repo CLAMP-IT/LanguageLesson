@@ -13,7 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
-//= require lib/underscore
-//= require lib/backbone
-//= require lib/marionette
+//= require underscore
+//= require backbone
+//= require marionette
 
