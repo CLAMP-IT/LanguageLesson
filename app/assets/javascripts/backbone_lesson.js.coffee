@@ -1,3 +1,4 @@
 $ ->
-   LanguageLesson.start
-     currentUser: gon.current_user
+  LanguageLesson.start
+    currentUser: gon.current_user
+    
