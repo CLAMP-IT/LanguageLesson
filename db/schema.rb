@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140620201235) do
+ActiveRecord::Schema.define(version: 20140701220625) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,15 @@ ActiveRecord::Schema.define(version: 20140620201235) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "contexts", force: true do |t|
+    t.string   "type"
+    t.integer  "lesson_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "contexts", ["lesson_id"], name: "index_contexts_on_lesson_id", using: :btree
 
   create_table "course_lessons", force: true do |t|
     t.integer  "course_id"
@@ -116,9 +125,10 @@ ActiveRecord::Schema.define(version: 20140620201235) do
   create_table "question_attempts", force: true do |t|
     t.integer  "lesson_attempt_id"
     t.integer  "question_id"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
-    t.integer  "user_id",           null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.integer  "user_id",                           null: false
+    t.boolean  "responded",         default: false
   end
 
   add_index "question_attempts", ["lesson_attempt_id"], name: "index_question_attempts_on_lesson_attempt_id", using: :btree
