@@ -1,0 +1,4 @@
+- console.log @
+#{@question.title}
+-#%button.icon-btn.edit-btn{data-js-respond: 'true'}
+-#  Respond
