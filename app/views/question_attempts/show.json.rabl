@@ -1,6 +1,7 @@
 object @question_attempt
 
 extends "question_attempts/_base"
+extends "question_attempts/_with_question"
 
 #collection :recordings do
   #node :file do |u|
