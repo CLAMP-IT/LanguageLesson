@@ -1,11 +1,11 @@
 @LanguageLesson.module "Entities", (Entities, App, Backbone, Marionette, $, _) ->
-  class Entities.LessonElement extends Entities.Model
+  class Entities.LessonElement extends Entities.AssociatedModel
 
   class Entities.LessonElements extends Entities.Collection
     model: Entities.LessonElement
   
-  class Entities.Lesson extends Entities.Model
-    urlRoot: -> Routes.lessons_path()
+  class Entities.Lesson extends Entities.AssociatedModel
+    urlRoot: -> Routes.lessons_path()    
 
   API =
      getLessonEntity: (id, cb) ->
