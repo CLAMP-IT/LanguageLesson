@@ -10,6 +10,8 @@ LanguageLesson::Application.routes.draw do
   resources :questions
   resources :prompted_audio_questions
 
+  resources :question_attempt_responses
+
   resources :lessons do
     resources :questions
   end
