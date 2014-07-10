@@ -6,7 +6,7 @@ class LessonAttemptsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @lesson_attempts }
+      format.json #{ render json: @lesson_attempts }
     end
   end
 
@@ -16,8 +16,8 @@ class LessonAttemptsController < ApplicationController
     @lesson_attempt = LessonAttempt.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @lesson_attempt }
+      format.html
+      format.json
     end
   end
 
