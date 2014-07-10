@@ -10,6 +10,10 @@ LanguageLesson::Application.routes.draw do
   resources :questions
   resources :prompted_audio_questions
 
+  resources :question_attempts do
+    resources :question_attempt_responses
+  end
+
   resources :question_attempt_responses
 
   resources :lessons do
