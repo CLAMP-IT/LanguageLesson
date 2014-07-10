@@ -39,7 +39,7 @@
     getTitle: (options) ->
       _.result options, "title"
 
-    onClose: ->
+    onDestroy: ->
       ## make sure to remove any listeners on the $el here
       @$el.off "closed"
 
