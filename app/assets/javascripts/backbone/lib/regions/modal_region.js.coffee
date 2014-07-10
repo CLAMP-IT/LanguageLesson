@@ -12,5 +12,5 @@
       #@$el.modal('show')
       $('#dialog').modal('show')
  
-    onClose: -> 
+    onDestroy: -> 
       @$el.modal('hide')
