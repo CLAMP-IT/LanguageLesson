@@ -10,5 +10,5 @@
     = javascript_include_tag "backbone_base", "data-turbolinks-track" => false
     = javascript_include_tag "#{params[:controller]}_#{params[:action]}"
     = csrf_meta_tags
-  %body
+  %body{'data-grid-framework' => 'b3'}
     %main{:role => "main"}= yield
