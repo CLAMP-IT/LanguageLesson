@@ -54,13 +54,6 @@ class QuestionAttemptsController < ApplicationController
                                              params[:lesson_attempt_id],
                                              params[:question_id],
                                              params[:user_id]).first
-
-    #respond_to do |format|
-    #  if success
-    #    format.json { render json: @question_attempt }#, status: :created }
-    #  else
-    #    format.json { render json: question_attempt.errors, status: :unprocessable_entity }
-    #end
   end    
   # Only allow a trusted parameter "white list" through.
   def question_attempt_params
