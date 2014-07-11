@@ -55,6 +55,19 @@ class QuestionAttemptsController < ApplicationController
                                              params[:question_id],
                                              params[:user_id]).first
   end    
+
+  def update
+    @question_attempt = QuestionAttempt.find(params[:id])
+
+    respond_to do |format|
+      if @question_attempt.update_attributes(question_attempt_params)
+        format.json { head :no_content }
+      else
+        format.json { render json: @lesson.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   # Only allow a trusted parameter "white list" through.
   def question_attempt_params
     params.require(:question_attempt).permit!
