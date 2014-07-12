@@ -19,5 +19,5 @@
 
   class List.LessonAttempts extends App.Views.CompositeView
     template: "lesson_attempts/list/templates/_lesson_attempts"
-    itemView: List.LessonAttempt
-    itemViewContainer: "tbody"
+    childView: List.LessonAttempt
+    childViewContainer: "tbody"
