@@ -5,7 +5,7 @@
     model: Entities.LessonElement
   
   class Entities.Lesson extends Entities.AssociatedModel
-    urlRoot: -> Routes.lessons_path()    
+    urlRoot: -> Routes.lessons_path()
 
     rubyClass: 'Lesson'
 
