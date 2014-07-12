@@ -2,6 +2,9 @@
   class Entities.QuestionAttemptResponse extends Entities.AssociatedModel
     urlRoot: -> Routes.question_attempt_responses_path()
 
+    rubyClass: 'QuestionAttemptResponse'
+    
+
   class Entities.QuestionAttemptResponses extends Entities.Collection
     model: Entities.QuestionAttemptResponse
 

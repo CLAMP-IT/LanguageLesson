@@ -7,6 +7,8 @@
   class Entities.Lesson extends Entities.AssociatedModel
     urlRoot: -> Routes.lessons_path()    
 
+    rubyClass: 'Lesson'
+
   API =
      getLessonEntity: (id, cb) ->
        lesson = new Entities.Lesson

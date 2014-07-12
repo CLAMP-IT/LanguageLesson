@@ -3,6 +3,9 @@
 @LanguageLesson.module "Entities",(Entities, App, Backbone, Marionette, $, _) ->
   class Entities.QuestionAttempt extends Entities.AssociatedModel
     urlRoot: -> Routes.question_attempts_path()
+
+    rubyClass: 'QuestionAttempt'
+
     relations: [
       {
         type: Backbone.Many
