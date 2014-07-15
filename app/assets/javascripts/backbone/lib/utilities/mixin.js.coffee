@@ -24,7 +24,7 @@
 
   ## the modules and klasses we are monkey patching
   modules = [
-    { Marionette: ["ItemView", "Layout", "CollectionView", "CompositeView"] }
+    { Marionette: ["ItemView", "LayoutView", "CollectionView", "CompositeView"] }
     { Entities:   ["Model", "Collection"] }
   ]
 
