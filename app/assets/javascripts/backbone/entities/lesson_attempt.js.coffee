@@ -1,5 +1,6 @@
 //= require ./user
 //= require ./lesson
+//= require ./question
 //= require ./question_attempt
 
 @LanguageLesson.module "Entities",(Entities, App, Backbone, Marionette, $, _) ->
@@ -9,9 +10,11 @@
     rubyClass: 'LessonAttempt'
 
     initialize: ->
-      @get('question_attempts').url = ->
-        return "/lesson_attempt/#{@id}/question_attempts"
+      question_attempts = @get('question_attempts')
 
+      question_attempts.url = =>
+        return "/lesson_attempts/#{@id}/question_attempts"
+                  
     relations: [
       {
         type: Backbone.One
