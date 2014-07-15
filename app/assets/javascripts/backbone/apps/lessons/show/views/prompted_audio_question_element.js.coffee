@@ -4,7 +4,6 @@
 //= require wavesurfer.js/src/webaudio.media.js
 //= require wavesurfer.js/src/drawer.js
 //= require wavesurfer.js/src/drawer.canvas.js
-//= require wavesurfer.js/src/wavesurfer.timeline.js
 
 //= require ./show.element
 
