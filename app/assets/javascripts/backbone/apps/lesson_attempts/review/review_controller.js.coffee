@@ -8,13 +8,13 @@
     review: (lesson_attempt_id) ->
       App.request "lesson_attempt:entity", lesson_attempt_id, (lesson_attempt) =>
         console.log lesson_attempt
-  
+
         @layout = @getLayoutView lesson_attempt
 
         @layout.on "show", =>
           @showAttemptInfo lesson_attempt
           @showQuestionAttemptList lesson_attempt
-          @showQuestionAttemptLayout()
+          #@showQuestionAttemptLayout()
 
         App.mainRegion.show @layout
 
@@ -42,16 +42,13 @@
         collection: lesson_attempt.get('question_attempts')
 
       @listenTo questionAttemptsView, "childview:respond:question_attempt:clicked", (iv, args) ->
-        # args.model.choose()
-        #App.vent.trigger "respond:question_attempt:clicked", args.model
-
         question_attempt = args.model
 
-        #view = new Review.QuestionAttemptLayout
-        #  model: question_attempt
-        #  collection: question_attempt.get('responses')
-          
+        @question_attempt_layout = new Review.QuestionAttemptLayout
+          model: question_attempt
+          #collection: question_attempt.get('responses')
+        @layout.questionAttemptLayoutRegion.show @question_attempt_layout  
         #@layout.questionAttemptLayoutRegion.show view
         @question_attempt_layout.showQuestionAttempt(args.model)
-
+        
       questionAttemptsView
