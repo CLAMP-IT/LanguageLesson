@@ -1,5 +1,7 @@
 class Lti::LtiController < ApplicationController
-  layout 'lti'
+  layout 'lti_plain'
+
+  before_filter :lti_handshake
 
   after_action :allow_iframe
 
@@ -7,7 +9,7 @@ class Lti::LtiController < ApplicationController
     @user = User.find(session[:user_id])
   end
 
-  def start
+  def lti_handshake
     require 'oauth'
     require 'oauth/request_proxy/rack_request'
 
@@ -20,6 +22,11 @@ class Lti::LtiController < ApplicationController
       
       return
     end
+    
+    #init_session
+
+    logger.debug "LANDAU: #{session.inspect}"
+    logger.debug "LANDAU: #{params.inspect}"
 
     %w(lis_outcome_service_url lis_result_sourcedid lis_person_name_full lis_person_contact_email_primary context_title).each { |v| session[v] = params[v] }
 
@@ -34,22 +41,39 @@ class Lti::LtiController < ApplicationController
     end
     
     session[:user_id] = @user.id
-
+  end
+  
+  def start
     redirect_to lti_choose_lesson_path
   end
 
+  def backbone_lesson_attempt
+    @user = User.first
+
+    gon.rabl "app/views/users/show.json.rabl", as: "current_user"
+
+    render layout: 'backbone'
+  end
+
+  def show_params
+  end
+
   def choose_lesson
-    # F'd up
-    session[:init] = true
-
-    logger.debug "SESSION"
-    logger.debug session.inspect
-
+    init_session
 
     @user = User.find(session[:user_id])
                       
     @course = Course.find_by_name(session[:context_title])
   end
+
+  def init_session
+    # F'd up
+    session[:init] = true
+
+    logger.debug "SESSION"
+    logger.debug session.inspect
+  end
+
 
   private
 
