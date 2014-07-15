@@ -46,7 +46,9 @@ LanguageLesson::Application.routes.draw do
     end
     
     post 'start' => 'lti#start', :as => 'start_lti'
+    post 'params' => 'lti#show_params', :as => 'show_params'
     get 'choose_lesson' => 'lti#choose_lesson', :as => 'choose_lesson'
+    post 'backbone_lesson_attempt' => 'lti#backbone_lesson_attempt'
     #post 'start_lesson/(:lesson_id)' => 'lessons#start_lesson', :as => 'start_lesson'
     get 'start_lesson/(:lesson_id)' => 'lessons#start_lesson', :as => 'start_lesson'
     post 'lesson_attempts/start_attempt/(:lesson_id)' => 'lesson_attempts#start_attempt', :as => 'start_lesson_attempt'

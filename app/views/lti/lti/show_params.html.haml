@@ -1,0 +1,5 @@
+%ul
+  - params.keys.sort.each do |key|
+    %li
+      %b= key
+      = params[key]
