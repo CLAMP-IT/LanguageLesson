@@ -34,7 +34,7 @@ module LanguageLesson
 
     Rails.application.assets.register_postprocessor('application/javascript', Sprockets::StrictMode)
 
-    config.assets.precompile << /(^[^_\/]|\/[^_])[^\/]*$/
+    #config.assets.precompile << /(^[^_\/]|\/[^_])[^\/]*$/
 
     config.sass.preferred_syntax = :sass
     config.sass.line_comments = false
