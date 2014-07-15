@@ -1,4 +1,4 @@
-//= require Recorderjs/recorder.js
+//= require ./Recorderjs/recorder.js
 
 window.RecorderControls = {}
 RecorderControls.audio_context = null
