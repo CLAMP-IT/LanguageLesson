@@ -1,4 +1,4 @@
-class Lti::CoursesController < LTI::LTIController
+class Lti::CoursesController < Lti::LtiController
   # GET /courses
   # GET /courses.json
   def index
