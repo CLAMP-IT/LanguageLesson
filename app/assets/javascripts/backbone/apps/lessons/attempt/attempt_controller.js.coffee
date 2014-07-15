@@ -7,18 +7,19 @@
         return
       
     attemptLesson: (lesson_id) ->
+      RecorderControls.initialize()
+      
       currentUser = App.request "get:current:user"
 
-      RecorderControls.initialize()
-
-      App.request "new:lesson_attempt:entity", lesson_id, currentUser.id, (attempt) =>
-        @layout = @getLayoutView(attempt, currentUser)
+      App.request "lesson:entity", lesson_id, (lesson) =>
+        App.request "new:lesson_attempt:entity", lesson, currentUser, (attempt) =>
+          @layout = @getLayoutView(attempt, currentUser)
         
-        @layout.on "show", =>
-          @attemptLessonInfo attempt.lesson
-          @attemptElements attempt, currentUser
+          @layout.on "show", =>
+            @attemptLessonInfo attempt.get('lesson')
+            @attemptElements attempt, currentUser
                       
-        App.mainRegion.show @layout
+          App.mainRegion.show @layout
 
     attemptElements: (attempt, currentUser) ->
       elementsView = @getElementsView attempt, currentUser
@@ -40,7 +41,7 @@
 
     getElementsView: (attempt, currentUser) ->
       new Attempt.Elements
-        model: attempt.lesson
-        collection: attempt.lesson.elements
+        model: attempt.get('lesson')
+        collection: attempt.get('lesson').elements
         attempt: attempt
         user: currentUser

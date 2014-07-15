@@ -18,6 +18,33 @@
       lesson: null
       responses: []
 
+    initialize: (options) ->
+      options || (options = {})
+
+      responses = @get('responses')
+
+      responses.url = =>
+        return "/question_attempts/#{@id}/question_attempt_responses"
+                  
+      @listenTo responses, "add", (model) ->
+        model.save(
+          null
+          success: (model, response) ->
+            console.log 'success!'
+            console.log model
+            console.log response
+          error: ->
+            console.log 'err-or'
+        )
+
+      @listenTo responses, "destroy", (model) ->
+        model.destroy()
+
+      @listenTo responses, "change:", (model) ->
+        #console.log model
+        #model.save()
+        
+
   class Entities.QuestionAttempts extends Entities.Collection
     model: Entities.QuestionAttempt
     #@include "SingleChooser"
@@ -31,7 +58,7 @@
         #reset: true
         success: (model, response) ->
           cb questionAttempt
-          
+
       questionAttempt   
       
   App.reqres.setHandler "find:question_attempt:entity", (lesson_attempt_id, question_id, user_id, cb) ->
