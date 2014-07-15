@@ -1,4 +1,4 @@
-class Lti::PromptedAudioQuestionsController < LTI::LTIController
+class Lti::PromptedAudioQuestionsController < Lti::LtiController
   # GET /questions
   # GET /questions.json
   def index
