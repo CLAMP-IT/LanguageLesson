@@ -4,7 +4,6 @@
 //= require wavesurfer.js/src/webaudio.media.js
 //= require wavesurfer.js/src/drawer.js
 //= require wavesurfer.js/src/drawer.canvas.js
-//= require wavesurfer.js/src/wavesurfer.timeline.js
 //= require ./attempt.element
 
 @LanguageLesson.module "LessonsApp.Attempt", (Attempt, App, Backbone, Marionette, $, _) ->
@@ -16,7 +15,7 @@
       'click .js-record-end': 'stopRecording'
           
     onShow: ->
-      SimpleAudio.activate()
+      #SimpleAudio.activate()
       
       App.request "find:question_attempt:entity",
         @options['attempt'].attributes['id'],
@@ -24,37 +23,38 @@
         @options['user'].attributes['id'], (question_attempt) =>
           @question_attempt = question_attempt
 
-          unless @question_attempt.attributes['id']
+          unless question_attempt.attributes['id']
             App.vent.trigger "lesson:prevent_stepping_forward"
             $('.next').prop('disabled', true)
           else
+            console.log question_attempt
             App.vent.trigger "lesson:allow_stepping_forward"
             console.log @question_attempt.attributes['recordings'][0].url
             @showRecording @question_attempt.attributes['recordings'][0].url
   
-      # wavesurfer = Object.create(WaveSurfer)
+      wavesurfer = Object.create(WaveSurfer)
 
-      # wavesurfer.init
-      #   container     : '#waveform'
-      #   height: 60
-      #   fillParent    : true
-      #   markerColor   : 'rgba(0, 0, 0, 0.5)'
-      #   frameMargin   : 0.1
-      #   maxSecPerPx   : parseFloat(location.hash.substring(1))
-      #   loadPercent   : true
-      #   waveColor     : 'orange'
-      #   progressColor : 'red'
-      #   loadingColor  : 'purple'
-      #   xcursorColor   : 'navy'
+      wavesurfer.init
+        container     : '#waveform'
+        height: 60
+        fillParent    : true
+        markerColor   : 'rgba(0, 0, 0, 0.5)'
+        frameMargin   : 0.1
+        maxSecPerPx   : parseFloat(location.hash.substring(1))
+        loadPercent   : true
+        waveColor     : 'orange'
+        progressColor : 'red'
+        loadingColor  : 'purple'
+        xcursorColor   : 'navy'
       
-      # wavesurfer.load( $(".simple-audio-player").data('src') )
+      wavesurfer.load( $(".simple-audio-player").data('src') )
 
-      # wavesurfer.on('selection-update', (selection) ->
-      #   console.log selection
-      # )
+      wavesurfer.on('selection-update', (selection) ->
+        console.log selection
+      )
 
-    onClose: ->
-      @stopRecording()
+    onDestroy: ->
+      #@stopRecording()
       console.log 'closing'
             
     startRecording: ->
@@ -91,6 +91,7 @@
       
     
     showRecording: (url) ->
+      console.log 'showing recording'
       li = document.createElement('li')
       au = document.createElement('audio')
       hf = document.createElement('a')
