@@ -37,6 +37,9 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.3.6)
     arel (5.0.1.20140414130214)
+    aws-sdk (1.47.0)
+      json (~> 1.4)
+      nokogiri (>= 1.4.4)
     better_errors (1.1.0)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
@@ -269,6 +272,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  aws-sdk
   better_errors
   binding_of_caller
   bootstrap-sass
