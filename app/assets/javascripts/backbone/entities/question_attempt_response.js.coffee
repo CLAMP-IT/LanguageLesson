@@ -17,8 +17,6 @@
       recording: null
 
     initialize: ->
-      @rubyClass = 'QuestionAttemptResponse'
-      
       recording = @get('recording')
 
       @listenTo @, 'change:recording', (model) ->
