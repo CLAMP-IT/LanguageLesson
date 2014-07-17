@@ -5,6 +5,7 @@ RecorderControls.audio_context = null
 RecorderControls.recorder = null
 RecorderControls.analyser = null
 RecorderControls.recording = false
+RecorderControls.recordingEnabled = false
 
 RecorderControls.initialize = ->
   unless RecorderControls.audio_context  
