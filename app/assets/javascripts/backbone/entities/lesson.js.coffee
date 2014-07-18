@@ -7,6 +7,16 @@
 
     rubyClass: 'Lesson'
 
+    relations: [
+      {
+        type: Backbone.Many
+        key: 'lesson_elements'
+        collectionType: Entities.LessonElements
+      }
+    ]
+    defaults:
+      lesson_elements: []
+
   API =
      getLessonEntity: (id, cb) ->
        lesson = new Entities.Lesson
@@ -14,7 +24,6 @@
        lesson.fetch
          reset: true
          success: (model, response) ->
-           lesson.elements = new Entities.LessonElements(lesson.attributes.page_elements)
            cb lesson
        lesson
         
