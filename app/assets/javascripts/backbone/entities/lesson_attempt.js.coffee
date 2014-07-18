@@ -37,7 +37,7 @@
       user: null
       lesson: null
       question_attempts: []
-      # 
+       
   class Entities.LessonAttemptsCollection extends Entities.Collection
     model: Entities.LessonAttempt
     url: -> Routes.lesson_attempts_path()
@@ -50,6 +50,7 @@
       lessonAttempt.fetch
         reset: true
         success: (model, response) ->
+           
           cb lessonAttempt
 
       lessonAttempt
