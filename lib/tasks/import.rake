@@ -1,4 +1,5 @@
 require 'json'
+require 'pp'
 
 namespace :import do
   task :import_lesson, [:directory, :json_file] => :environment do |t, args|
@@ -8,10 +9,14 @@ namespace :import do
 
     infile = args[:json_file]
 
-    puts directory
-    puts infile
+    puts "DIRECTORY: #{directory}"
+    puts "JSON FILE: #{infile}"
 
-    hash = JSON.parse( File.read "#{directory}/#{infile}" )
+    file_target = File.join( directory, infile )
+    
+    puts file_target
+
+    hash = JSON.parse( File.read file_target )
     pp hash
 
     lesson = Lesson.create(name: hash['lesson']['name'], graded: hash['lesson']['graded'])
@@ -28,15 +33,16 @@ namespace :import do
       lesson_element.presentable = new_element
       lesson_element.save
 
-      audio_file = File.open( File.join(directory, element[type]['audio']) )
+      if element[type]['audio']
+        audio_file = File.open( File.join(directory, element[type]['audio']) )
 
-      recording = Recording.new( file: audio_file )
-      recording.recordable = new_element
-      pp new_element
-      pp recording
-
-      recording.save
-
+        recording = Recording.new( file: audio_file )
+        recording.recordable = new_element
+        pp new_element
+        pp recording
+        
+        recording.save
+      end
       #puts "TYPE: #{element.first[0]}"
       
                                    end
