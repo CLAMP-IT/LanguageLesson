@@ -27,11 +27,6 @@
         relatedModel: Entities.Lesson
       },
       {
-        type: Backbone.One
-        key: 'question'
-        relatedModel: Entities.Question
-      },
-      {
         type: Backbone.Many
         key: 'question_attempts'
         collectionType: Entities.QuestionAttempts
