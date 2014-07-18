@@ -25,7 +25,6 @@
             App.vent.trigger "lesson:prevent_stepping_forward"
             $('.next').prop('disabled', true)
           else
-            console.log question_attempt
             App.vent.trigger "lesson:allow_stepping_forward"
             console.log @question_attempt.attributes['recordings'][0].url
             @showRecording @question_attempt.attributes['recordings'][0].url
