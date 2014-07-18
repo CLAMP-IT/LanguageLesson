@@ -25,17 +25,17 @@
       return
 
     onShow: ->
-      $("#element_count").html("#{@currentView + 1} of #{@model.elements.length}")        
+      $("#element_count").html("#{@currentView + 1} of #{@model.get('lesson_elements').length}")        
     
     onRender: ->
       @showElementView()
 
     nextView: (element) ->
-      if @currentView < (@model.elements.length - 1)
+      if @currentView < (@model.get('lesson_elements').length - 1)
         $('.lesson_element').fadeOut 200, ( ->
           @currentView += 1
           @showElementView()
-          $("#element_count").html("#{@currentView + 1} of #{@model.elements.length}")        
+          $("#element_count").html("#{@currentView + 1} of #{@model.get('lesson_elements').length}")        
           return
         ).bind(@)
                                           
@@ -44,24 +44,25 @@
         $('.lesson_element').fadeOut 200, ( ->
           @currentView -= 1
           @showElementView()
-          $("#element_count").html("#{@currentView + 1} of #{@model.elements.length}")  
+          $("#element_count").html("#{@currentView + 1} of #{@model.get('lesson_elements').length}")  
           return
         ).bind(@)
 
     showElementView: ->
-      model = @model.elements.models[@currentView]
+      console.log @model
+      model = @model.get('lesson_elements').models[@currentView]
 
       # Homegrown polymorphic behavior
       switch model.attributes.type
         when 'PromptedAudioQuestion'
           element = new Attempt.PromptedAudioQuestionElement
-            model: @model.elements.models[@currentView]
+            model: @model.get('lesson_elements').models[@currentView]
             lesson: @model
             attempt: @options['attempt']
             user: @options['user']
         when 'ContentBlock'
            element = new Attempt.ContentBlockElement
-            model: @model.elements.models[@currentView]
+            model: @model.get('lesson_elements').models[@currentView]
             lesson: @model
             attempt: @options['attempt']
             user: @options['user']
