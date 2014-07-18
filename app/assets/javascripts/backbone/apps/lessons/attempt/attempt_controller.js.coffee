@@ -43,6 +43,6 @@
     getElementsView: (attempt, currentUser) ->
       new Attempt.Elements
         model: attempt.get('lesson')
-        collection: attempt.get('lesson').elements
+        collection: attempt.get('lesson.lesson_elements')
         attempt: attempt
         user: currentUser
