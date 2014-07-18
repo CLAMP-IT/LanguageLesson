@@ -11,15 +11,16 @@
       
       currentUser = App.request "get:current:user"
 
-      App.request "lesson:entity", lesson_id, (lesson) =>
-        App.request "new:lesson_attempt:entity", lesson, currentUser, (attempt) =>
-          @layout = @getLayoutView(attempt, currentUser)
+      create_attempt = App.request "new:lesson_attempt:entity", lesson_id, currentUser.get('id')
+
+      create_attempt.done (attempt) =>
+        @layout = @getLayoutView(attempt, currentUser)
         
-          @layout.on "show", =>
-            @attemptLessonInfo attempt.get('lesson')
-            @attemptElements attempt, currentUser
+        @layout.on "show", =>
+          @attemptLessonInfo attempt.get('lesson')
+          @attemptElements attempt, currentUser
                       
-          App.mainRegion.show @layout
+        App.mainRegion.show @layout
 
     attemptElements: (attempt, currentUser) ->
       elementsView = @getElementsView attempt, currentUser
