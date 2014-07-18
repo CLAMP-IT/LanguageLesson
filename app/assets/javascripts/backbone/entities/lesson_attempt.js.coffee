@@ -1,5 +1,6 @@
 //= require ./user
 //= require ./lesson
+//= require ./lesson_element
 //= require ./question
 //= require ./question_attempt
 
@@ -60,10 +61,10 @@
         success: ->
           cb lesson_attempts
           
-    newLessonAttemptEntity: (lesson, user, cb) ->
+    newLessonAttemptEntity: (lesson_id, user_id, cb) ->
       lessonAttempt = new Entities.LessonAttempt
-        lesson: lesson
-        user: user
+        lesson_id: lesson_id
+        user_id: user_id
 
       lessonAttempt.save()
 
@@ -75,6 +76,5 @@
   App.reqres.setHandler "lesson_attempt:entities", (cb) ->
     API.getLessonAttemptEntities cb
 
-  App.reqres.setHandler "new:lesson_attempt:entity", (lesson, user, cb) ->
-    API.newLessonAttemptEntity lesson, user, cb
-
+  App.reqres.setHandler "new:lesson_attempt:entity", (lesson_id, user_id) ->
+    API.newLessonAttemptEntity lesson_id, user_id
