@@ -5,5 +5,5 @@ child :user do
 end
 
 child :lesson do
-  extends "lessons/_base"
+  extends "lessons/_with_pageables"
 end
