@@ -62,14 +62,23 @@
           cb lesson_attempts
           
     newLessonAttemptEntity: (lesson_id, user_id, cb) ->
+      defer = $.Deferred()
+      
       lessonAttempt = new Entities.LessonAttempt
         lesson_id: lesson_id
         user_id: user_id
 
-      lessonAttempt.save()
+      lessonAttempt.save(
+        null
+        success: ->
+          defer.resolve lessonAttempt
+          
+        error: (e) ->
+          console.log 'Error: #{e}'
+      )
 
-      cb lessonAttempt
-
+      defer.promise()
+      
   App.reqres.setHandler "lesson_attempt:entity", (id, cb) ->
     API.getLessonAttemptEntity id, cb
   
