@@ -1,9 +1,7 @@
-@LanguageLesson.module "Entities", (Entities, App, Backbone, Marionette, $, _) ->
-  class Entities.LessonElement extends Entities.AssociatedModel
+//= require ./recording
+//= require ./lesson_element
 
-  class Entities.LessonElements extends Entities.Collection
-    model: Entities.LessonElement
-  
+@LanguageLesson.module "Entities", (Entities, App, Backbone, Marionette, $, _) ->
   class Entities.Lesson extends Entities.AssociatedModel
     urlRoot: -> Routes.lessons_path()
 
