@@ -34,6 +34,7 @@ db/*.sqlite3
 /config/config.yml
 /config/database.yml
 /config/application.yml
+/config/s3.yml
 /coverage.data
 /coverage/
 /db/*.javadb/
