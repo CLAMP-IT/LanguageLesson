@@ -15,8 +15,6 @@
       'click .js-record-end': 'stopRecording'
           
     onShow: ->
-      #SimpleAudio.activate()
-      
       App.request "find:question_attempt:entity",
         @options['attempt'].attributes['id'],
         @model.attributes['element_id'],
@@ -54,7 +52,6 @@
       )
 
     onDestroy: ->
-      #@stopRecording()
       console.log 'closing'
             
     startRecording: ->
