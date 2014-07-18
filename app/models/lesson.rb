@@ -5,6 +5,7 @@ class Lesson < ActiveRecord::Base
   has_many :questions
   has_many :pages
   has_many :page_elements, through: :pages
+  has_many :lesson_elements
   #has_many :pageables, source: :pageable, source_type: "Pageable", through: :page_elements
 
   def full_name
@@ -13,5 +14,9 @@ class Lesson < ActiveRecord::Base
 
   def pageables
     page_elements.rank(:row_order).collect {|e| e.pageable}
+  end
+
+  def presentables
+    lesson_elements.rank(:row_order).collect {|e| e.presentable}
   end
 end
