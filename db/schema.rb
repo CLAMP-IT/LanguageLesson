@@ -23,8 +23,8 @@ ActiveRecord::Schema.define(version: 20140716025335) do
     t.string   "type"
     t.string   "response"
     t.integer  "score"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "answers", ["question_id"], name: "index_answers_on_question_id", using: :btree
@@ -33,8 +33,8 @@ ActiveRecord::Schema.define(version: 20140716025335) do
     t.integer  "row_order"
     t.text     "title"
     t.text     "content"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "contexts", force: true do |t|
@@ -49,8 +49,8 @@ ActiveRecord::Schema.define(version: 20140716025335) do
   create_table "course_lessons", force: true do |t|
     t.integer  "course_id"
     t.integer  "lesson_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "course_lessons", ["course_id"], name: "index_course_lessons_on_course_id", using: :btree
@@ -59,13 +59,16 @@ ActiveRecord::Schema.define(version: 20140716025335) do
   create_table "courses", force: true do |t|
     t.integer  "moodle_id"
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "institutions", force: true do |t|
     t.string   "name"
     t.string   "identifier"
+    t.boolean  "active"
+    t.boolean  "requested",  default: false
+    t.boolean  "accepted",   default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -73,10 +76,12 @@ ActiveRecord::Schema.define(version: 20140716025335) do
   create_table "lesson_attempts", force: true do |t|
     t.integer  "user_id"
     t.integer  "lesson_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "course_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
+  add_index "lesson_attempts", ["course_id"], name: "index_lesson_attempts_on_course_id", using: :btree
   add_index "lesson_attempts", ["lesson_id"], name: "index_lesson_attempts_on_lesson_id", using: :btree
   add_index "lesson_attempts", ["user_id"], name: "index_lesson_attempts_on_user_id", using: :btree
 
@@ -103,8 +108,8 @@ ActiveRecord::Schema.define(version: 20140716025335) do
     t.string   "default_incorrect"
     t.integer  "max_score"
     t.string   "language_context"
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "page_elements", force: true do |t|
@@ -112,8 +117,8 @@ ActiveRecord::Schema.define(version: 20140716025335) do
     t.integer  "row_order"
     t.integer  "pageable_id"
     t.string   "pageable_type"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "page_elements", ["page_id"], name: "index_page_elements_on_page_id", using: :btree
@@ -122,8 +127,8 @@ ActiveRecord::Schema.define(version: 20140716025335) do
     t.integer  "lesson_id"
     t.string   "title"
     t.integer  "row_order"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "pages", ["lesson_id"], name: "index_pages_on_lesson_id", using: :btree
@@ -144,20 +149,21 @@ ActiveRecord::Schema.define(version: 20140716025335) do
   create_table "question_attempts", force: true do |t|
     t.integer  "lesson_attempt_id"
     t.integer  "question_id"
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
-    t.integer  "user_id",                           null: false
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.boolean  "responded",         default: false
   end
 
   add_index "question_attempts", ["lesson_attempt_id"], name: "index_question_attempts_on_lesson_attempt_id", using: :btree
   add_index "question_attempts", ["question_id"], name: "index_question_attempts_on_question_id", using: :btree
+  add_index "question_attempts", ["user_id"], name: "index_question_attempts_on_user_id", using: :btree
 
   create_table "question_recordings", force: true do |t|
     t.integer  "question_id"
     t.integer  "recording_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "question_recordings", ["question_id"], name: "index_question_recordings_on_question_id", using: :btree
@@ -168,8 +174,8 @@ ActiveRecord::Schema.define(version: 20140716025335) do
     t.text     "content"
     t.integer  "row_order"
     t.string   "type"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "recordings", force: true do |t|
@@ -179,16 +185,16 @@ ActiveRecord::Schema.define(version: 20140716025335) do
     t.datetime "file_updated_at"
     t.integer  "recordable_id"
     t.string   "recordable_type"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", force: true do |t|
     t.string   "name"
     t.string   "email"
     t.integer  "moodle_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end
