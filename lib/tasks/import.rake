@@ -19,7 +19,8 @@ namespace :import do
     hash = JSON.parse( File.read file_target )
     pp hash
 
-    lesson = Lesson.create(name: hash['lesson']['name'], graded: hash['lesson']['graded'])
+    lesson = Lesson.create(name: hash['lesson']['name'].gsub(/_/, ' '), 
+                           graded: hash['lesson']['graded'])
     
     pp lesson
 
