@@ -3,9 +3,18 @@
     %h4= @title
   #element-content #{@content}
   #waveform
+  #playbackControls
+    %button.btn.btn-primary.js-play-pause
+      %i.glyphicon.glyphicon-play
+      Play
+      /
+      %i.glyphicon.glyphicon-pause
+      Pause
+  %hr
+  %h3 Record a Response
   #recordingControls
-    %button.js-record-begin record
-    %button.js-record-end stop
+    %button.btn.btn-primary.js-record-begin record
+    %button.btn.btn-primary.js-record-end stop
   #recordings
     %ul#recordings-list
   != JST['backbone/apps/lessons/attempt/templates/_buttons']()
