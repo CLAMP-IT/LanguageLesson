@@ -5,19 +5,11 @@
   #recording
     .response_wave
     .controls.voffset2
-      %button.btn{'data-action' => "back"}
-        %i.icon.icon-step-backward
-        Seek Backward
-
-      %button.btn{'data-action' => "play"}
+      %button.btn.js-play-pause
         %i.icon.icon-play
         Play /
         %i.icon.icon-pause
         Pause
-
-      %button.btn{'data-action' => 'forth'}
-        %i.icon.icon-step-forward
-        Seek Forward
     .voffset2
       Select a region of the waveform to leave a comment.
     .voffset2

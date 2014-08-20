@@ -45,6 +45,9 @@
 
       @wavesurfer.load( url )
 
+      @$('.js-play-pause').click =>
+        @wavesurfer.playPause()
+
       $('.response_wave').mouseup (eventData) =>
         selection = @wavesurfer.getSelection()
 

@@ -13,7 +13,7 @@
     events:
       'click .js-record-begin': 'startRecording'
       'click .js-record-end': 'stopRecording'
-          
+      
     onShow: ->
       App.request "find:question_attempt:entity",
         @options['attempt'].attributes['id'],
@@ -47,6 +47,10 @@
       
         wavesurfer.load( @model.get('recording.url') )
 
+        @$('.js-play-pause').click ->
+          wavesurfer.playPause()
+
+      return  
     onDestroy: ->
       console.log 'closing'
             
