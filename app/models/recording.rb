@@ -8,4 +8,6 @@ class Recording < ActiveRecord::Base
   def recordable_type=(sType)
      super(sType.to_s.classify.constantize.base_class.to_s)
   end
+
+  validates_attachment :file, content_type: { content_type: ["audio/mpeg", "audio/wav"] }
 end
