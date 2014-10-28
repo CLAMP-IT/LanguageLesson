@@ -5,6 +5,7 @@
 //= depend_on_asset "bootstrap/glyphicons-halflings-regular.woff"
 
 // import the CSS framework
+@import "bootstrap-sprockets";
 @import "bootstrap";
 
 // make all images responsive by default
