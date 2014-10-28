@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
-ruby '2.0.0'
+ruby '2.1.3'
 gem 'rails', '~> 4.1.0'
-gem 'sass-rails', '~> 4.0.3'
+gem 'sass-rails'
 gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.0.0'
+gem 'coffee-rails'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'turbolinks'
@@ -33,7 +33,7 @@ group :test do
   gem 'email_spec'
   gem 'launchy'
 end
-gem 'paperclip', "~> 3.0"
+gem 'paperclip', "~> 4.2"
 #gem 'rails-backbone'
 gem 'ranked-model'
 gem 'sprockets-strict-mode'
@@ -52,3 +52,4 @@ gem 'ims-lti', :require => 'ims/lti'
 gem 'figaro'
 gem 'heroku'
 gem 'aws-sdk'
+gem 'active_model_serializers'
