@@ -1,4 +1,4 @@
-//= require jquery.ui.droppable
+//= require jquery-ui/droppable
 
 @LanguageLesson.module "LessonsApp.Create", (Create, App, Backbone, Marionette, $, _) ->
   class Create.ArrangementView extends App.Views.ItemView
