@@ -11,10 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140716025335) do
+ActiveRecord::Schema.define(version: 20141105210451) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "activities", force: true do |t|
+    t.string   "name"
+    t.integer  "course_id"
+    t.integer  "resource_link_id"
+    t.integer  "doable_id"
+    t.string   "doable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "activities", ["course_id"], name: "index_activities_on_course_id", using: :btree
 
   create_table "answers", force: true do |t|
     t.integer  "question_id"
@@ -57,8 +69,11 @@ ActiveRecord::Schema.define(version: 20140716025335) do
   add_index "course_lessons", ["lesson_id"], name: "index_course_lessons_on_lesson_id", using: :btree
 
   create_table "courses", force: true do |t|
-    t.integer  "moodle_id"
+    t.integer  "context_id"
+    t.string   "context_label"
+    t.string   "context_title"
     t.string   "name"
+    t.integer  "institution_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -66,6 +81,8 @@ ActiveRecord::Schema.define(version: 20140716025335) do
   create_table "institutions", force: true do |t|
     t.string   "name"
     t.string   "identifier"
+    t.string   "hostname"
+    t.string   "key"
     t.boolean  "active"
     t.boolean  "requested",  default: false
     t.boolean  "accepted",   default: false
@@ -102,8 +119,8 @@ ActiveRecord::Schema.define(version: 20140716025335) do
     t.boolean  "graded",               default: false
     t.boolean  "auto_grading",         default: false
     t.boolean  "hide_previous_answer", default: false
-    t.boolean  "submission_limited",   default: false
-    t.integer  "submission_limit"
+    t.boolean  "reattempt_allowed",    default: false
+    t.integer  "reattempt_limit",      default: 3
     t.string   "default_correct"
     t.string   "default_incorrect"
     t.integer  "max_score"
@@ -193,6 +210,7 @@ ActiveRecord::Schema.define(version: 20140716025335) do
     t.string   "name"
     t.string   "email"
     t.integer  "moodle_id"
+    t.integer  "institution_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

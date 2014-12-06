@@ -5,8 +5,8 @@ class CreateLessons < ActiveRecord::Migration
       t.boolean :graded, default: false 
       t.boolean :auto_grading, default: false 
       t.boolean :hide_previous_answer, default: false 
-      t.boolean :submission_limited, default: false 
-      t.integer :submission_limit
+      t.boolean :reattempt_allowed, default: false 
+      t.integer :reattempt_limit, default: 3
       t.string  :default_correct
       t.string  :default_incorrect
       t.integer :max_score
