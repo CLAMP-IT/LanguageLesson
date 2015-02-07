@@ -60,8 +60,10 @@ LanguageLesson::Application.routes.draw do
 
   get '/backbone/lesson(/:id)' => 'backbone#lesson'
 
-  root :to => "home#index"
   get 'lesson_attempts/:lesson_attempt_id/questions/:question_id/users/:user_id' => 'question_attempts#find_by_lesson_attempt_question_and_user', :as => 'find_question_attempt_by_lesson_attempt_question_and_user'
   #match '/home/start_lti' => 'home#start_lti', :as => 'start_lti'
   #match '/home/choose_lesson' => 'home#choose_lesson', :as => 'choose_lesson'
+
+  get '/home' => 'backbone#lesson'
+  root :to => 'backbone#lesson'
 end
