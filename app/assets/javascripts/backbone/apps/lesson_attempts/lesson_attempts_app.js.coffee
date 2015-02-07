@@ -4,16 +4,16 @@
       "lesson_attempts" : "list"
       "lesson_attempts/:id" : "show"
       "lesson_attempts/:id/review" : "review"
-        
+
   API =
     list: ->
       controller = new LessonAttemptsApp.List.Controller
       controller.listLessonAttempts()
-        
+
     show: (id) ->
       controller = new LessonAttemptsApp.Show.Controller
       controller.showLessonAttempt(id)
-        
+
     review: (id) ->
       controller = new LessonAttemptsApp.Review.Controller
       controller.review(id)
