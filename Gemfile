@@ -16,7 +16,6 @@ gem 'pg'
 gem 'simple_form',  github: 'plataformatec/simple_form'
 group :development do
   gem 'better_errors'
-  #gem 'sprockets_better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_19, :mri_20, :rbx]
   gem 'html2haml'
   gem 'quiet_assets'
@@ -34,7 +33,6 @@ group :test do
   gem 'launchy'
 end
 gem 'paperclip', "~> 4.2"
-#gem 'rails-backbone'
 gem 'ranked-model'
 gem 'sprockets-strict-mode'
 gem 'eco'
@@ -46,7 +44,6 @@ gem "oj"
 gem "js-routes"
 gem 'font-awesome-rails'
 gem 'medium-editor-rails'
-#gem 'backbone-associations-rails'
 gem 'oauth'
 gem 'ims-lti', :require => 'ims/lti'
 gem 'figaro'
