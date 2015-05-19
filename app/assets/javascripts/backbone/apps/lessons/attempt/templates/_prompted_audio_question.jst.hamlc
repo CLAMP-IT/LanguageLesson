@@ -1,6 +1,6 @@
 .lesson_element.PromptedAudioQuestion
   .title
-    %h4= @title
+    %h3= @title
   #element-content #{@content}
   #waveform
   #playbackControls
@@ -11,12 +11,12 @@
       %i.glyphicon.glyphicon-pause
       Pause
   %hr
-  %h3 Record a Response
+  %h4 Record a Response
   #recordingControls
     %button.btn.btn-primary.js-record-begin
       %i.glyphicon.glyphicon-record
       Record
-    %button.btn.btn-primary.js-record-end 
+    %button.btn.btn-primary.js-record-end
       %i.glyphicon.glyphicon-stop
       Stop
   #recordings
