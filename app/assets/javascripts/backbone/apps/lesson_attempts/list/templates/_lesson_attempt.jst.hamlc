@@ -1,6 +1,7 @@
 %td #{@user.name}
 %td #{@lesson.name}
 %td #{@id}
+%td #{@created_at}
 %td
   %button.icon-btn.edit-btn{data-js-edit: 'true'}
-    Edit
+    Review

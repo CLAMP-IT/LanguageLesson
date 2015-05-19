@@ -4,5 +4,6 @@
       %th User Name
       %th Lesson Name
       %th Attempt ID
+      %th Created At
       %th Actions
   %tbody
