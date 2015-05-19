@@ -17,16 +17,12 @@ namespace :import do
     puts file_target
 
     hash = JSON.parse( File.read file_target )
-    pp hash
 
     lesson = Lesson.create(name: hash['lesson']['name'].gsub(/_/, ' '), 
                            graded: hash['lesson']['graded'])
     
-    pp lesson
-
     hash['lesson']['page_elements'].each do |element|
       type = element.first[0]
-      pp element[type]
       
       new_element = eval(type.camelize).create(title: element[type]['title'], content: element[type]['content'])
 
@@ -39,14 +35,10 @@ namespace :import do
 
         recording = Recording.new( file: audio_file )
         recording.recordable = new_element
-        pp new_element
         pp recording
         
-        recording.save
+        puts recording.save
       end
-      #puts "TYPE: #{element.first[0]}"
-      
-                                   end
-    
+    end
   end
 end 
