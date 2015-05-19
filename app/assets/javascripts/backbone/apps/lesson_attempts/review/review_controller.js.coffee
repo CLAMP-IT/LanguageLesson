@@ -4,7 +4,7 @@
   class Review.Controller extends App.Controllers.Application
     initialize: (options) ->
       RecorderControls.initialize()
-      
+
     review: (lesson_attempt_id) ->
       App.request "lesson_attempt:entity", lesson_attempt_id, (lesson_attempt) =>
         console.log lesson_attempt
@@ -21,7 +21,7 @@
     showQuestionAttemptList: (lesson_attempt) ->
       questionAttemptsView = @getQuestionAttemptsView lesson_attempt
       @layout.questionAttemptsRegion.show questionAttemptsView
-                
+
     showAttemptInfo: (lesson_attempt) ->
       infoView = @getInfoView(lesson_attempt)
       @layout.infoRegion.show infoView                   
@@ -29,7 +29,7 @@
     showQuestionAttemptLayout: ->
       @question_attempt_layout = new Review.QuestionAttemptLayout
       @layout.questionAttemptLayoutRegion.show @question_attempt_layout
-                                        
+
     getLayoutView: (lesson_attempt) ->
       new Review.Layout
 
@@ -50,5 +50,5 @@
         @layout.questionAttemptLayoutRegion.show @question_attempt_layout  
         #@layout.questionAttemptLayoutRegion.show view
         @question_attempt_layout.showQuestionAttempt(args.model)
-        
+
       questionAttemptsView

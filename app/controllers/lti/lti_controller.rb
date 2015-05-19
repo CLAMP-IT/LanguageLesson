@@ -74,7 +74,6 @@ class Lti::LtiController < ApplicationController
     logger.debug session.inspect
   end
 
-
   private
 
   def allow_iframe

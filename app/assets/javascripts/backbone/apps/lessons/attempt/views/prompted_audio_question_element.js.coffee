@@ -13,7 +13,7 @@
     events:
       'click .js-record-begin': 'startRecording'
       'click .js-record-end': 'stopRecording'
-      
+
     onShow: ->
       App.request "find:question_attempt:entity",
         @options['attempt'].attributes['id'],
@@ -53,7 +53,7 @@
       return  
     onDestroy: ->
       console.log 'closing'
-            
+
     startRecording: ->
       RecorderControls.startRecording()
       $('.lesson_element').addClass('recording')
@@ -76,7 +76,7 @@
 
         oReq = new XMLHttpRequest()
         oReq.open("POST", postUrl)
-        oReq.send(form)    
+        oReq.send(form)
         return
       )
 
@@ -85,8 +85,8 @@
       $('.lesson_element').removeClass('recording')
       $('.next').prop('disabled', false)
       App.vent.trigger "lesson:allow_stepping_forward"
-      
-    
+
+
     showRecording: (url) ->
       console.log 'showing recording'
       li = document.createElement('li')
