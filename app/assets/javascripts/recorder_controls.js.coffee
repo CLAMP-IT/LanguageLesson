@@ -10,8 +10,8 @@
 
   initialize: ->
     _.bindAll(@, 'startUserMedia')
-    
-    unless @audio_context  
+
+    unless @audio_context
       try
         # webkit shim
         window.AudioContext = window.AudioContext || window.webkitAudioContext
@@ -21,12 +21,12 @@
         @audio_context = new AudioContext
 
         if @debug
-          console.log 'Audio context set up.' 
+          console.log 'Audio context set up.'
           console.log 'navigator.getUserMedia ' + (if navigator.getUserMedia then 'available.' else 'not present!')
       catch e
         console.log 'No web audio support in this browser'
-  
-      try  
+
+      try
         navigator.getUserMedia audio: true, @startUserMedia, (e) =>
           console.log('No live audio input: ' + e)
           @recordingEnabled = true
@@ -35,8 +35,8 @@
 
       if @debug
         console.log "Recording enabled?"
-        console.log @recordingEnabled  
-  
+        console.log @recordingEnabled
+
   startUserMedia: (stream) ->
     #console.log @
     try

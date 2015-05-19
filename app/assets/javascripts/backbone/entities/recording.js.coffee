@@ -20,6 +20,6 @@
   API =
     createRecording: ->
       new Entities.Recording
-  
+
   App.reqres.setHandler "create:recording:entity", ->
     API.createRecording()

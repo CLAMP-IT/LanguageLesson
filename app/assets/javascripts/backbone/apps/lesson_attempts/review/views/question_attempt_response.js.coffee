@@ -6,7 +6,7 @@
     initialize: (options) ->
       @recording = null
       _.bindAll(@, 'hasRecording', 'getRecording', 'playRecording', 'showRecording', 'removeRecording', 'enablePlayButton', 'disablePlayButton')
-      
+
     events:
       "click .js-record-toggle" : "toggleRecording"
       "click .js-record-play"   : "playRecording"
@@ -14,7 +14,7 @@
       "change .note_field" : ->
         @model.set('note', @$('.note_field').val())
         console.log @model
-        
+
     triggers:
       "mouseenter .responseForm": "question_attempt_response:selected"
 
@@ -27,7 +27,7 @@
       @$('[data-toggle=tooltip]').tooltip(container: 'body')
 
       @showRecording() if @model.attributes['recording']
-      
+
     onDestroy: ->
       console.log @
       App.trigger('question_attempt_response:closing', @model)
@@ -41,7 +41,7 @@
 
       @$("#response-recording-audio").attr('src', @model.get('recording.url'))
       @enablePlayButton()
-      
+
     hasRecording: ->
       return @$("#response-recording-audio").attr('src') != null
 
@@ -50,7 +50,7 @@
         return @$("#response-recording-audio").attr('src')
       else
         return null
-        
+
     playRecording: ->
       @$("#response-recording-audio").trigger('play')
 
@@ -62,18 +62,18 @@
       #@$("#response-recording-audio").attr('src', null)
       #@disablePlayButton()
       #return
-      
+
     enablePlayButton: ->
       @$('.js-record-play').prop('disabled', false)
       return
-      
+
     disablePlayButton: ->
       @$('.js-record-play').prop('disabled', true)
       return
-      
+
     toggleRecording: (event) ->
       RecorderControls.toggleRecording()
-      
+
       if RecorderControls.recording
         $(event.currentTarget).addClass('btn-danger')
         @disablePlayButton()
@@ -102,5 +102,5 @@
           #X  @$("#response-recording-audio").trigger('play')
           RecorderControls.clear()
         )
-          
+
     onShow: ->

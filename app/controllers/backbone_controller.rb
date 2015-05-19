@@ -13,7 +13,7 @@ class BackboneController < ApplicationController
     gon.rabl "app/views/lessons/show.json.rabl", as: 'lesson'
   end
 
- def start
+  def start
     require 'oauth'
     require 'oauth/request_proxy/rack_request'
 
@@ -21,7 +21,7 @@ class BackboneController < ApplicationController
       signature = OAuth::Signature.build(request, :consumer_secret => ENV['OAUTH_SECRET'])
       signature.verify() or raise OAuth::Unauthorized
     rescue OAuth::Signature::UnknownSignatureMethod,
-      OAuth::Unauthorized
+           OAuth::Unauthorized
       @response = %{unauthorized attempt. make sure you used the consumer secret "#{ENV['OAUTH_SECRET']}"}
       
       return
@@ -35,8 +35,8 @@ class BackboneController < ApplicationController
 
     unless @user
       @user = User.create(:email => email_address,
-                         :name => params[:lis_person_name_full],
-                         :moodle_id => params[:user_id])
+                          :name => params[:lis_person_name_full],
+                          :moodle_id => params[:user_id])
     end
     
     session[:user_id] = @user.id

@@ -1,6 +1,6 @@
 //= require recorder_controls
 
-@LanguageLesson.module "LessonsApp.Attempt", (Attempt, App, Backbone, Marionette, $, _) ->      
+@LanguageLesson.module "LessonsApp.Attempt", (Attempt, App, Backbone, Marionette, $, _) ->
   class Attempt.Controller extends App.Controllers.Application
     initialize: (options) ->
       App.vent.on 'lesson:prevent_stepping_forward', ->
@@ -30,9 +30,9 @@
 
     attemptLessonInfo: (lesson) ->
       infoView = @getInfoView(lesson)
-      @layout.infoRegion.show infoView                   
-                
-    getLayoutView: (attempt, user) ->      
+      @layout.infoRegion.show infoView
+
+    getLayoutView: (attempt, user) ->
       new Attempt.Layout
         attempt: attempt
         currentUser: user

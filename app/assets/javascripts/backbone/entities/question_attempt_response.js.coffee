@@ -5,7 +5,7 @@
     #urlRoot: -> Routes.question_attempt_responses_path()
 
     rubyClass: 'QuestionAttemptResponse'
-    
+
     relations: [
       {
         type: Backbone.One
@@ -35,9 +35,8 @@
     createQuestionAttemptResponse: (question_attempt) ->
       response = new Entities.QuestionAttemptResponse
         question_attempt_id: question_attempt.get('id')
-      
-      response  
-  
+
+      response
+
   App.reqres.setHandler "create:question_attempt_response:entity", (question_attempt) ->
     API.createQuestionAttemptResponse question_attempt
-
