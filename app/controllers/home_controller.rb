@@ -1,9 +1,4 @@
 class HomeController < ApplicationController
-  def index
-    #@courses = Course.all
-    #throw Exception
-  end
-
   def start_lti
     require 'oauth'
     require 'oauth/request_proxy/rack_request'
