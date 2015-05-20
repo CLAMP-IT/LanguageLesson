@@ -6,7 +6,7 @@ class BackboneController < ApplicationController
   def set_current_user
     @user = User.first
 
-    gon.rabl "app/views/users/show.json.rabl", as: "current_user"
+    gon.rabl "app/views/users/show.json.rabl", as: "user"
   end
 
   def lesson
