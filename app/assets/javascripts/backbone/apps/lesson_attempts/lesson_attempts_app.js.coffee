@@ -1,4 +1,4 @@
-@LanguageLesson.module "LessonAttemptsApp", (LessonAttemptsApp, App, Backbone, Marionette, $, _) ->      
+@LanguageLesson.module "LessonAttemptsApp", (LessonAttemptsApp, App, Backbone, Marionette, $, _) ->
   class LessonAttemptsApp.Router extends Marionette.AppRouter
     appRoutes:
       "lesson_attempts" : "list"

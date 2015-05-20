@@ -24,7 +24,7 @@
 
     showAttemptInfo: (lesson_attempt) ->
       infoView = @getInfoView(lesson_attempt)
-      @layout.infoRegion.show infoView                   
+      @layout.infoRegion.show infoView
 
     showQuestionAttemptLayout: ->
       @question_attempt_layout = new Review.QuestionAttemptLayout
@@ -47,7 +47,7 @@
         @question_attempt_layout = new Review.QuestionAttemptLayout
           model: question_attempt
           #collection: question_attempt.get('responses')
-        @layout.questionAttemptLayoutRegion.show @question_attempt_layout  
+        @layout.questionAttemptLayoutRegion.show @question_attempt_layout
         #@layout.questionAttemptLayoutRegion.show view
         @question_attempt_layout.showQuestionAttempt(args.model)
 
