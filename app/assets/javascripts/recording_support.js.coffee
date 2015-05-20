@@ -1,4 +1,4 @@
-//= require_tree ./Recorderjs
+//= require recorder
 
 $ ->
   __log = (e, data) ->
@@ -10,12 +10,12 @@ $ ->
   analyser = null
 
   startUserMedia = (stream) ->
-    try 
+    try
       input = audio_context.createMediaStreamSource(stream)
       __log('Media stream created.')
-    catch e 
+    catch e
       alert(e)
-      
+
     $('#recordingControls').toggle()
 
     zeroGain = audio_context.createGain()
@@ -28,7 +28,9 @@ $ ->
     #input.connect(audio_context.destination)
     #__log('Input connected to audio context destination.')
 
-    recorder = new Recorder(input)
+    recorder = new Recorder(input,
+      numChannels: 1
+    )
     __log('Recorder initialised.')
 
   window.startRecording = (button) ->
@@ -127,7 +129,6 @@ $ ->
       __log 'navigator.getUserMedia ' + (if navigator.getUserMedia then 'available.' else 'not present!')
     catch e
       alert('No web audio support in this browser!')
-  
+
     navigator.getUserMedia audio: true, startUserMedia, (e) =>
       __log('No live audio input: ' + e)
-
