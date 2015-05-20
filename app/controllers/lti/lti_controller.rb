@@ -22,11 +22,6 @@ class Lti::LtiController < ApplicationController
       
       return
     end
-    
-    #init_session
-
-    logger.debug "LANDAU: #{session.inspect}"
-    logger.debug "LANDAU: #{params.inspect}"
 
     %w(lis_outcome_service_url lis_result_sourcedid lis_person_name_full lis_person_contact_email_primary context_title).each { |v| session[v] = params[v] }
 
