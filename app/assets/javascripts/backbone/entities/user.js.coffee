@@ -7,8 +7,13 @@
 
   API =
     setCurrentUser: (currentUser) ->
-      new Entities.User currentUser
-                
+      App.currentUser = new Entities.User currentUser
+
+      App.currentUser
+
+    getCurrentUser: ->
+      App.currentUser
+
     getUserEntities: (cb) ->
       users = new Entities.UsersCollection
       users.fetch
