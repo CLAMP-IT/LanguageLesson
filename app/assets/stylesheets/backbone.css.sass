@@ -26,9 +26,6 @@
 #vontents
   margin: 0 auto
 
-#elements-region
-  @extend .col-xs-6
-
 .lesson_element
   background-color: #eee
   padding: 5px 5px 10px 15px
@@ -55,7 +52,7 @@
   background-color: #00CC66
   color: #000402
   border: 5px solid #70B894
-
+  
 .content
   margin-bottom: 15px
 
@@ -104,9 +101,6 @@ h4
 #context-region
   @extend .col-lg-1
 
-#info-region
-  @extend .col-lg-9
-
 #question-attempts-region
   @extend .col-lg-12
   
@@ -148,3 +142,38 @@ h4
 
 .responseForm
   margin-top: 10px
+
+#main-region
+  //@extend .col-sm-9
+    
+#header
+  @extend .row
+    
+#info-region
+  @extend .col-sm-12
+  background-color: #ccc    
+  margin: 2px 0 2px 0
+  
+#elements-region
+  @extend .row
+  
+#lesson-name
+  @extend .col-sm-9
+  font-size: 200%
+  font-weight: bold
+  line-height: 200%
+  font-family: "brandon-grotesque",sans-serif
+  padding: 0
+  margin: 0
+  
+#elements_counter
+  @extend .col-sm-3
+  font-size: 175%
+  line-height: 200%
+  font-family: "brandon-grotesque",sans-serif
+  padding: 0
+  margin: 0
+  
+#element_count
+  float: right
+
