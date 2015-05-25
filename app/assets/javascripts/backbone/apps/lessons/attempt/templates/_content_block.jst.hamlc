@@ -2,5 +2,7 @@
   .title
     %h4 #{@title}
   .lesson_content #{@content}
+  - if @recording
+    %audio{:src => @recording.recording_url, :controls => true}
   != JST['backbone/apps/lessons/attempt/templates/_buttons']()
 
