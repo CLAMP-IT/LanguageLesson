@@ -202,6 +202,7 @@ ActiveRecord::Schema.define(version: 20141105210451) do
     t.datetime "file_updated_at"
     t.integer  "recordable_id"
     t.string   "recordable_type"
+    t.string   "recording_type",    limit: 30
     t.datetime "created_at"
     t.datetime "updated_at"
   end
