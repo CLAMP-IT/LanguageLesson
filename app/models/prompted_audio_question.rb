@@ -1,3 +1,7 @@
 class PromptedAudioQuestion < Question
-  has_one :recording, as: :recordable, dependent: :destroy
+  has_one :prompt_audio,
+          -> { where(recording_type: Recording::RECORDING_TYPE_PROMPT) },
+          class_name: 'Recording',
+          as: :recordable,
+          dependent: :destroy
 end
