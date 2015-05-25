@@ -6,7 +6,6 @@ class Lesson < ActiveRecord::Base
   has_many :pages
   has_many :page_elements, through: :pages
   has_many :lesson_elements
-  #has_many :pageables, source: :pageable, source_type: "Pageable", through: :page_elements
 
   def full_name
     "#{course.name} - #{self.name}"
