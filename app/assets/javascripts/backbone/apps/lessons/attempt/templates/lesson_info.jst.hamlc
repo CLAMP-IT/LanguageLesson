@@ -1,1 +1,5 @@
-%h3 #{@name}
+#lesson-name
+  #{@name}
+#elements_counter 
+  #element_count 1 of
+
