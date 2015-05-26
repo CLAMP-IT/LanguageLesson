@@ -37,7 +37,7 @@ gem 'paperclip', "~> 4.2"
 gem 'ranked-model'
 gem 'sprockets-strict-mode'
 gem 'eco'
-gem 'haml_coffee_assets'
+gem 'haml_coffee_assets', git: 'https://github.com/dlandau/haml_coffee_assets'
 gem 'execjs'
 gem 'gon'
 gem "rabl"
