@@ -1,5 +1,5 @@
 //= require simple_audio_player
-//= require question_recording_support
+//= require recording_support
 
 @RecordingApp = {}
 

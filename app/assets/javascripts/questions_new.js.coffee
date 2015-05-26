@@ -1,4 +1,4 @@
-//= require_tree ./Recorderjs
+//= require recorder
 
 $ ->
   __log = (e, data) ->
@@ -127,4 +127,3 @@ $ ->
 
     navigator.getUserMedia audio: true, startUserMedia, (e) =>
       __log('No live audio input: ' + e)
-
