@@ -7,6 +7,9 @@
   recording: false
   recordingEnabled: false
   debug: false
+  recordingInterval: null
+  recordingIntervalCallback: null
+  intervalFunction: null
 
   initialize: ->
     _.bindAll(@, 'startUserMedia')
@@ -64,11 +67,17 @@
     @recorder && @recorder.record()
     console.log('Recording...') if @debug
 
+    if @recordingInterval && @recordingIntervalCallback
+      @intervalFunction = setInterval(@recordingIntervalCallback, @recordingInterval)
+
   stopRecording: ->
     @recording = false
 
     @recorder && @recorder.stop()
     console.log('Stopped recording.') if @debug
+
+    if @intervalFunction
+      clearInterval(@intervalFunction)
 
   toggleRecording: ->
     unless @recording
@@ -83,3 +92,7 @@
 
   clear: ->
      @recorder && @recorder.clear()
+
+  onRecordingInterval: (interval, callback) ->
+    @recordingInterval = interval
+    @recordingIntervalCallback = callback
