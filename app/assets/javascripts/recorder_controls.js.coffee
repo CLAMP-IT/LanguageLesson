@@ -1,4 +1,4 @@
-//= require ./recorder.js
+//= require recorder
 
 @RecorderControls =
   audio_context: null
