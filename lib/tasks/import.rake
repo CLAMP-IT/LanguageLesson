@@ -30,15 +30,37 @@ namespace :import do
       lesson_element.presentable = new_element
       lesson_element.save
 
-      if element[type]['audio']
-        audio_file = File.open( File.join(directory, element[type]['audio']) )
+      pp new_element
+      
+      if new_element.is_a? PromptResponseAudioQuestion        
+        if element[type]['prompt_audio']
+          prompt_audio = new_element.build_prompt_audio
+          prompt_audio.file = File.open( File.join(directory, element[type]['prompt_audio']) )
+          prompt_audio.save
+          pp prompt_audio
+        end
 
-        recording = Recording.new( file: audio_file )
-        recording.recordable = new_element
-        pp recording
-        
-        puts recording.save
+        if element[type]['response_audio']
+          response_audio = new_element.build_response_audio
+          response_audio.file = File.open( File.join(directory, element[type]['response_audio']) )
+          response_audio.save
+          pp response_audio
+        end
+      elsif new_element.is_a? PromptedAudioQuestion        
+        if element[type]['prompt_audio']
+          prompt_audio = new_element.build_prompt_audio
+          prompt_audio.file = File.open( File.join(directory, element[type]['prompt_audio']) )
+          prompt_audio.save
+          pp prompt_audio
+        end
+      else
+        if element[type]['audio']
+          recording = new_element.build_recording
+          recording.file = File.open( File.join(directory, element[type]['audio']) )
+          recording.save
+          pp recording
+        end
       end
     end
   end
-end 
+end
