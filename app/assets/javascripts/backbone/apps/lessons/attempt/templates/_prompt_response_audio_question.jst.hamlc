@@ -1,0 +1,23 @@
+.lesson_element.PromptResponseAudioQuestion
+  .title
+    %h3= @title
+  #element-content #{@content}
+  %hr
+  - if @prompt_audio
+    %audio{src: @prompt_audio.recording_url, controls: true}
+    %hr
+  - if @response_audio
+    %audio{src: @response_audio.recording_url, controls: true}
+    %hr    
+  %h4 Record a Response
+  #recordingControls
+    %button.btn.btn-primary.js-record-begin
+      %i.glyphicon.glyphicon-record
+      Record
+    %button.btn.btn-primary.js-record-end
+      %i.glyphicon.glyphicon-stop
+      Stop
+  #recordings
+    %ul#recordings-list
+  != JST['backbone/apps/lessons/attempt/templates/_buttons']()
+
