@@ -10,14 +10,14 @@
     itemViewContainer: ->
       '#elements'
 
-    initialize: (options) ->      
+    initialize: (options) ->
       _.bindAll @, 'previousView',
         'nextView',
         'onRender',
         'showElementView'
-        
+
       LanguageLesson.on "lesson:previous_element", @previousView
-        
+
       LanguageLesson.on "lesson:next_element", @nextView
 
       @options = options || {}
@@ -25,8 +25,8 @@
       return
 
     onShow: ->
-      $("#element_count").html("#{@currentView + 1} of #{@model.get('lesson_elements').length}")        
-    
+      $("#element_count").html("#{@currentView + 1} of #{@model.get('lesson_elements').length}")
+
     onRender: ->
       @showElementView()
 
@@ -35,16 +35,16 @@
         $('.lesson_element').fadeOut 200, ( ->
           @currentView += 1
           @showElementView()
-          $("#element_count").html("#{@currentView + 1} of #{@model.get('lesson_elements').length}")        
+          $("#element_count").html("#{@currentView + 1} of #{@model.get('lesson_elements').length}")
           return
         ).bind(@)
-                                          
+
     previousView: (element) ->
       if @currentView > 0
         $('.lesson_element').fadeOut 200, ( ->
           @currentView -= 1
           @showElementView()
-          $("#element_count").html("#{@currentView + 1} of #{@model.get('lesson_elements').length}")  
+          $("#element_count").html("#{@currentView + 1} of #{@model.get('lesson_elements').length}")
           return
         ).bind(@)
 
@@ -60,11 +60,17 @@
             lesson: @model
             attempt: @options['attempt']
             user: @options['user']
+        when 'PromptResponseAudioQuestion'
+          element = new Attempt.PromptResponseAudioQuestionElement
+            model: @model.get('lesson_elements').models[@currentView]
+            lesson: @model
+            attempt: @options['attempt']
+            user: @options['user']
         when 'ContentBlock'
            element = new Attempt.ContentBlockElement
             model: @model.get('lesson_elements').models[@currentView]
             lesson: @model
             attempt: @options['attempt']
             user: @options['user']
-            
+
       @elements.show element
