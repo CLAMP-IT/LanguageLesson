@@ -2,15 +2,10 @@
   .title
     %h3= @title
   #element-content #{@content}
-  #waveform
-  #playbackControls
-    %button.btn.btn-primary.js-play-pause
-      %i.glyphicon.glyphicon-play
-      Play
-      /
-      %i.glyphicon.glyphicon-pause
-      Pause
   %hr
+  - if @prompt_audio
+    %audio{src: @prompt_audio.recording_url, controls: true}
+    %hr    
   %h4 Record a Response
   #recordingControls
     %button.btn.btn-primary.js-record-begin
