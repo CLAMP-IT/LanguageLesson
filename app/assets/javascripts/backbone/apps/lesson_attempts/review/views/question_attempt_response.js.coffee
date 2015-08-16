@@ -87,10 +87,10 @@
           recording.set('blob', blob)
           recording.set('url', @recording_url)
           #console.log recording
-          #recording.save()
+          recording.save()
           @model.set('recording', recording)
           console.log @model
-  
+
           @showRecording()
           #$("#response-recording-audio").src = @recording
           #$('#response-recording-audio').src = @recording_url
