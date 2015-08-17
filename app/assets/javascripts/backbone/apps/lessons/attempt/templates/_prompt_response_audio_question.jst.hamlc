@@ -19,5 +19,6 @@
       Stop
   #recordings
     %ul#recordings-list
+.lesson_navigation.PromptResposeAudioQuestion
   != JST['backbone/apps/lessons/attempt/templates/_buttons']()
 

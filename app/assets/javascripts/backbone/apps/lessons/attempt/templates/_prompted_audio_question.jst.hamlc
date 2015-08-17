@@ -2,10 +2,9 @@
   .title
     %h3= @title
   #element-content #{@content}
-  %hr
   - if @prompt_audio
-    %audio{src: @prompt_audio.recording_url, controls: true}
-    %hr    
+    .playback-area
+      %audio{src: @prompt_audio.recording_url, controls: true, class: 'playback-content'}
   %h4 Record a Response
   #recordingControls
     %button.btn.btn-primary.js-record-begin
@@ -16,5 +15,5 @@
       Stop
   #recordings
     %ul#recordings-list
+.lesson_navigation.PromptedAudioQuestion
   != JST['backbone/apps/lessons/attempt/templates/_buttons']()
-

@@ -1,8 +1,7 @@
-%hr
 .buttons
-  %button.btn.btn-primary.prev 
+  %button.btn.prev 
     %i.glyphicon.glyphicon-arrow-left
     Previous
-  %button.btn.btn-primary.next     
+  %button.btn.next     
     Next
     %i.glyphicon.glyphicon-arrow-right

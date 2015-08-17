@@ -1,6 +1,14 @@
 @import "bootstrap"
-//@import 'jquery.notebook'
-//@import fontawesome/*
+
+$green: #00CC66
+$green-text: #000402
+$green-border: #70B894
+$green-dark: #00A652
+$green-light: #2AD07C  
+
+$blue: #6699FF
+$blue-light: #2AD07C
+
 
 .voffset
   margin-top: 2px
@@ -30,11 +38,28 @@
   background-color: #eee
   padding: 5px 5px 10px 15px
   border: 1px solid orange
-    
+
+.lesson_navigation
+  padding: 5px 5px 10px 15px
+  margin-top: 2px
+  
+.playback-area
+  padding: 10px 0 10px 0
+  margin-top: 10px
+
+.playback-content
+  margin: 0 0 0 10px  
+
 .PromptedAudioQuestion
   background-color: #6699FF
   color: #000402
   border: 5px solid #C5CEE0
+
+  .playback-area
+    background-color: #8EB4FF
+    
+  .btn
+    background-color: #8EB4FF
 
   .element-title
     background-color: #C5CEE0
@@ -49,10 +74,19 @@
     margin: 10px 0 10px 0
       
 .ContentBlock
-  background-color: #00CC66
-  color: #000402
-  border: 5px solid #70B894
-  
+  background-color: $green
+  color: $green-text
+  border: 5px solid $green-border
+
+  .playback-area
+    background-color: $green-dark
+    
+  .btn
+    background-color: $green-dark
+
+  .btn:hover
+    background-color: $green-light
+    
 .content
   margin-bottom: 15px
 
