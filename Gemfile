@@ -33,6 +33,9 @@ group :test do
   gem 'email_spec'
   gem 'launchy'
 end
+group :staging, :production do
+  gem 'therubyracer'
+end
 gem 'paperclip', "~> 4.2"
 gem 'ranked-model'
 gem 'sprockets-strict-mode'
