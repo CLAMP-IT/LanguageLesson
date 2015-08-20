@@ -9,7 +9,6 @@ gem 'jquery-ui-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc
-gem 'spring',        group: :development
 gem 'bootstrap-sass'
 gem 'haml-rails'
 gem 'pg'
@@ -21,6 +20,7 @@ group :development do
   gem 'quiet_assets'
   gem 'rails_layout'
   gem 'rails-erd'
+  gem 'spring'
 end
 group :development, :test do
   gem 'factory_girl_rails'
@@ -54,4 +54,3 @@ gem 'figaro'
 gem 'heroku'
 gem 'aws-sdk', '< 2.0'
 gem 'active_model_serializers'
-gem 'spring', group: :development
