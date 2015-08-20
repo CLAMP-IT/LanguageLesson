@@ -14,6 +14,7 @@ class CreateInstitutions < ActiveRecord::Migration
 
     Institution.create(name: 'Reed College', key: 'Reed', identifier: 'd750cf3187352e65ff9ef3268ca7ec42', hostname: 'pearl.local', active: true)
     Institution.create(name: 'Carleton College', key: 'Carleton', identifier: SecureRandom.hex, hostname: 'moodle.carleton.edu', active: true)
+    Institution.create(name: 'Carleton College Staging', key: 'Carleton-Staging', identifier: 'c66a2d5be972df06a53dca58ababbe0a', hostname: 'area51.test7.carleton.edu', active: true)
   end
 
   def down
