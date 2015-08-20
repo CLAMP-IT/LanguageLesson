@@ -28,7 +28,10 @@ db/*.sqlite3
 .rspec
 .redcar/
 .sass-cache
-/config/*.yml
+/config/application.yml
+/config/aws.yml
+/config/cucumber.yml
+/config/database.yml
 /coverage.data
 /coverage/
 /db/*.javadb/
