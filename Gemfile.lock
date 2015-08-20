@@ -1,16 +1,8 @@
 GIT
-  remote: git://github.com/plataformatec/simple_form.git
-  revision: eac1e0108e6c95e291c2065e7005e0cbcb4c2bac
-  specs:
-    simple_form (3.1.0)
-      actionpack (~> 4.0)
-      activemodel (~> 4.0)
-
-GIT
   remote: https://github.com/dlandau/haml_coffee_assets
-  revision: a3c2951eca005d4fcce4837b9a97a139fc022c66
+  revision: bdb7e095839a2daeee2265ba79445ca59f687e41
   specs:
-    haml_coffee_assets (1.16.0)
+    haml_coffee_assets (1.17.0)
       coffee-script (~> 2.0)
       sprockets (~> 2.0)
       tilt (~> 1.1)
@@ -187,7 +179,7 @@ GEM
     launchy (2.4.3)
       addressable (~> 2.3)
     libv8 (3.16.14.11)
-    loofah (2.0.2)
+    loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
@@ -257,6 +249,8 @@ GEM
     rdoc (4.2.0)
     ref (2.0.0)
     request_store (1.2.0)
+    responders (2.1.0)
+      railties (>= 4.2.0, < 5)
     rest-client (1.8.0)
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 3.0)
@@ -293,6 +287,9 @@ GEM
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
     sexp_processor (4.6.0)
+    simple_form (3.1.0)
+      actionpack (~> 4.0)
+      activemodel (~> 4.0)
     spring (1.3.6)
     sprockets (2.12.4)
       hike (~> 1.2)
@@ -365,10 +362,11 @@ DEPENDENCIES
   rails-erd
   rails_layout
   ranked-model
+  responders (~> 2.0)
   rspec-rails
   sass-rails
   sdoc (~> 0.4.0)
-  simple_form!
+  simple_form
   spring
   sprockets-strict-mode
   therubyracer
