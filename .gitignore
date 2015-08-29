@@ -83,3 +83,6 @@ pickle-email-*.html
 .powenv
 
 *.sql
+
+# Emacs backup files
+*~
