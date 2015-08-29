@@ -13,7 +13,11 @@ class LessonAttemptsController < ApplicationController
   # GET /lessons/1
   # GET /lessons/1.json
   def show
-    @lesson_attempt = LessonAttempt.includes(:question_attempts => :question).order('questions.row_order').find(params[:id])
+    @lesson_attempt = LessonAttempt
+                      .includes(question_attempts: :question)
+                      .references(:question_attempts)
+                      .order('questions.row_order')
+                      .find(params[:id])
 
     respond_to do |format|
       format.html
