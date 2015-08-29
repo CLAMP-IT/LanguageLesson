@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20150817140759) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "activities", force: true do |t|
+  create_table "activities", force: :cascade do |t|
     t.string   "name"
     t.integer  "course_id"
     t.integer  "resource_link_id"
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20150817140759) do
 
   add_index "activities", ["course_id"], name: "index_activities_on_course_id", using: :btree
 
-  create_table "answers", force: true do |t|
+  create_table "answers", force: :cascade do |t|
     t.integer  "question_id"
     t.string   "title"
     t.text     "content"
@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 20150817140759) do
 
   add_index "answers", ["question_id"], name: "index_answers_on_question_id", using: :btree
 
-  create_table "content_blocks", force: true do |t|
+  create_table "content_blocks", force: :cascade do |t|
     t.integer  "row_order"
     t.text     "title"
     t.text     "content"
@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(version: 20150817140759) do
     t.datetime "updated_at"
   end
 
-  create_table "contexts", force: true do |t|
+  create_table "contexts", force: :cascade do |t|
     t.string   "type"
     t.integer  "lesson_id"
     t.datetime "created_at"
@@ -58,7 +58,7 @@ ActiveRecord::Schema.define(version: 20150817140759) do
 
   add_index "contexts", ["lesson_id"], name: "index_contexts_on_lesson_id", using: :btree
 
-  create_table "course_lessons", force: true do |t|
+  create_table "course_lessons", force: :cascade do |t|
     t.integer  "course_id"
     t.integer  "lesson_id"
     t.datetime "created_at"
@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(version: 20150817140759) do
   add_index "course_lessons", ["course_id"], name: "index_course_lessons_on_course_id", using: :btree
   add_index "course_lessons", ["lesson_id"], name: "index_course_lessons_on_lesson_id", using: :btree
 
-  create_table "courses", force: true do |t|
+  create_table "courses", force: :cascade do |t|
     t.integer  "context_id"
     t.string   "context_label"
     t.string   "context_title"
@@ -78,7 +78,7 @@ ActiveRecord::Schema.define(version: 20150817140759) do
     t.datetime "updated_at"
   end
 
-  create_table "institutions", force: true do |t|
+  create_table "institutions", force: :cascade do |t|
     t.string   "name"
     t.string   "identifier"
     t.string   "hostname"
@@ -90,14 +90,14 @@ ActiveRecord::Schema.define(version: 20150817140759) do
     t.datetime "updated_at"
   end
 
-  create_table "languages", force: true do |t|
+  create_table "languages", force: :cascade do |t|
     t.string   "name"
     t.string   "image"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "lesson_attempts", force: true do |t|
+  create_table "lesson_attempts", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "lesson_id"
     t.integer  "course_id"
@@ -109,7 +109,7 @@ ActiveRecord::Schema.define(version: 20150817140759) do
   add_index "lesson_attempts", ["lesson_id"], name: "index_lesson_attempts_on_lesson_id", using: :btree
   add_index "lesson_attempts", ["user_id"], name: "index_lesson_attempts_on_user_id", using: :btree
 
-  create_table "lesson_elements", force: true do |t|
+  create_table "lesson_elements", force: :cascade do |t|
     t.integer  "lesson_id"
     t.integer  "row_order"
     t.integer  "pageable_id"
@@ -121,7 +121,7 @@ ActiveRecord::Schema.define(version: 20150817140759) do
 
   add_index "lesson_elements", ["lesson_id"], name: "index_lesson_elements_on_lesson_id", using: :btree
 
-  create_table "lessons", force: true do |t|
+  create_table "lessons", force: :cascade do |t|
     t.string   "name"
     t.boolean  "graded",               default: false
     t.boolean  "auto_grading",         default: false
@@ -136,7 +136,7 @@ ActiveRecord::Schema.define(version: 20150817140759) do
     t.datetime "updated_at"
   end
 
-  create_table "page_elements", force: true do |t|
+  create_table "page_elements", force: :cascade do |t|
     t.integer  "page_id"
     t.integer  "row_order"
     t.integer  "pageable_id"
@@ -147,7 +147,7 @@ ActiveRecord::Schema.define(version: 20150817140759) do
 
   add_index "page_elements", ["page_id"], name: "index_page_elements_on_page_id", using: :btree
 
-  create_table "pages", force: true do |t|
+  create_table "pages", force: :cascade do |t|
     t.integer  "lesson_id"
     t.string   "title"
     t.integer  "row_order"
@@ -157,7 +157,7 @@ ActiveRecord::Schema.define(version: 20150817140759) do
 
   add_index "pages", ["lesson_id"], name: "index_pages_on_lesson_id", using: :btree
 
-  create_table "question_attempt_responses", force: true do |t|
+  create_table "question_attempt_responses", force: :cascade do |t|
     t.integer  "question_attempt_id"
     t.integer  "user_id_id"
     t.text     "note"
@@ -170,7 +170,7 @@ ActiveRecord::Schema.define(version: 20150817140759) do
   add_index "question_attempt_responses", ["question_attempt_id"], name: "index_question_attempt_responses_on_question_attempt_id", using: :btree
   add_index "question_attempt_responses", ["user_id_id"], name: "index_question_attempt_responses_on_user_id_id", using: :btree
 
-  create_table "question_attempts", force: true do |t|
+  create_table "question_attempts", force: :cascade do |t|
     t.integer  "lesson_attempt_id"
     t.integer  "question_id"
     t.integer  "user_id"
@@ -183,7 +183,7 @@ ActiveRecord::Schema.define(version: 20150817140759) do
   add_index "question_attempts", ["question_id"], name: "index_question_attempts_on_question_id", using: :btree
   add_index "question_attempts", ["user_id"], name: "index_question_attempts_on_user_id", using: :btree
 
-  create_table "question_recordings", force: true do |t|
+  create_table "question_recordings", force: :cascade do |t|
     t.integer  "question_id"
     t.integer  "recording_id"
     t.datetime "created_at"
@@ -193,7 +193,7 @@ ActiveRecord::Schema.define(version: 20150817140759) do
   add_index "question_recordings", ["question_id"], name: "index_question_recordings_on_question_id", using: :btree
   add_index "question_recordings", ["recording_id"], name: "index_question_recordings_on_recording_id", using: :btree
 
-  create_table "questions", force: true do |t|
+  create_table "questions", force: :cascade do |t|
     t.text     "title"
     t.text     "content"
     t.integer  "row_order"
@@ -202,7 +202,7 @@ ActiveRecord::Schema.define(version: 20150817140759) do
     t.datetime "updated_at"
   end
 
-  create_table "recordings", force: true do |t|
+  create_table "recordings", force: :cascade do |t|
     t.string   "file_file_name"
     t.string   "file_content_type"
     t.integer  "file_file_size"
@@ -214,7 +214,7 @@ ActiveRecord::Schema.define(version: 20150817140759) do
     t.datetime "updated_at"
   end
 
-  create_table "users", force: true do |t|
+  create_table "users", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
     t.integer  "moodle_id"
