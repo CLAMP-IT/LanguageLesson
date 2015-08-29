@@ -9,6 +9,9 @@ class BackboneController < ApplicationController
     gon.rabl "app/views/users/show.json.rabl", as: "user"
   end
 
+  def index
+  end
+  
   def lesson
     gon.rabl "app/views/lessons/show.json.rabl", as: 'lesson'
   end
