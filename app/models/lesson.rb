@@ -6,7 +6,8 @@ class Lesson < ActiveRecord::Base
   has_many :pages
   has_many :page_elements, through: :pages
   has_many :lesson_elements
-
+  belongs_to :language
+  
   def full_name
     "#{course.name} - #{self.name}"
   end
