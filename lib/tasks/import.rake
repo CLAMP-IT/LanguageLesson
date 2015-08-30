@@ -19,7 +19,8 @@ namespace :import do
     hash = JSON.parse( File.read file_target )
 
     lesson = Lesson.create(name: hash['lesson']['name'].gsub(/_/, ' '), 
-                           graded: hash['lesson']['graded'])
+                           graded: hash['lesson']['graded'],
+                           language: Language.find_by_name(args[:language_name]))
     
     hash['lesson']['page_elements'].each do |element|
       type = element.first[0]
