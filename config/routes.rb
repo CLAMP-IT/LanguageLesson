@@ -67,5 +67,5 @@ LanguageLesson::Application.routes.draw do
   #match '/home/choose_lesson' => 'home#choose_lesson', :as => 'choose_lesson'
 
   get '/home' => 'backbone#lesson'
-  root :to => 'backbone#lesson'
+  root :to => 'backbone#index'
 end
