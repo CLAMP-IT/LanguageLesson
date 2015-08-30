@@ -1,4 +1,4 @@
-//= require recorder
+//= require ../../../vendor/assets/javascripts/Recorderjs/recorder.js
 
 @RecorderControls =
   audio_context: null
@@ -14,31 +14,41 @@
   initialize: ->
     _.bindAll(@, 'startUserMedia')
 
-    unless @audio_context
-      try
-        # webkit shim
-        window.AudioContext = window.AudioContext || window.webkitAudioContext
-        navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia
-        window.URL = window.URL || window.webkitURL
+    if (! Recorder.isRecordingSupported())
+      return screenLogger("Recording features are not supported in your browser.")
 
-        @audio_context = new AudioContext
+    @recorder = new Recorder
+      monitorGain: 0
+      numberOfChannels: 1
+      bitRate: 64000
+      encoderSampleRate: 48000
 
-        if @debug
-          console.log 'Audio context set up.'
-          console.log 'navigator.getUserMedia ' + (if navigator.getUserMedia then 'available.' else 'not present!')
-      catch e
-        console.log 'No web audio support in this browser'
+    @recordingEnabled = true
 
-      try
-        navigator.getUserMedia audio: true, @startUserMedia, (e) =>
-          console.log('No live audio input: ' + e)
-          @recordingEnabled = true
-      catch e
-        console.log 'No web audio support in this browser' if @debug
+    @recorder.addEventListener 'dataAvailable', (e) ->
+      fileName = (new Date).toISOString() + '.' + e.detail.type.split('/')[1]
+      url = URL.createObjectURL(e.detail)
+      console.log e
+      audio = document.createElement('audio')
+      audio.controls = true
+      audio.src = url
 
-      if @debug
-        console.log "Recording enabled?"
-        console.log @recordingEnabled
+      link = document.createElement('a')
+      link.href = url
+      link.download = fileName
+      link.innerHTML = link.download
+
+      li = document.createElement('li')
+      li.appendChild link
+      li.appendChild audio
+
+      $('#recordings-list').append li
+
+      return
+
+    @recorder.initStream()
+
+    console.log @recorder
 
   startUserMedia: (stream) ->
     #console.log @
@@ -63,8 +73,8 @@
   startRecording: ->
     @recording = true
 
-    @analyser = @audio_context.createAnalyser()
-    @recorder && @recorder.record()
+    #@analyser = @audio_context.createAnalyser()
+    @recorder && @recorder.start()
     console.log('Recording...') if @debug
 
     if @recordingInterval && @recordingIntervalCallback
@@ -86,12 +96,13 @@
       @stopRecording()
 
   exportWAV: (callback) ->
-    @recorder && @recorder.exportWAV((blob) ->
-      callback(blob)
-    )
+    #@recorder && @recorder.exportWAV((blob) ->
+    #  callback(blob)
+    #)
+    console.log 'exportWAV called'
 
   clear: ->
-     @recorder && @recorder.clear()
+    #@recorder && @recorder.clear()
 
   onRecordingInterval: (interval, callback) ->
     @recordingInterval = interval
