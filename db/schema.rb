@@ -134,6 +134,7 @@ ActiveRecord::Schema.define(version: 20150817140759) do
     t.string   "language_context"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "language_id"
   end
 
   create_table "page_elements", force: :cascade do |t|
