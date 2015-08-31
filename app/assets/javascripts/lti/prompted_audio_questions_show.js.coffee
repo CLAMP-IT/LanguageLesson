@@ -1,5 +1,4 @@
 //= require simple_audio_player
-//= require recording_support
 
 @RecordingApp = {}
 
