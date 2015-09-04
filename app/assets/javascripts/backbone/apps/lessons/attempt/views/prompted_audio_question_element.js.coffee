@@ -44,13 +44,13 @@
           progressColor : 'red'
           loadingColor  : 'purple'
           xcursorColor   : 'navy'
-      
+
         wavesurfer.load( @model.get('recording.url') )
 
         @$('.js-play-pause').click ->
           wavesurfer.playPause()
 
-      return  
+      return
     onDestroy: ->
       console.log 'closing'
 
@@ -59,26 +59,41 @@
       $('.lesson_element').addClass('recording')
 
     stopRecording: ->
+      RecorderControls.recorder.addEventListener 'dataAvailable', (e) =>
+        $.getJSON Routes.backbone_signS3put_path(format: 'json'), (data) ->
+          form = new FormData()
+          for index, value of data.signed_post
+            form.append(index, value)
+
+          form.append("file", e.detail, 'recording.ogg')
+
+          #oReq = new XMLHttpRequest()
+
+          #oReq.addEventListener
+          #oReq.open("POST", data.url)
+          #oReq.send(form)
+
+          $.ajax
+            url: data.url
+            type: "POST"
+            data: form
+            processData: false
+            contentType: false
+            success: (response) ->
+              #console.log response
+              console.log $(response).find("Key").text()
+      #   form.append("[question_attempt][lesson_attempt_id]", @options['attempt'].attributes['id'])
+      #   form.append("[question_attempt][question_id]", @model.attributes['element_id'])
+      #   form.append("[question_attempt][user_id]", @options['user'].attributes['id'])
+
+      #   postUrl = Routes.add_lesson_attempt_question_attempts_path(@.options['attempt'].attributes['id'], format: 'json')
+
+      #   oReq = new XMLHttpRequest()
+      #   oReq.open("POST", postUrl)
+      #   oReq.send(form)
+      #   return
+
       RecorderControls.stopRecording()
-
-      RecorderControls.exportWAV((blob) =>
-        url = URL.createObjectURL(blob)
-
-        @showRecording url
-
-        form = new FormData()
-        form.append("recording[file]", blob, 'recording.wav')
-        form.append("[question_attempt][lesson_attempt_id]", @options['attempt'].attributes['id'])
-        form.append("[question_attempt][question_id]", @model.attributes['element_id'])
-        form.append("[question_attempt][user_id]", @options['user'].attributes['id'])
-
-        postUrl = Routes.add_lesson_attempt_question_attempts_path(@.options['attempt'].attributes['id'], format: 'json')
-
-        oReq = new XMLHttpRequest()
-        oReq.open("POST", postUrl)
-        oReq.send(form)
-        return
-      )
 
       RecorderControls.clear()
 
