@@ -204,13 +204,15 @@ ActiveRecord::Schema.define(version: 20150817140759) do
   end
 
   create_table "recordings", force: :cascade do |t|
-    t.string   "file_file_name"
-    t.string   "file_content_type"
-    t.integer  "file_file_size"
-    t.datetime "file_updated_at"
+    t.string   "url"
+    t.string   "bucket_name",     limit: 40
+    t.string   "uuid"
+    t.string   "file_name"
+    t.integer  "file_size"
+    t.string   "content_type"
     t.integer  "recordable_id"
     t.string   "recordable_type"
-    t.string   "recording_type",    limit: 30
+    t.string   "recording_type",  limit: 30
     t.datetime "created_at"
     t.datetime "updated_at"
   end
