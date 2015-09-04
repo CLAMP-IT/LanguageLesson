@@ -6,8 +6,6 @@ child :question_attempts do
   extends "question_attempts/_with_responses"
 
   child :recordings, if: :recordings do
-    glue :file do
-      attributes url: :url, content_type: :content_type, size: :file_size     
-    end
+    attributes :full_url
   end
 end
