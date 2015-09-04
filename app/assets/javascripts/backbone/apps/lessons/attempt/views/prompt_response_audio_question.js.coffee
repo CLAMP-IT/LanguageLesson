@@ -29,10 +29,10 @@
             #$('.next').prop('disabled', true)
           else
             App.vent.trigger "lesson:allow_stepping_forward"
-            console.log @question_attempt.attributes['recordings'][0].recording_url
-            @showRecording @question_attempt.attributes['recordings'][0].recording_url
+            console.log @question_attempt.attributes['recordings'][0].full_url
+            @showRecording @question_attempt.attributes['recordings'][0].full_url
 
-      if @model.get('recording.recording_url')
+      if @model.get('recording.full_url')
         wavesurfer = Object.create(WaveSurfer)
 
         wavesurfer.init
@@ -48,7 +48,7 @@
           loadingColor  : 'purple'
           xcursorColor   : 'navy'
 
-        wavesurfer.load( @model.get('recording.recording_url') )
+        wavesurfer.load( @model.get('recording.full_url') )
 
         @$('.js-play-pause').click ->
           wavesurfer.playPause()

@@ -4,10 +4,10 @@
   #element-content #{@content}
   %hr
   - if @prompt_audio
-    %audio{src: @prompt_audio.recording_url, controls: true}
+    %audio{src: @prompt_audio.full_url, controls: true}
     %hr
   - if @response_audio
-    %audio{src: @response_audio.recording_url, controls: true}
+    %audio{src: @response_audio.full_url, controls: true}
     %hr    
   %h4 Record a Response
   #recordingControls

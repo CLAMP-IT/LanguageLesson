@@ -4,7 +4,7 @@
   #element-content #{@content}
   - if @prompt_audio
     .playback-area
-      %audio{src: @prompt_audio.recording_url, controls: true, class: 'playback-content'}
+      %audio{src: @prompt_audio.full_url, controls: true, class: 'playback-content'}
   %h4 Record a Response
   #recordingControls
     %button.btn.btn-primary.js-record-begin
