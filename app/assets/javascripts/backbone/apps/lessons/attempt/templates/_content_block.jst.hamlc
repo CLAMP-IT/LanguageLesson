@@ -4,7 +4,7 @@
   .lesson_content #{@content}
   - if @recording
     .playback-area
-      %audio{:src => @recording.recording_url, :controls => true, class: 'playback-content'}
+      %audio{:src => @recording.full_url, :controls => true, class: 'playback-content'}
 .lesson_navigation.ContentBlock    
   != JST['backbone/apps/lessons/attempt/templates/_buttons']()
 
