@@ -62,6 +62,8 @@ LanguageLesson::Application.routes.draw do
 
   get '/backbone' => 'backbone#index'
 
+  get '/backbone/signS3put' => 'backbone#signS3put'
+
   get 'lesson_attempts/:lesson_attempt_id/questions/:question_id/users/:user_id' => 'question_attempts#find_by_lesson_attempt_question_and_user', :as => 'find_question_attempt_by_lesson_attempt_question_and_user'
   #match '/home/start_lti' => 'home#start_lti', :as => 'start_lti'
   #match '/home/choose_lesson' => 'home#choose_lesson', :as => 'choose_lesson'
