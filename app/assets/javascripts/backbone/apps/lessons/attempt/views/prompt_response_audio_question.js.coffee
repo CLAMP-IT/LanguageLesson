@@ -75,28 +75,52 @@
       $('.lesson_element').addClass('recording')
 
     stopRecording: ->
+     # RecorderControls.recorder.addEventListener 'dataAvailable', (e) ->
+     #   console.log 'data avaoil'
+
+      # fileName = (new Date).toISOString() + '.' + e.detail.type.split('/')[1]
+      # url = URL.createObjectURL(e.detail)
+      # console.log e
+      # audio = document.createElement('audio')
+      # audio.controls = true
+      # audio.src = url
+
+      # link = document.createElement('a')
+      # link.href = url
+      # link.download = fileName
+      # link.innerHTML = link.download
+
+      # li = document.createElement('li')
+      # li.appendChild link
+      # li.appendChild audio
+
+      # $('#recordings-list').append li
+
+      # return
       RecorderControls.stopRecording()
 
-      RecorderControls.exportWAV((blob) =>
-        url = URL.createObjectURL(blob)
 
-        @showRecording url
+      #RecorderControls.exportWAV((blob) =>
+      #  console.log 'hello?2'
+        # url = URL.createObjectURL(blob)
 
-        form = new FormData()
-        form.append("recording[file]", blob, 'recording.wav')
-        form.append("[question_attempt][lesson_attempt_id]", @options['attempt'].attributes['id'])
-        form.append("[question_attempt][question_id]", @model.attributes['element_id'])
-        form.append("[question_attempt][user_id]", @options['user'].attributes['id'])
+        # @showRecording url
 
-        postUrl = Routes.add_lesson_attempt_question_attempts_path(@.options['attempt'].attributes['id'], format: 'json')
+        # form = new FormData()
+        # form.append("recording[file]", blob, 'recording.wav')
+        # form.append("[question_attempt][lesson_attempt_id]", @options['attempt'].attributes['id'])
+        # form.append("[question_attempt][question_id]", @model.attributes['element_id'])
+        # form.append("[question_attempt][user_id]", @options['user'].attributes['id'])
 
-        s3postInfo = $.ajax(Routes.backbone_signS3put_path(), data: {'s3_object_name': 'recordings', 's3_object_type': 'foo'})
+        # postUrl = Routes.add_lesson_attempt_question_attempts_path(@.options['attempt'].attributes['id'], format: 'json')
 
-        oReq = new XMLHttpRequest()
-        oReq.open("POST", postUrl)
-        oReq.send(form)
-        return
-      )
+        # s3postInfo = $.ajax(Routes.backbone_signS3put_path(), data: {'s3_object_name': 'recordings', 's3_object_type': 'foo'})
+
+        # oReq = new XMLHttpRequest()
+        # oReq.open("POST", postUrl)
+        # oReq.send(form)
+        # return
+      #)
 
       RecorderControls.clear()
 
