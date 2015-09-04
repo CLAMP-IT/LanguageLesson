@@ -36,14 +36,4 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
-
-  # Store paperclip assets with S3
-  config.paperclip_defaults = {
-    :storage => :s3,
-    #:url => ':s3_domain_url',
-    :s3_host_name => 'llreeddev.s3.amazonaws.com',
-    :s3_credentials => {
-      :bucket => 'llreeddev'
-    }
-  }
 end

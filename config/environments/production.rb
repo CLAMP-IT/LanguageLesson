@@ -83,11 +83,4 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # Store paperclip assets with S3
-  config.paperclip_defaults = {
-    :storage => :s3,
-    :s3_host_name => 'llreedpro.s3.amazonaws.com',
-    :s3_credentials => {
-      :bucket => 'llreedpro'
-    }
-  }
 end
