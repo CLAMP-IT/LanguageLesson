@@ -46,4 +46,14 @@ class BackboneController < ApplicationController
 
     redirect_to lti_choose_lesson_path
   end
+
+  def signS3put
+    s3_direct_post = S3_BUCKET.presigned_post(key: "recordings/#{SecureRandom.uuid}/${filename}",
+                                              success_action_status: 201,
+                                              acl: :public_read)
+                      
+
+    render json: { signed_post: s3_direct_post.fields,
+                   url: s3_direct_post.url.to_s }#url: "http://s3.amazonaws.com/#{ENV['S3_BUCKET']}/foo.ogg" }
+  end
 end
