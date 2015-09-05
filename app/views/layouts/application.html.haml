@@ -9,12 +9,7 @@
     = javascript_include_tag "#{params[:controller]}_#{params[:action]}"
     = csrf_meta_tags
   %body
-    %header
-      = render 'layouts/navigation'
+    %header= render 'layouts/navigation'
     %main{:role => "main"}
-      .container
-        .content
-          .row
-            .span12
-              = render 'layouts/messages'
-              = yield
+      = render 'layouts/messages'
+      .container= yield
