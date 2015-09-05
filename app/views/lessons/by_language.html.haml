@@ -3,4 +3,4 @@
     %h4= language.name
     %ul
       - language.lessons.each do |lesson|
-        %li= link_to lesson.name, "/backbone#lessons/#{lesson.id}/attempt"
+        %li= link_to lesson.name, "/backbone#lessons/#{lesson.id}/attempt", target: '_blank'
