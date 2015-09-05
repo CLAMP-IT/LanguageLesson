@@ -80,4 +80,8 @@ class LessonsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def by_language
+    @languages = Language.includes(:lessons).all
+  end
 end

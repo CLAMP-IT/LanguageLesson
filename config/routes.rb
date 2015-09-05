@@ -18,6 +18,10 @@ LanguageLesson::Application.routes.draw do
 
   resources :lessons do
     resources :questions
+
+    collection do
+      get :by_language
+    end
   end
 
   resources :courses
