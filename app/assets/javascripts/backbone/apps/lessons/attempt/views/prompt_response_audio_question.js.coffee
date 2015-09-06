@@ -58,12 +58,6 @@
         console.log @counter
       )
 
-      $('#timer').countdown
-        since: 0
-        compact: true
-        format: 'MS'
-        description: ''
-      $('#timer').countdown('pause')
 
       return
 
