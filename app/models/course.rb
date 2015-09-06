@@ -3,4 +3,6 @@ class Course < ActiveRecord::Base
   has_many :course_lessons
   has_many :lessons, through: :course_lessons
   has_many :activities
+
+  belongs_to :institution
 end
