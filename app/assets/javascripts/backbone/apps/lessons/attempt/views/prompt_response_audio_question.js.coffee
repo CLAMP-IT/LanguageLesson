@@ -11,7 +11,7 @@
   class Attempt.PromptResponseAudioQuestionElement extends Attempt.Element
     counter: 0
 
-    template: 'lessons/attempt/templates/_prompted_audio_question'
+    template: 'lessons/attempt/templates/_prompt_response_audio_question'
 
     events:
       'click .js-record-begin': 'startRecording'
