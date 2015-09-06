@@ -2,6 +2,8 @@ class Recording < ActiveRecord::Base
   RECORDING_TYPE_STANDARD = 'Standard'
   RECORDING_TYPE_PROMPT = 'Prompt'
   RECORDING_TYPE_RESPONSE = 'Response'
+
+  before_destroy :delete_file
   
   #attr_accessible :title, :body, :recordable
   #attr_accessible :file
@@ -14,5 +16,10 @@ class Recording < ActiveRecord::Base
   
   def full_url
     "#{S3_BUCKET.url}#{self.url}"
+  end
+
+  private
+  def delete_file
+    S3_BUCKET.objects[self.url].delete()
   end
 end
