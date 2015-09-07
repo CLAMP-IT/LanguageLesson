@@ -40,6 +40,12 @@ LanguageLesson::Application.routes.draw do
     end
   end
 
+  resources :languages do
+    collection do
+      get :with_lessons
+    end
+  end
+  
   namespace :lti do
     resources :courses
     resources :lessons
