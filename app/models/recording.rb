@@ -3,7 +3,7 @@ class Recording < ActiveRecord::Base
   RECORDING_TYPE_PROMPT = 'Prompt'
   RECORDING_TYPE_RESPONSE = 'Response'
 
-  before_destroy :delete_file
+  after_destroy :delete_file
   
   #attr_accessible :title, :body, :recordable
   #attr_accessible :file
@@ -20,6 +20,6 @@ class Recording < ActiveRecord::Base
 
   private
   def delete_file
-    S3_BUCKET.objects[self.url].delete()
+      S3_BUCKET.objects[self.url].delete() if self.url
   end
 end
