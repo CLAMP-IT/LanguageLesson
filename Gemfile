@@ -35,6 +35,7 @@ group :test do
 end
 group :staging, :production do
   gem 'therubyracer'
+  gem 'rails_12factor'
 end
 gem 'ranked-model'
 gem 'sprockets-strict-mode'
@@ -54,3 +55,4 @@ gem 'heroku'
 gem 'aws-sdk', '< 2.0'
 gem 'active_model_serializers'
 gem 'responders', '~> 2.0'
+gem 'puma'
