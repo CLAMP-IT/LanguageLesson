@@ -37,29 +37,88 @@ namespace :import do
         if new_element.is_a? PromptResponseAudioQuestion        
           if element[type]['prompt_audio']
             prompt_audio = new_element.build_prompt_audio
-            prompt_audio.file = File.open( File.join(directory, element[type]['prompt_audio']) )
+
+            file = File.open( File.join(directory, element[type]['prompt_audio']) )
+
+            filename = File.basename(element[type]['prompt_audio'])
+            
+            uuid = SecureRandom.uuid
+            uuid_path = "#{uuid[0,2]}/#{uuid[2,2]}/#{uuid}"
+
+            prompt_audio = new_element.build_prompt_audio
+            prompt_audio.bucket_name = S3_BUCKET.name
+            prompt_audio.uuid = uuid
+            prompt_audio.url = "recordings/#{uuid_path}/#{filename}"
+            prompt_audio.file_size = file.size
+
+            obj = S3_BUCKET.objects[prompt_audio.url].write(file: file, acl: :public_read)
+            
             prompt_audio.save
+
             pp prompt_audio
           end
 
           if element[type]['response_audio']
             response_audio = new_element.build_response_audio
-            response_audio.file = File.open( File.join(directory, element[type]['response_audio']) )
+
+            file = File.open( File.join(directory, element[type]['response_audio']) )
+
+            filename = File.basename(element[type]['response_audio'])
+
+            uuid = SecureRandom.uuid
+            uuid_path = "#{uuid[0,2]}/#{uuid[2,2]}/#{uuid}"
+            
+            response_audio = new_element.build_response_audio
+            response_audio.bucket_name = S3_BUCKET.name
+            response_audio.uuid = uuid
+            response_audio.url = "recordings/#{uuid_path}/#{filename}"
+            response_audio.file_size = file.size
+
+            obj = S3_BUCKET.objects[response_audio.url].write(file: file, acl: :public_read)
+            
             response_audio.save
+
             pp response_audio
           end
         elsif new_element.is_a? PromptedAudioQuestion        
           if element[type]['prompt_audio']
+            file = File.open( File.join(directory, element[type]['prompt_audio']) )
+
+            filename = File.basename(element[type]['prompt_audio'])
+            
+            uuid = SecureRandom.uuid
+            uuid_path = "#{uuid[0,2]}/#{uuid[2,2]}/#{uuid}"
+            
             prompt_audio = new_element.build_prompt_audio
-            prompt_audio.file = File.open( File.join(directory, element[type]['prompt_audio']) )
+            prompt_audio.bucket_name = S3_BUCKET.name
+            prompt_audio.uuid = uuid
+            prompt_audio.url = "recordings/#{uuid_path}/#{filename}"
+            prompt_audio.file_size = file.size
+
+            obj = S3_BUCKET.objects[prompt_audio.url].write(file: file, acl: :public_read)
+
             prompt_audio.save
+            
             pp prompt_audio
           end
         else
           if element[type]['audio']
+            file = File.open( File.join(directory, element[type]['audio']) )
+            filename = File.basename(element[type]['audio'])
+
+            uuid = SecureRandom.uuid
+            uuid_path = "#{uuid[0,2]}/#{uuid[2,2]}/#{uuid}"
+            
             recording = new_element.build_recording
-            recording.file = File.open( File.join(directory, element[type]['audio']) )
+            recording.bucket_name = S3_BUCKET.name
+            recording.uuid = uuid
+            recording.url = "recordings/#{uuid_path}/#{filename}"
+            recording.file_size = file.size
+
+            obj = S3_BUCKET.objects[recording.url].write(file: file, acl: :public_read)
+            
             recording.save
+
             pp recording
           end
         end
