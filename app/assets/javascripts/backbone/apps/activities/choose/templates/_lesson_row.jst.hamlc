@@ -1,0 +1,6 @@
+%tr
+  %td #{@name}
+  %td
+    %button.icon-btn.edit-btn{data-js-select: 'true'}
+      Select
+
