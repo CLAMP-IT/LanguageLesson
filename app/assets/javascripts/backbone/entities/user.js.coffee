@@ -6,8 +6,8 @@
     url: -> Routes.users_path()
 
   API =
-    setCurrentUser: (currentUser) ->
-      App.currentUser = new Entities.User currentUser
+    setCurrentUser: (user) ->
+      App.currentUser = new Entities.User user
 
       App.currentUser
 
@@ -19,6 +19,9 @@
       users.fetch
         success: ->
           cb users
+
+  App.reqres.setHandler "get:current:user", ->
+    API.getCurrentUser()
 
   App.reqres.setHandler "set:current:user", (currentUser) ->
     API.setCurrentUser currentUser
