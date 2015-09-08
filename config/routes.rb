@@ -1,4 +1,6 @@
 LanguageLesson::Application.routes.draw do
+  resources :activities
+  
   resources :page_elements
 
   resources :content_blocks
