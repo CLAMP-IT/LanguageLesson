@@ -7,38 +7,33 @@
     footerRegion: "#footer-region"
 
   App.on "before:start", (options) ->
-    @currentUser = App.request "set:current:user", options.currentUser
+    App.request "set:current:user", options.user if options.user
+    App.request "set:current:institution", options.institution if options.institution
+    App.request "set:current:activity", options.activity if options.activity
 
   App.reqres.setHandler "get:current:user", ->
     App.currentUser
-
-  #App.reqres.setHandler "concern", (concern) -> App.Concerns[concern]
 
   App.on "start", ->
     ## create our specialized dialog region
     @addRegions dialogRegion: { selector: "#dialog-region", regionType: App.Regions.Modal }
 
-    if (gon.activity)
+    @currentInstitution = App.request "get:current:institution"
+
+    @currentActivity = App.request "get:current:activity"
+
+    if @currentActivity
       if Backbone.history
         Backbone.history.start
           pushState: true
           root: "/lti/start"
           silent: true
 
-      @currentInstitution = App.request "set:current:institution", gon.institution
-      console.log @currentInstitution
-      console.log gon.user
-      console.log gon.role
-      console.log gon.course
-      console.log gon.activity
-
-      if gon.activity.doable_id
-        if gon.activity.doable_type == "Lesson"
-          App.navigate("lessons/#{gon.activity.doable_id}/attempt", trigger: true)
+      if @currentActivity.get('doable_id')
+        if @currentActivity.get('doable_type') == "Lesson"
+          App.navigate("lessons/#{@currentActivity.get('doable_id')}/attempt", trigger: true)
       else
-        console.log "Nothing doable"
-        App.navigate("activities/#{gon.activity.id}/choose_doable", trigger: true)
-        #App.navigate("lessons/1/attempt", trigger: true)
+        App.navigate("activities/#{@currentActivity.get('id')}/choose_doable", trigger: true)
     else
       if Backbone.history
         Backbone.history.start()
