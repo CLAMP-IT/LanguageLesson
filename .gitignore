@@ -86,3 +86,5 @@ pickle-email-*.html
 
 # Emacs backup files
 *~
+
+*.sh
