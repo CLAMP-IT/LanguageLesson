@@ -7,7 +7,7 @@
 //= require backbone.babysitter
 //= require backbone-associations
 //= require lib/backbone.keys
-//= require marionette
+//= require backbone.marionette
 //= require js-routes
 //= require_tree ./backbone/config
 //= require backbone/app
