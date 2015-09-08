@@ -17,6 +17,10 @@
     defaults:
       lesson_elements: []
 
+  class Entities.LessonsCollection extends Entities.Collection
+    model: Entities.Lesson
+    url: -> Routes.lessons_path()
+
   API =
      getLessonEntity: (id, cb) ->
        lesson = new Entities.Lesson
