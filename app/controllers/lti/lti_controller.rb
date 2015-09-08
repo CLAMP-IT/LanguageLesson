@@ -16,7 +16,7 @@ class Lti::LtiController < ApplicationController
     @institution = Institution.find_by_hostname params[:tool_consumer_instance_guid]
     raise Exception unless @institution
 
-    gon.institution= @institution
+    gon.institution = @institution
     
     begin
       signature = OAuth::Signature.build(request, consumer_secret: @institution.identifier)
@@ -32,8 +32,9 @@ class Lti::LtiController < ApplicationController
   end
   
   def start
-    @user = User.find_by_email(params[:lis_person_contact_email_primary])
-
+    @user = User.where(email: params[:lis_person_contact_email_primary],
+                       institution: @institution).first
+    
     unless @user
       @user = User.create(email: params[:lis_person_contact_email_primary],
                           name: params[:lis_person_name_full],
