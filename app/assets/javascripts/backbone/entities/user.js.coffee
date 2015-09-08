@@ -23,8 +23,8 @@
   App.reqres.setHandler "get:current:user", ->
     API.getCurrentUser()
 
-  App.reqres.setHandler "set:current:user", (currentUser) ->
-    API.setCurrentUser currentUser
+  App.reqres.setHandler "set:current:user", (user) ->
+    API.setCurrentUser user
 
   App.reqres.setHandler "user:entities", (cb) ->
     API.getUserEntities cb
