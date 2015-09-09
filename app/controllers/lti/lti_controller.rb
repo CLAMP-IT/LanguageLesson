@@ -79,14 +79,6 @@ class Lti::LtiController < ApplicationController
   def show_params
   end
 
-  def init_session
-    # F'd up
-    session[:init] = true
-
-    logger.debug "SESSION"
-    logger.debug session.inspect
-  end
-
   private
 
   def allow_iframe
