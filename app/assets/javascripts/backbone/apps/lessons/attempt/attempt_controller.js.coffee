@@ -7,12 +7,13 @@
         return
 
     attemptLesson: (lesson_id) ->
-
       RecorderControls.initialize()
 
       currentUser = App.request "get:current:user"
 
-      create_attempt = App.request "new:lesson_attempt:entity", lesson_id, currentUser.get('id')
+      currentActivity = App.request "get:current:activity"
+
+      create_attempt = App.request "new:lesson_attempt:entity", lesson_id, currentUser.get('id'), currentActivity.get('id')
 
       create_attempt.done (attempt) =>
         @layout = @getLayoutView(attempt, currentUser)

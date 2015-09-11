@@ -101,10 +101,12 @@ ActiveRecord::Schema.define(version: 20150817140759) do
     t.integer  "user_id"
     t.integer  "lesson_id"
     t.integer  "course_id"
+    t.integer  "attempt_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  add_index "lesson_attempts", ["attempt_id"], name: "index_lesson_attempts_on_attempt_id", using: :btree
   add_index "lesson_attempts", ["course_id"], name: "index_lesson_attempts_on_course_id", using: :btree
   add_index "lesson_attempts", ["lesson_id"], name: "index_lesson_attempts_on_lesson_id", using: :btree
   add_index "lesson_attempts", ["user_id"], name: "index_lesson_attempts_on_user_id", using: :btree

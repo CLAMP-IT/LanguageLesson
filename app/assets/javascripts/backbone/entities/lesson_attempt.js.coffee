@@ -7,6 +7,7 @@
 @LanguageLesson.module "Entities",(Entities, App, Backbone, Marionette, $, _) ->
   class Entities.LessonAttempt extends Entities.AssociatedModel
     urlRoot: -> Routes.lesson_attempts_path()
+    paramRoot: 'lesson_attempt'
 
     rubyClass: 'LessonAttempt'
 
@@ -28,6 +29,11 @@
         relatedModel: Entities.Lesson
       },
       {
+        type: Backbone.One
+        key: 'activity'
+        relatedModel: Entities.Activity
+      },
+      {
         type: Backbone.Many
         key: 'question_attempts'
         collectionType: Entities.QuestionAttempts
@@ -36,6 +42,7 @@
     defaults:
       user: null
       lesson: null
+      activity: null
       question_attempts: []
 
   class Entities.LessonAttemptsCollection extends Entities.Collection
@@ -62,12 +69,13 @@
         success: ->
           cb lesson_attempts
 
-    newLessonAttemptEntity: (lesson_id, user_id, cb) ->
+    newLessonAttemptEntity: (lesson_id, user_id, activity_id) ->
       defer = $.Deferred()
 
       lessonAttempt = new Entities.LessonAttempt
         lesson_id: lesson_id
         user_id: user_id
+        activity_id: activity_id
 
       lessonAttempt.save(
         null
@@ -86,5 +94,5 @@
   App.reqres.setHandler "lesson_attempt:entities", (cb) ->
     API.getLessonAttemptEntities cb
 
-  App.reqres.setHandler "new:lesson_attempt:entity", (lesson_id, user_id) ->
-    API.newLessonAttemptEntity lesson_id, user_id
+  App.reqres.setHandler "new:lesson_attempt:entity", (lesson_id, user_id, activity_id) ->
+    API.newLessonAttemptEntity lesson_id, user_id, activity_id

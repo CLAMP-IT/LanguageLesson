@@ -1,14 +1,12 @@
 class CreateLessonAttempts < ActiveRecord::Migration
   def change
     create_table :lesson_attempts do |t|
-      t.references :user
-      t.references :lesson
-      t.references :course
+      t.references :user, index: true
+      t.references :lesson, index: true
+      t.references :course, index: true
+      t.references :activity, index: true
 
       t.timestamps
     end
-    add_index :lesson_attempts, :user_id
-    add_index :lesson_attempts, :lesson_id
-    add_index :lesson_attempts, :course_id
   end
 end
