@@ -28,7 +28,7 @@
     @recorder.addEventListener 'dataAvailable', (e) ->
       fileName = (new Date).toISOString() + '.' + e.detail.type.split('/')[1]
       url = URL.createObjectURL(e.detail)
-      console.log e
+
       audio = document.createElement('audio')
       audio.controls = true
       audio.src = url
@@ -94,12 +94,6 @@
       @startRecording()
     else
       @stopRecording()
-
-  exportWAV: (callback) ->
-    #@recorder && @recorder.exportWAV((blob) ->
-    #  callback(blob)
-    #)
-    console.log 'exportWAV called'
 
   clear: ->
     #@recorder && @recorder.clear()

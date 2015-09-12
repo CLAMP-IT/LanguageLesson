@@ -49,7 +49,6 @@
         ).bind(@)
 
     showElementView: ->
-      console.log @model
       model = @model.get('lesson_elements').models[@currentView]
 
       # Homegrown polymorphic behavior
