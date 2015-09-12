@@ -18,6 +18,13 @@ class Recording < ActiveRecord::Base
     "#{S3_BUCKET.url}#{self.url}"
   end
 
+  def self.generate_uuid
+    uuid = SecureRandom.uuid
+    path = "recordings/#{uuid[0,2]}/#{uuid[2,2]}/#{uuid}"
+
+    { uuid: uuid, path: path }
+  end
+  
   private
   def delete_file
       S3_BUCKET.objects[self.url].delete() if self.url

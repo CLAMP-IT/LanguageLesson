@@ -42,13 +42,12 @@ namespace :import do
 
             filename = File.basename(element[type]['prompt_audio'])
             
-            uuid = SecureRandom.uuid
-            uuid_path = "#{uuid[0,2]}/#{uuid[2,2]}/#{uuid}"
-
+            uuid_components = Recording.generate_uuid
+            
             prompt_audio = new_element.build_prompt_audio
             prompt_audio.bucket_name = S3_BUCKET.name
-            prompt_audio.uuid = uuid
-            prompt_audio.url = "recordings/#{uuid_path}/#{filename}"
+            prompt_audio.uuid = uuid_components[:uuid]
+            prompt_audio.url = "#{uuid_components[:path]}/#{filename}"
             prompt_audio.file_size = file.size
 
             obj = S3_BUCKET.objects[prompt_audio.url].write(file: file, acl: :public_read)
@@ -65,13 +64,12 @@ namespace :import do
 
             filename = File.basename(element[type]['response_audio'])
 
-            uuid = SecureRandom.uuid
-            uuid_path = "#{uuid[0,2]}/#{uuid[2,2]}/#{uuid}"
+            uuid_components = Recording.generate_uuid
             
             response_audio = new_element.build_response_audio
             response_audio.bucket_name = S3_BUCKET.name
-            response_audio.uuid = uuid
-            response_audio.url = "recordings/#{uuid_path}/#{filename}"
+            response_audio.uuid = uuid_components[:uuid]
+            response_audio.url = "#{uuid_components[:path]}/#{filename}"
             response_audio.file_size = file.size
 
             obj = S3_BUCKET.objects[response_audio.url].write(file: file, acl: :public_read)
@@ -85,14 +83,13 @@ namespace :import do
             file = File.open( File.join(directory, element[type]['prompt_audio']) )
 
             filename = File.basename(element[type]['prompt_audio'])
-            
-            uuid = SecureRandom.uuid
-            uuid_path = "#{uuid[0,2]}/#{uuid[2,2]}/#{uuid}"
+
+            uuid_components = Recording.generate_uuid
             
             prompt_audio = new_element.build_prompt_audio
             prompt_audio.bucket_name = S3_BUCKET.name
-            prompt_audio.uuid = uuid
-            prompt_audio.url = "recordings/#{uuid_path}/#{filename}"
+            prompt_audio.uuid = uuid_components[:uuid]
+            prompt_audio.url = "#{uuid_components[:path]}/#{filename}"
             prompt_audio.file_size = file.size
 
             obj = S3_BUCKET.objects[prompt_audio.url].write(file: file, acl: :public_read)
@@ -106,13 +103,12 @@ namespace :import do
             file = File.open( File.join(directory, element[type]['audio']) )
             filename = File.basename(element[type]['audio'])
 
-            uuid = SecureRandom.uuid
-            uuid_path = "#{uuid[0,2]}/#{uuid[2,2]}/#{uuid}"
+            uuid_components = Recording.generate_uuid
             
             recording = new_element.build_recording
             recording.bucket_name = S3_BUCKET.name
-            recording.uuid = uuid
-            recording.url = "recordings/#{uuid_path}/#{filename}"
+            recording.uuid = uuid_components[:uuid]
+            recording.url = "#{uuid_components[:path]}/#{filename}"
             recording.file_size = file.size
 
             obj = S3_BUCKET.objects[recording.url].write(file: file, acl: :public_read)
