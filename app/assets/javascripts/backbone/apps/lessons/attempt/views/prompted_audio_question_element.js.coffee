@@ -67,12 +67,6 @@
 
           form.append("file", e.detail, 'recording.ogg')
 
-          #oReq = new XMLHttpRequest()
-
-          #oReq.addEventListener
-          #oReq.open("POST", data.url)
-          #oReq.send(form)
-
           $.ajax
             url: data.url
             type: "POST"
@@ -80,18 +74,7 @@
             processData: false
             contentType: false
             success: (response) ->
-              #console.log response
               console.log $(response).find("Key").text()
-      #   form.append("[question_attempt][lesson_attempt_id]", @options['attempt'].attributes['id'])
-      #   form.append("[question_attempt][question_id]", @model.attributes['element_id'])
-      #   form.append("[question_attempt][user_id]", @options['user'].attributes['id'])
-
-      #   postUrl = Routes.add_lesson_attempt_question_attempts_path(@.options['attempt'].attributes['id'], format: 'json')
-
-      #   oReq = new XMLHttpRequest()
-      #   oReq.open("POST", postUrl)
-      #   oReq.send(form)
-      #   return
 
       RecorderControls.stopRecording()
 
@@ -100,7 +83,6 @@
       $('.lesson_element').removeClass('recording')
       $('.next').prop('disabled', false)
       App.vent.trigger "lesson:allow_stepping_forward"
-
 
     showRecording: (url) ->
       console.log 'showing recording'
@@ -114,5 +96,4 @@
       hf.download = new Date().toISOString() + '.wav'
       hf.innerHTML = hf.download
       li.appendChild(au)
-      #li.appendChild(hf)
       $('#recordings-list').append li
