@@ -25,7 +25,7 @@
 
       responses.url = =>
         return "/question_attempts/#{@id}/question_attempt_responses"
-                  
+
       @listenTo responses, "add", (model) ->
         model.save(
           null
@@ -43,7 +43,7 @@
       @listenTo responses, "change:", (model) ->
         #console.log model
         #model.save()
-        
+
 
   class Entities.QuestionAttempts extends Entities.Collection
     model: Entities.QuestionAttempt
@@ -59,8 +59,16 @@
         success: (model, response) ->
           cb questionAttempt
 
-      questionAttempt   
-      
+      questionAttempt
+
+      newQuestionAttemptEntity: (lesson_attempt_id, question_id, user_id) ->
+        new Entities.QuestionAttempt
+          lesson_attempt_id: lesson_attempt_id
+          question_id: question_id
+          user_id: user_id
+
   App.reqres.setHandler "find:question_attempt:entity", (lesson_attempt_id, question_id, user_id, cb) ->
     API.findQuestionAttemptEntity lesson_attempt_id, question_id, user_id, cb
 
+  App.reqres.setHandler "new:question_attempt:entity", (lesson_attempt_id, question_id, user_id) ->
+    API.newQuestionAttemptEntity lesson_attempt_id, question_id, user_id
