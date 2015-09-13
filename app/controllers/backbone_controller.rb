@@ -10,6 +10,29 @@ class BackboneController < ApplicationController
   end
 
   def index
+    if Rails.env.development?
+      @user = User.find_by_email(ENV['DEV_USER_EMAIL'])
+      @institution = Institution.find_by_hostname(ENV['DEV_INSTITUTION_HOSTNAME'])
+      @lesson = Lesson.find(ENV['DEV_LESSON_ID'])
+
+      @course = Course.find_or_create_by(institution: @institution,
+                                         context_id: 1,
+                                         context_label: "lltest",
+                                         context_title: "LTI Test Course",
+                                         name: "LTI Test Course")
+
+      @activity = Activity.find_or_create_by(course: @course,
+                                             name: "LTI Start 3",
+                                             resource_link_id: 1,
+                                             doable_id: @lesson.id,
+                                             doable_type: 'Lesson')
+
+      gon.user = @user
+      gon.institution = @institution
+      gon.course = @course
+      gon.administrator = ENV['DEV_ADMINISTRATOR_STATUS']
+      gon.activity = @activity
+    end
   end
   
   def lesson
