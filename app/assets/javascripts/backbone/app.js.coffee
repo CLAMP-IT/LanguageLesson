@@ -11,6 +11,8 @@
     App.request "set:current:institution", options.institution if options.institution
     App.request "set:current:activity", options.activity if options.activity
 
+    return
+
   App.reqres.setHandler "get:current:user", ->
     App.currentUser
 
