@@ -19,8 +19,9 @@
     %button.btn.btn-primary.js-record-end
       %i.glyphicon.glyphicon-stop
       Stop
-  #recordings
-    %ul#recordings-list
+    %button.btn.btn-primary.js-record-playback
+      %i.glyphicon.glyphicon-play
+      Playback
 .lesson_navigation.PromptedAudioQuestion
   != JST['backbone/apps/lessons/attempt/templates/_buttons']()
 
