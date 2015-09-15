@@ -6,25 +6,13 @@ class QuestionAttemptsController < ApplicationController
   end
 
   def create
-    attempt = QuestionAttempt.new(:lesson_attempt_id => params[:lesson_attempt_id],
-                                  :question_id => params[:question_id],
-                                  :user_id => session[:user_id])
-
-    success = attempt.save
-    
-    recording = Recording.create(params[:recording])
-    
-    recording.recordable = attempt
-    
-    success = success && recording.save
+    @attempt = QuestionAttempt.new(question_attempt_params)
 
     respond_to do |format|
       if @attempt.save
-        format.html { render nothing: true }
-        format.json { render json: @lesson_attempt, status: :created, location: @lesson_attempt }
+        format.json { render json: @attempt, status: :created, location: @lesson_attempt }
       else
-        format.html { render action: "new" }
-        format.json { render json: @lesson_attempt.errors, status: :unprocessable_entity }
+        format.json { render json: @attempt.errors, status: :unprocessable_entity }
       end
     end    
   end
