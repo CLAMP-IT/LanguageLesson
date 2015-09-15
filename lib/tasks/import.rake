@@ -49,6 +49,7 @@ namespace :import do
             prompt_audio.uuid = uuid_components[:uuid]
             prompt_audio.url = "#{uuid_components[:path]}/#{filename}"
             prompt_audio.file_size = file.size
+            prompt_audio.file_name = filename
 
             obj = S3_BUCKET.objects[prompt_audio.url].write(file: file, acl: :public_read)
             
@@ -71,6 +72,7 @@ namespace :import do
             response_audio.uuid = uuid_components[:uuid]
             response_audio.url = "#{uuid_components[:path]}/#{filename}"
             response_audio.file_size = file.size
+            response_audio.file_name = filename
 
             obj = S3_BUCKET.objects[response_audio.url].write(file: file, acl: :public_read)
             
@@ -91,6 +93,7 @@ namespace :import do
             prompt_audio.uuid = uuid_components[:uuid]
             prompt_audio.url = "#{uuid_components[:path]}/#{filename}"
             prompt_audio.file_size = file.size
+            prompt_audio.file_name = filename
 
             obj = S3_BUCKET.objects[prompt_audio.url].write(file: file, acl: :public_read)
 
@@ -110,6 +113,7 @@ namespace :import do
             recording.uuid = uuid_components[:uuid]
             recording.url = "#{uuid_components[:path]}/#{filename}"
             recording.file_size = file.size
+            recording.file_name = filename
 
             obj = S3_BUCKET.objects[recording.url].write(file: file, acl: :public_read)
             
