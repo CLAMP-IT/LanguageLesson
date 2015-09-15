@@ -40,12 +40,16 @@ class BackboneController < ApplicationController
   end
 
   def signS3put
-    s3_direct_post = S3_BUCKET.presigned_post(key: "recordings/#{SecureRandom.uuid}/${filename}",
+    uuid_components = Recording.generate_uuid 
+    
+    s3_direct_post = S3_BUCKET.presigned_post(key: "#{uuid_components[:path]}/${filename}",
                                               success_action_status: 201,
                                               acl: :public_read)
                       
 
-    render json: { signed_post: s3_direct_post.fields,
-                   url: s3_direct_post.url.to_s }#url: "http://s3.amazonaws.com/#{ENV['S3_BUCKET']}/foo.ogg" }
+    render json: { bucket: S3_BUCKET.name,
+                   uuid: uuid_components[:uuid],
+                   signed_post: s3_direct_post.fields,
+                   url: s3_direct_post.url.to_s }
   end
 end
