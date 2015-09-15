@@ -2,6 +2,16 @@
   class Entities.Recording extends Entities.AssociatedModel
     urlRoot: -> Routes.recordings_path()
 
+    relations:[
+      {
+        type: Backbone.One
+        key: 'recordable'
+        relatedModel: (relation, attributes) ->
+          key = relation.key + '_type'
+          Entities[attributes[key] or @get(key)]
+        }
+    ]
+
     saveRecording: ->
       @set('recordable_type', @parents[0].rubyClass)
       @set('recordable_id', @parents[0].get('id'))
