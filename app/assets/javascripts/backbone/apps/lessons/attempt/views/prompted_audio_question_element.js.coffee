@@ -29,26 +29,6 @@
             console.log @question_attempt.attributes['recordings'][0].url
             @showRecording @question_attempt.attributes['recordings'][0].url
 
-      if @model.get('recording.url')
-        wavesurfer = Object.create(WaveSurfer)
-
-        wavesurfer.init
-          container     : '#waveform'
-          height: 60
-          fillParent    : true
-          markerColor   : 'rgba(0, 0, 0, 0.5)'
-          frameMargin   : 0.1
-          maxSecPerPx   : parseFloat(location.hash.substring(1))
-          loadPercent   : true
-          waveColor     : 'orange'
-          progressColor : 'red'
-          loadingColor  : 'purple'
-          xcursorColor   : 'navy'
-
-        wavesurfer.load( @model.get('recording.url') )
-
-        @$('.js-play-pause').click ->
-          wavesurfer.playPause()
 
       return
     onDestroy: ->
