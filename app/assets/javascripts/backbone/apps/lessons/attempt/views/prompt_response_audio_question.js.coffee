@@ -25,8 +25,8 @@
           @question_attempt = question_attempt
 
           unless question_attempt.attributes['id']
-            #App.vent.trigger "lesson:prevent_stepping_forward"
-            #$('.next').prop('disabled', true)
+            App.vent.trigger "lesson:prevent_stepping_forward"
+            $('.next').prop('disabled', true)
           else
             App.vent.trigger "lesson:allow_stepping_forward"
             console.log @question_attempt.attributes['recordings'][0].full_url
