@@ -39,23 +39,6 @@
       $('.lesson_element').addClass('recording')
 
     stopRecording: ->
-      RecorderControls.recorder.addEventListener 'dataAvailable', (e) =>
-        $.getJSON Routes.backbone_signS3put_path(format: 'json'), (data) ->
-          form = new FormData()
-          for index, value of data.signed_post
-            form.append(index, value)
-
-          form.append("file", e.detail, 'recording.ogg')
-
-          $.ajax
-            url: data.url
-            type: "POST"
-            data: form
-            processData: false
-            contentType: false
-            success: (response) ->
-              console.log $(response).find("Key").text()
-
       RecorderControls.stopRecording()
 
       RecorderControls.clear()
