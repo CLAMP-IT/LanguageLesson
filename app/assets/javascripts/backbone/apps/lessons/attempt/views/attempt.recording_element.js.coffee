@@ -7,6 +7,20 @@
       'click .js-record-end': 'stopRecording'
       'click .js-record-playback': 'playRecording'
 
+    onShow: ->
+      App.request "find:question_attempt:entity", @currentAttempt.get('id'), @model.get('element_id'), @currentUser.get('id'), (question_attempt) =>
+        if question_attempt.get('id')
+          @question_attempt = question_attempt
+
+          App.vent.trigger "lesson:allow_stepping_forward"
+          App.vent.trigger "lesson:set_current_recording", @question_attempt.get('recording')
+        else
+          @question_attempt = App.request "new:question_attempt:entity", @currentAttempt.get('id'), @model.get('element_id'), @currentUser.get('id')
+          App.vent.trigger "lesson:prevent_stepping_forward"
+          $('.next').prop('disabled', true)
+
+      return
+
     playRecording: () ->
       App.vent.trigger "lesson:play_recording"
 
@@ -15,4 +29,9 @@
 
     applyRecording: (recording) =>
       @question_attempt.set('recording', recording)
-      console.log 'applied recording', @question_attempt
+
+    saveAttempt: =>
+      @question_attempt.save()
+
+    onDestroy: ->
+      console.log 'closing'
