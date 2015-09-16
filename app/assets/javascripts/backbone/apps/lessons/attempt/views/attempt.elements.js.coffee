@@ -32,6 +32,8 @@
 
     nextView: (element) ->
       if @currentView < (@model.get('lesson_elements').length - 1)
+        @currentElement.saveAttempt() if _.isFunction( @currentElement.saveAttempt )
+
         $('.lesson_element').fadeOut 200, ( ->
           @currentView += 1
           @showElementView()
@@ -41,6 +43,8 @@
 
     previousView: (element) ->
       if @currentView > 0
+        @currentElement.saveAttempt() if _.isFunction( @currentElement.saveAttempt )
+
         $('.lesson_element').fadeOut 200, ( ->
           @currentView -= 1
           @showElementView()
