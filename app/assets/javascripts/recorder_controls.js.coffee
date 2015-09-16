@@ -25,27 +25,6 @@
 
     @recordingEnabled = true
 
-    @recorder.addEventListener 'dataAvailable', (e) ->
-      fileName = (new Date).toISOString() + '.' + e.detail.type.split('/')[1]
-      url = URL.createObjectURL(e.detail)
-
-      audio = document.createElement('audio')
-      audio.controls = true
-      audio.src = url
-
-      link = document.createElement('a')
-      link.href = url
-      link.download = fileName
-      link.innerHTML = link.download
-
-      li = document.createElement('li')
-      li.appendChild link
-      li.appendChild audio
-
-      $('#recordings-list').append li
-
-      return
-
     @recorder.initStream()
 
     console.log @recorder
