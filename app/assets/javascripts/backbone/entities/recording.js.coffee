@@ -2,21 +2,6 @@
   class Entities.Recording extends Entities.AssociatedModel
     urlRoot: -> Routes.recordings_path()
 
-    saveRecording: ->
-      @set('recordable_type', @parents[0].rubyClass)
-      @set('recordable_id', @parents[0].get('id'))
-      console.log @
-
-      form = new FormData()
-      form.append "[recording][file]", @get('blob'), 'recording.wav'
-      form.append "[recording][recordable_type]", @get('recordable_type')
-      form.append "[recording][recordable_id]", @get('recordable_id')
-
-      postUrl = '/recordings'
-      oReq = new XMLHttpRequest()
-      oReq.open("POST", postUrl)
-      oReq.send(form)   
-      
     getUrl: =>
       if @get('blob')
         return window.URL.createObjectURL( @get('blob') )
@@ -24,6 +9,37 @@
         return @get('full_url')
       else
         return null
+
+    uploadRecording: (afterUploadCallback) =>
+      unless @get('blob')
+        console.log 'No blob to save!'
+      else
+        $.getJSON Routes.backbone_signS3put_path(format: 'json'), (data) =>
+          form = new FormData()
+          for index, value of data.signed_post
+            form.append(index, value)
+
+          form.append("file", @get('blob'), @get('file_name'))
+
+          $.ajax
+            url: data.url
+            type: "POST"
+            data: form
+            processData: false
+            contentType: false
+            success: (response) =>
+              s3_key = $(response).find("Key").text()
+
+              @set('uuid', data.uuid)
+              @set('url', s3_key)
+              @set('bucket_name',data.bucket)
+              @set('file_size', @get('blob').size)
+              @set('content_type', @get('blob').type)
+
+              # Remove the blob, it's no longer needed.
+              @unset('blob')
+
+              afterUploadCallback()
 
   API =
     createRecording: ->
