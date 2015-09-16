@@ -17,6 +17,14 @@
       oReq.open("POST", postUrl)
       oReq.send(form)   
       
+    getUrl: =>
+      if @get('blob')
+        return window.URL.createObjectURL( @get('blob') )
+      else if @get('full_url')
+        return @get('full_url')
+      else
+        return null
+
   API =
     createRecording: ->
       new Entities.Recording
