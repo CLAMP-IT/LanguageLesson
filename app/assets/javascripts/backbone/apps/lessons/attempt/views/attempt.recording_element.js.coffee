@@ -14,6 +14,7 @@
 
           App.vent.trigger "lesson:allow_stepping_forward"
           App.vent.trigger "lesson:set_current_recording", @question_attempt.get('recording')
+          @showPlaybackButton()
         else
           @question_attempt = App.request "new:question_attempt:entity", @currentAttempt.get('id'), @model.get('element_id'), @currentUser.get('id')
           App.vent.trigger "lesson:prevent_stepping_forward"
@@ -31,11 +32,13 @@
 
       RecorderControls.clear()
 
-      $('#playback-button').removeClass('hidden')
-      $('.lesson_element').removeClass('recording')
+      @showPlaybackButton()
+
       $('.next').prop('disabled', false)
       App.vent.trigger "lesson:allow_stepping_forward"
 
+    showPlaybackButton: ->
+      $('#playback-button').removeClass('hidden')
 
     playRecording: () ->
       App.vent.trigger "lesson:play_recording"
