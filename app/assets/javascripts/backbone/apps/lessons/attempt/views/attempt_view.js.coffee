@@ -6,6 +6,9 @@
     template: "lessons/attempt/templates/attempt_layout"
 
     initialize: (options) ->
+      @currentUser = options.currentUser
+      @currentAttempt = options.currentAttempt
+
       App.vent.on 'lesson:prevent_stepping_forward', =>
         console.log 'preventing in the layout view'
         @preventSteppingForward()
