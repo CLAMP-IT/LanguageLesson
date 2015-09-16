@@ -42,8 +42,9 @@
               afterUploadCallback()
 
   API =
-    createRecording: ->
+    createRecording: (file_name) ->
       new Entities.Recording
+        file_name: file_name || 'recording.ogg'
 
   App.reqres.setHandler "create:recording:entity", ->
     API.createRecording()
