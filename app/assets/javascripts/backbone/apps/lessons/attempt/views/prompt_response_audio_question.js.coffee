@@ -6,19 +6,15 @@
 //= require wavesurfer.js/src/drawer.canvas.js
 //= require ./attempt.element
 //= require s3upload
+//= require ./attempt.recording_element
 
 @LanguageLesson.module "LessonsApp.Attempt", (Attempt, App, Backbone, Marionette, $, _) ->
-  class Attempt.PromptResponseAudioQuestionElement extends Attempt.Element
+  class Attempt.PromptResponseAudioQuestionElement extends Attempt.RecordingElement
     counter: 0
 
     template: 'lessons/attempt/templates/_prompt_response_audio_question'
 
-    events:
-      'click .js-record-begin': 'startRecording'
-      'click .js-record-end': 'stopRecording'
-
     onShow: ->
-      App.request "find:question_attempt:entity",
         @options['attempt'].attributes['id'],
         @model.attributes['element_id'],
         @options['user'].attributes['id'], (question_attempt) =>
@@ -43,79 +39,6 @@
 
     onDestroy: ->
       console.log 'closing'
-
-    startRecording: ->
-      RecorderControls.startRecording()
-      $('.lesson_element').addClass('recording')
-
-    stopRecording: ->
-     # RecorderControls.recorder.addEventListener 'dataAvailable', (e) ->
-     #   console.log 'data avaoil'
-
-      # fileName = (new Date).toISOString() + '.' + e.detail.type.split('/')[1]
-      # url = URL.createObjectURL(e.detail)
-      # console.log e
-      # audio = document.createElement('audio')
-      # audio.controls = true
-      # audio.src = url
-
-      # link = document.createElement('a')
-      # link.href = url
-      # link.download = fileName
-      # link.innerHTML = link.download
-
-      # li = document.createElement('li')
-      # li.appendChild link
-      # li.appendChild audio
-
-      # $('#recordings-list').append li
-
-      # return
-      RecorderControls.stopRecording()
-
-
-      #RecorderControls.exportWAV((blob) =>
-      #  console.log 'hello?2'
-        # url = URL.createObjectURL(blob)
-
-        # @showRecording url
-
-        # form = new FormData()
-        # form.append("recording[file]", blob, 'recording.wav')
-        # form.append("[question_attempt][lesson_attempt_id]", @options['attempt'].attributes['id'])
-        # form.append("[question_attempt][question_id]", @model.attributes['element_id'])
-        # form.append("[question_attempt][user_id]", @options['user'].attributes['id'])
-
-        # postUrl = Routes.add_lesson_attempt_question_attempts_path(@.options['attempt'].attributes['id'], format: 'json')
-
-        # s3postInfo = $.ajax(Routes.backbone_signS3put_path(), data: {'s3_object_name': 'recordings', 's3_object_type': 'foo'})
-
-        # oReq = new XMLHttpRequest()
-        # oReq.open("POST", postUrl)
-        # oReq.send(form)
-        # return
-      #)
-
-      RecorderControls.clear()
-
-      $('.lesson_element').removeClass('recording')
-      $('.next').prop('disabled', false)
-      App.vent.trigger "lesson:allow_stepping_forward"
-
-    showRecording: (url) ->
-      console.log 'showing recording'
-      li = document.createElement('li')
-      au = document.createElement('audio')
-      hf = document.createElement('a')
-
-      au.controls = true
-      au.src = url
-      hf.href = url
-      hf.download = new Date().toISOString() + '.wav'
-      hf.innerHTML = hf.download
-      li.appendChild(au)
-      #li.appendChild(hf)
-      $('#recordings-list').append li
 
 pad = (number, length) ->
   str = "" + number

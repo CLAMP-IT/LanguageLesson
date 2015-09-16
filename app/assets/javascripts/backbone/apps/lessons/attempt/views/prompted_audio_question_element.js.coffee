@@ -5,14 +5,11 @@
 //= require wavesurfer.js/src/drawer.js
 //= require wavesurfer.js/src/drawer.canvas.js
 //= require ./attempt.element
+//= require ./attempt.recording_element
 
 @LanguageLesson.module "LessonsApp.Attempt", (Attempt, App, Backbone, Marionette, $, _) ->
-  class Attempt.PromptedAudioQuestionElement extends Attempt.Element
+  class Attempt.PromptedAudioQuestionElement extends Attempt.RecordingElement
     template: 'lessons/attempt/templates/_prompted_audio_question'
-
-    events:
-      'click .js-record-begin': 'startRecording'
-      'click .js-record-end': 'stopRecording'
 
     onShow: ->
       App.request "find:question_attempt:entity",
@@ -34,29 +31,3 @@
     onDestroy: ->
       console.log 'closing'
 
-    startRecording: ->
-      RecorderControls.startRecording()
-      $('.lesson_element').addClass('recording')
-
-    stopRecording: ->
-      RecorderControls.stopRecording()
-
-      RecorderControls.clear()
-
-      $('.lesson_element').removeClass('recording')
-      $('.next').prop('disabled', false)
-      App.vent.trigger "lesson:allow_stepping_forward"
-
-    showRecording: (url) ->
-      console.log 'showing recording'
-      li = document.createElement('li')
-      au = document.createElement('audio')
-      hf = document.createElement('a')
-
-      au.controls = true
-      au.src = url
-      hf.href = url
-      hf.download = new Date().toISOString() + '.wav'
-      hf.innerHTML = hf.download
-      li.appendChild(au)
-      $('#recordings-list').append li
