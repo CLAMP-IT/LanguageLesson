@@ -34,6 +34,8 @@
 
       @showPlaybackButton()
 
+      $('.lesson_element').removeClass('recording')
+
       $('.next').prop('disabled', false)
       App.vent.trigger "lesson:allow_stepping_forward"
 
