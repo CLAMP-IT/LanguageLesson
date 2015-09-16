@@ -21,6 +21,22 @@
 
       return
 
+    startRecording: ->
+      RecorderControls.startRecording()
+
+      $('.lesson_element').addClass('recording')
+
+    stopRecording: ->
+      RecorderControls.stopRecording()
+
+      RecorderControls.clear()
+
+      $('#playback-button').removeClass('hidden')
+      $('.lesson_element').removeClass('recording')
+      $('.next').prop('disabled', false)
+      App.vent.trigger "lesson:allow_stepping_forward"
+
+
     playRecording: () ->
       App.vent.trigger "lesson:play_recording"
 
