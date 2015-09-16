@@ -13,7 +13,7 @@
     %button.btn.btn-primary.js-record-end
       %i.glyphicon.glyphicon-stop
       Stop
-    %button.btn.btn-primary.js-record-playback
+    %button#playback-button.btn.btn-primary.js-record-playback.hidden
       %i.glyphicon.glyphicon-play
       Playback
   #recordings
