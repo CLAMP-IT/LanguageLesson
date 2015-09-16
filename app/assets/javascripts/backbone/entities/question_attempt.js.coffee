@@ -25,6 +25,10 @@
       recording: null
       responses: []
 
+    save: (attributes, options) ->
+      @get('recording').uploadRecording( =>
+        Backbone.AssociatedModel.prototype.save.call(@, attributes, options)
+      )
     toJSON: =>
       return { question_attempt: {
         id: @get('id')
