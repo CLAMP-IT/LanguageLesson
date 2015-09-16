@@ -17,12 +17,12 @@
       App.vent.on 'lesson:allow_stepping_forward', =>
         console.log 'allowing in the layout view'
         @allowSteppingForward()
-        return  
-  
+        return
+
     # Begin by allowing movement forward but not back
     stepForward: true
     stepBackward: true
-    
+
     keys:
       'left': 'prev'
       'right': 'next'
@@ -45,7 +45,7 @@
       @stepBackward = false
 
     allowSteppingBackward: ->
-      @stepBackward = true        
+      @stepBackward = true
 
     next: ->
       if @stepForward
