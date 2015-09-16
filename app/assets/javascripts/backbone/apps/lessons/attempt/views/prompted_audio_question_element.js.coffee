@@ -1,10 +1,3 @@
-//= require wavesurfer.js/src/wavesurfer.js
-//= require wavesurfer.js/src/webaudio.js
-//= require wavesurfer.js/src/webaudio.buffer.js
-//= require wavesurfer.js/src/webaudio.media.js
-//= require wavesurfer.js/src/drawer.js
-//= require wavesurfer.js/src/drawer.canvas.js
-//= require ./attempt.element
 //= require ./attempt.recording_element
 
 @LanguageLesson.module "LessonsApp.Attempt", (Attempt, App, Backbone, Marionette, $, _) ->
@@ -23,11 +16,10 @@
             $('.next').prop('disabled', true)
           else
             App.vent.trigger "lesson:allow_stepping_forward"
-            console.log @question_attempt.attributes['recordings'][0].url
-            @showRecording @question_attempt.attributes['recordings'][0].url
-
 
       return
     onDestroy: ->
       console.log 'closing'
 
+    saveAttempt: =>
+      console.log 'saving', @questionAttempt
