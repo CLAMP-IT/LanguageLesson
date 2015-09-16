@@ -1,5 +1,5 @@
 "use strict";
-importScripts( 'libopus.js', 'resampler.js' );
+importScripts( '<%= asset_path('Recorderjs/libopus.js') %>', '<%= asset_path('Recorderjs/resampler.js') %>' );
 
 this.onmessage = function( e ){
   switch( e.data.command ){
