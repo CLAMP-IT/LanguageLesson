@@ -2,6 +2,8 @@
   class Attempt.Elements extends App.Views.Layout
     currentView: 0
 
+    currentElement: null
+
     template: "lessons/attempt/templates/elements_collection"
 
     regions:
@@ -11,6 +13,10 @@
       '#elements'
 
     initialize: (options) ->
+      @currentUser = options.currentUser
+
+      @currentAttempt = options.currentAttempt
+
       _.bindAll @, 'previousView',
         'nextView',
         'onRender',
@@ -58,22 +64,26 @@
       # Homegrown polymorphic behavior
       switch model.attributes.type
         when 'PromptedAudioQuestion'
-          element = new Attempt.PromptedAudioQuestionElement
+          @currentElement = new Attempt.PromptedAudioQuestionElement
             model: @model.get('lesson_elements').models[@currentView]
             lesson: @model
-            attempt: @options['attempt']
-            user: @options['user']
+            currentAttempt: @currentAttempt
+            currentUser: @currentUser
         when 'PromptResponseAudioQuestion'
-          element = new Attempt.PromptResponseAudioQuestionElement
+          @currentElement = new Attempt.PromptResponseAudioQuestionElement
             model: @model.get('lesson_elements').models[@currentView]
             lesson: @model
-            attempt: @options['attempt']
-            user: @options['user']
+            currentAttempt: @currentAttempt
+            currentUser: @currentUser
         when 'ContentBlock'
-           element = new Attempt.ContentBlockElement
+           @currentElement = new Attempt.ContentBlockElement
             model: @model.get('lesson_elements').models[@currentView]
             lesson: @model
-            attempt: @options['attempt']
-            user: @options['user']
+            currentAttempt: @currentAttempt
+            currentUser: @currentUser
 
-      @elements.show element
+      @elements.show @currentElement
+
+    applyRecording: (recording) =>
+      console.log 'applying recording', recording
+      @currentElement.applyRecording(recording)
