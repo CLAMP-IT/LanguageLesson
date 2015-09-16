@@ -4,6 +4,7 @@
 
     tagName: 'div'
 
-      
+    initialize: (options) ->
+      @currentUser = options.currentUser
 
-   
+      @currentAttempt = options.currentAttempt
