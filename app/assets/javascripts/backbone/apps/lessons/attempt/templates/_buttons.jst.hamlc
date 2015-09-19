@@ -1,7 +1,9 @@
 .buttons
-  %button.btn.prev 
-    %i.glyphicon.glyphicon-arrow-left
-    Previous
-  %button.btn.next     
-    Next
-    %i.glyphicon.glyphicon-arrow-right
+  - unless @first
+    %button.btn.prev 
+      %i.glyphicon.glyphicon-arrow-left
+      Previous
+  - unless @last
+    %button.btn.next     
+      Next
+      %i.glyphicon.glyphicon-arrow-right

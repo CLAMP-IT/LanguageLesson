@@ -1,5 +1,5 @@
 .lesson_element.BareElement
   %h4.title #{@title}
   .lesson_content #{@content}
-  != JST['backbone/apps/lessons/attempt/templates/_buttons']()
+  != JST['backbone/apps/lessons/attempt/templates/_buttons'](@)
 

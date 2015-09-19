@@ -19,4 +19,4 @@
   #recordings
     %ul#recordings-list
 .lesson_navigation.PromptedAudioQuestion
-  != JST['backbone/apps/lessons/attempt/templates/_buttons']()
+  != JST['backbone/apps/lessons/attempt/templates/_buttons'](@)

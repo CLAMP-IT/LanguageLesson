@@ -28,6 +28,9 @@
 
       @options = options || {}
 
+      @model.get('lesson_elements').at(0).set('first', true)
+      @model.get('lesson_elements').at(@model.get('lesson_elements').length - 1).set('last', true)
+
       return
 
     onShow: ->

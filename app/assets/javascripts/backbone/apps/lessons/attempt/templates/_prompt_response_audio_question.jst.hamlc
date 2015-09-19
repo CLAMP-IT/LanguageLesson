@@ -23,5 +23,4 @@
       %i.glyphicon.glyphicon-play
       Playback
 .lesson_navigation.PromptedAudioQuestion
-  != JST['backbone/apps/lessons/attempt/templates/_buttons']()
-
+  != JST['backbone/apps/lessons/attempt/templates/_buttons'](@)
