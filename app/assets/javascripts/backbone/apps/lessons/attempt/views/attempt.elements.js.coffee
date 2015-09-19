@@ -39,7 +39,7 @@
     onRender: ->
       @showElementView()
 
-    nextView: (element) ->
+    nextView: ->
       if @currentView < (@model.get('lesson_elements').length - 1)
         @currentElement.saveAttempt() if _.isFunction( @currentElement.saveAttempt )
 
@@ -50,7 +50,9 @@
           return
         ).bind(@)
 
-    previousView: (element) ->
+      return
+
+    previousView: ->
       if @currentView > 0
         @currentElement.saveAttempt() if _.isFunction( @currentElement.saveAttempt )
 
@@ -60,6 +62,8 @@
           $("#element_count").html("#{@currentView + 1} of #{@model.get('lesson_elements').length}")
           return
         ).bind(@)
+
+      return
 
     showElementView: ->
       model = @model.get('lesson_elements').models[@currentView]
