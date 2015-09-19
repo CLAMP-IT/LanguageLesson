@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150817140759) do
+ActiveRecord::Schema.define(version: 20150919151046) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -101,12 +101,12 @@ ActiveRecord::Schema.define(version: 20150817140759) do
     t.integer  "user_id"
     t.integer  "lesson_id"
     t.integer  "course_id"
-    t.integer  "attempt_id"
+    t.integer  "activity_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "lesson_attempts", ["attempt_id"], name: "index_lesson_attempts_on_attempt_id", using: :btree
+  add_index "lesson_attempts", ["activity_id"], name: "index_lesson_attempts_on_attempt_id", using: :btree
   add_index "lesson_attempts", ["course_id"], name: "index_lesson_attempts_on_course_id", using: :btree
   add_index "lesson_attempts", ["lesson_id"], name: "index_lesson_attempts_on_lesson_id", using: :btree
   add_index "lesson_attempts", ["user_id"], name: "index_lesson_attempts_on_user_id", using: :btree
@@ -114,7 +114,6 @@ ActiveRecord::Schema.define(version: 20150817140759) do
   create_table "lesson_elements", force: :cascade do |t|
     t.integer  "lesson_id"
     t.integer  "row_order"
-    t.integer  "pageable_id"
     t.integer  "presentable_id"
     t.string   "presentable_type"
     t.datetime "created_at"
@@ -138,27 +137,6 @@ ActiveRecord::Schema.define(version: 20150817140759) do
     t.datetime "updated_at"
     t.integer  "language_id"
   end
-
-  create_table "page_elements", force: :cascade do |t|
-    t.integer  "page_id"
-    t.integer  "row_order"
-    t.integer  "pageable_id"
-    t.string   "pageable_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "page_elements", ["page_id"], name: "index_page_elements_on_page_id", using: :btree
-
-  create_table "pages", force: :cascade do |t|
-    t.integer  "lesson_id"
-    t.string   "title"
-    t.integer  "row_order"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "pages", ["lesson_id"], name: "index_pages_on_lesson_id", using: :btree
 
   create_table "question_attempt_responses", force: :cascade do |t|
     t.integer  "question_attempt_id"

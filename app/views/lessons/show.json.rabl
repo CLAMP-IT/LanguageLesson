@@ -1,6 +1,6 @@
 object @lesson
 
-extends "lessons/_with_pageables"
+extends "lessons/_with_presentables"
 
 node do
   {

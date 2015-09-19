@@ -4,7 +4,6 @@ FactoryGirl.define do
   factory :lesson_element do
     lesson nil
     row_order 1
-    pageable_id 1
     presentable_id 1
     presentable_type "MyString"
   end
