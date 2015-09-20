@@ -42,7 +42,10 @@
 
       if @currentActivity.get('doable_id')
         if @currentActivity.get('doable_type') == "Lesson"
-          App.navigate("lessons/#{@currentActivity.get('doable_id')}/attempt", trigger: true)
+          if @is_admin
+            App.navigate("lesson_attempts/#{@currentActivity.get('id')}/review_by_activity", trigger: true)
+          else
+            App.navigate("lessons/#{@currentActivity.get('doable_id')}/attempt", trigger: true)
       else
         App.navigate("activities/#{@currentActivity.get('id')}/choose_doable", trigger: true)
     else
