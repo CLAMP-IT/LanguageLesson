@@ -10,11 +10,18 @@
     App.request "set:current:user", options.user if options.user
     App.request "set:current:institution", options.institution if options.institution
     App.request "set:current:activity", options.activity if options.activity
+    App.request "set:administrator_status", options.administrator
 
     return
 
   App.reqres.setHandler "get:current:user", ->
     App.currentUser
+
+  App.reqres.setHandler "get:administrator_status", ->
+    App.administrator_status
+
+  App.reqres.setHandler "set:administrator_status", (status) ->
+    App.administrator_status = status
 
   App.on "start", ->
     ## create our specialized dialog region
@@ -23,6 +30,8 @@
     @currentInstitution = App.request "get:current:institution"
 
     @currentActivity = App.request "get:current:activity"
+
+    @is_admin = App.request "get:administrator_status"
 
     if @currentActivity
       if Backbone.history
