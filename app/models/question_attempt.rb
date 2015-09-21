@@ -7,4 +7,6 @@ class QuestionAttempt < ActiveRecord::Base
   accepts_nested_attributes_for :recording
 
   has_many :question_attempt_responses, dependent: :destroy
+
+  scope :for_activity, -> (activity) { includes(lesson_attempt: :activity).references(:activity).where("activities.id = ?", activity.id) }
 end
