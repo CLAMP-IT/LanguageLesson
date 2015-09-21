@@ -1,4 +1,5 @@
 //= require ./question_attempt_response
+//= require ./question
 
 @LanguageLesson.module "Entities",(Entities, App, Backbone, Marionette, $, _) ->
   class Entities.QuestionAttempt extends Entities.AssociatedModel
@@ -7,6 +8,11 @@
     rubyClass: 'QuestionAttempt'
 
     relations: [
+      {
+        type: Backbone.One
+        key: 'question'
+        relatedModel: Entities.Question
+      },
       {
         type: Backbone.Many
         key: 'responses'
@@ -29,15 +35,6 @@
       @get('recording').uploadRecording( =>
         Backbone.AssociatedModel.prototype.save.call(@, attributes, options)
       )
-    toJSON: =>
-      return { question_attempt: {
-        id: @get('id')
-        lesson_attempt_id: @get('lesson_attempt_id')
-        question_id: @get('question_id')
-        user_id: @get('user_id')
-        responded: @get('responded')
-        recording_attributes: @get('recording')
-      } }
 
     initialize: (options) ->
       options || (options = {})

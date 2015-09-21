@@ -56,12 +56,13 @@ class QuestionAttemptsController < ApplicationController
     end
   end
 
-  # Only allow a trusted parameter "white list" through.
   def question_attempt_params
+    # Rewrite Backbone association to conform with Rails expectations.
+    params[:question_attempt][:recording_attributes] = params.delete(:recording) if params.has_key? :recording
+
     params.require(:question_attempt).permit!
   end
 
-  # Only allow a trusted parameter "white list" through.
   def recording_params
     params.require(:recording).permit!
   end  
