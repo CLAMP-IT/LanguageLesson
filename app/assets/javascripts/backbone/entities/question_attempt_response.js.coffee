@@ -30,6 +30,10 @@
       #question_attempts.url = =>
       #  return "/lesson_attempts/#{@id}/question_attempts"
 
+    save: (attributes, options) ->
+      @get('recording').uploadRecording( =>
+        Backbone.AssociatedModel.prototype.save.call(@, attributes, options)
+      )
 
   class Entities.QuestionAttemptResponses extends Entities.Collection
     model: Entities.QuestionAttemptResponse
