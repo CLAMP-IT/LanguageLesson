@@ -13,4 +13,7 @@ class Lesson < ActiveRecord::Base
   def presentables
     lesson_elements.rank(:row_order).collect {|e| e.presentable}
   end
+
+  scope :by_activity, -> (activity_id) { where("id in (SELECT doable_id FROM activities WHERE doable_type = 'Lesson' and id = ?)", activity_id).first }
+
 end
