@@ -6,6 +6,6 @@
       {
         type: Backbone.One
         key: 'recording'
-        relatedModel: Entities.Recording
+        relatedModel: 'LanguageLesson.Entities.Recording'
       }
     ]

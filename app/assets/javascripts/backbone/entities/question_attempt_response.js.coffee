@@ -1,5 +1,3 @@
-//= require ./recording
-
 @LanguageLesson.module "Entities",(Entities, App, Backbone, Marionette, $, _) ->
   class Entities.QuestionAttemptResponse extends Entities.AssociatedModel
     #urlRoot: -> Routes.question_attempt_responses_path()
@@ -9,8 +7,13 @@
     relations: [
       {
         type: Backbone.One
+        key: 'question_attempt'
+        relatedModel: 'LanguageLesson.Entities.QuestionAttempt'
+      },
+      {
+        type: Backbone.One
         key: 'recording'
-        relatedModel: Entities.Recording
+        relatedModel: 'LanguageLesson.Entities.Recording'
       }
     ]
     defaults:

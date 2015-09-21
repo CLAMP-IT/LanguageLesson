@@ -1,9 +1,3 @@
-//= require ./user
-//= require ./lesson
-//= require ./lesson_element
-//= require ./question
-//= require ./question_attempt
-
 @LanguageLesson.module "Entities",(Entities, App, Backbone, Marionette, $, _) ->
   class Entities.LessonAttempt extends Entities.AssociatedModel
     urlRoot: -> Routes.lesson_attempts_path()
@@ -21,22 +15,22 @@
       {
         type: Backbone.One
         key: 'user'
-        relatedModel: Entities.User
+        relatedModel: 'LanguageLesson.Entities.User'
       },
       {
         type: Backbone.One
         key: 'lesson'
-        relatedModel: Entities.Lesson
+        relatedModel: 'LanguageLesson.Entities.Lesson'
       },
       {
         type: Backbone.One
         key: 'activity'
-        relatedModel: Entities.Activity
+        relatedModel: 'LanguageLesson.Entities.Activity'
       },
       {
         type: Backbone.Many
         key: 'question_attempts'
-        collectionType: Entities.QuestionAttempts
+        collectionType: 'LanguageLesson.Entities.QuestionAttempts'
       }
     ]
     defaults:

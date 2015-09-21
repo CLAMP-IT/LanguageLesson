@@ -1,5 +1,3 @@
-//= require ./lesson
-
 @LanguageLesson.module "Entities", (Entities, App, Backbone, Marionette, $, _) ->
   class Entities.Language extends Entities.AssociatedModel
     urlRoot: -> Routes.languages_path()
@@ -8,7 +6,7 @@
       {
         type: Backbone.Many
         key: 'lessons'
-        collectionType: Entities.LessonsCollection
+        collectionType: 'LanguageLesson.Entities.LessonsCollection'
       }
     ]
     defaults:
@@ -17,7 +15,7 @@
   class Entities.LanguagesCollection extends Entities.Collection
     model: Entities.Language
     url: -> Routes.with_lessons_languages_path()
-    
+
   API =
     getLanguageEntity: (id, cb) ->
       language = new Entities.Language

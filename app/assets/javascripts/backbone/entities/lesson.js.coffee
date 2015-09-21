@@ -1,6 +1,3 @@
-//= require ./recording
-//= require ./lesson_element
-
 @LanguageLesson.module "Entities", (Entities, App, Backbone, Marionette, $, _) ->
   class Entities.Lesson extends Entities.AssociatedModel
     urlRoot: -> Routes.lessons_path()
@@ -11,7 +8,7 @@
       {
         type: Backbone.Many
         key: 'lesson_elements'
-        collectionType: Entities.LessonElements
+        collectionType: 'LanguageLesson.Entities.LessonElements'
       }
     ]
     defaults:
