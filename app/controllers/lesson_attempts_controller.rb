@@ -69,8 +69,7 @@ class LessonAttemptsController < ApplicationController
     end
   end
 
-  # Only allow a trusted parameter "white list" through.
   def lesson_attempt_params
-    params.require(:lesson_attempt).permit!
+    params.require(:lesson_attempt).permit(:activity_id, :lesson_id, :user_id)
   end
 end
