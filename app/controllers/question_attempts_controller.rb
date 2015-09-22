@@ -58,12 +58,8 @@ class QuestionAttemptsController < ApplicationController
 
   def question_attempt_params
     # Rewrite Backbone association to conform with Rails expectations.
-    params[:question_attempt][:recording_attributes] = params.delete(:recording) if params.has_key? :recording
+    params[:question_attempt][:recording_attributes] = params[:question_attempt].delete(:recording) if params[:question_attempt].has_key? :recording
 
-    params.require(:question_attempt).permit!
+    params.require(:question_attempt).permit(:lesson_attempt_id, :question_id, :user_id, recording_attributes: [:uuid, :url, :bucket_name, :file_size, :content_type])
   end
-
-  def recording_params
-    params.require(:recording).permit!
-  end  
 end
