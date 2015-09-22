@@ -27,6 +27,12 @@
          success: (model, response) ->
            cb lesson
        lesson
-        
+
+    getLessonEntity: (lesson_data) ->
+      new Entities.Lesson lesson_data
+
   App.reqres.setHandler "lesson:entity", (id, cb) ->
     API.getLessonEntity id, cb
+
+  App.reqres.setHandler "lesson:entity:from_data", (lesson_data, cb) ->
+    API.getLessonEntity lesson_data, cb
