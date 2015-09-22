@@ -1,15 +1,10 @@
 @LanguageLesson.module "Entities",(Entities, App, Backbone, Marionette, $, _) ->
   class Entities.LessonAttempt extends Entities.AssociatedModel
     urlRoot: -> Routes.lesson_attempts_path()
+
     paramRoot: 'lesson_attempt'
 
     rubyClass: 'LessonAttempt'
-
-    initialize: ->
-      question_attempts = @get('question_attempts')
-
-      question_attempts.url = =>
-        return "/lesson_attempts/#{@id}/question_attempts"
 
     relations: [
       {
