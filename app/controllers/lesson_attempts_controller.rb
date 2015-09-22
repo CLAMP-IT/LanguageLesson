@@ -6,6 +6,19 @@ class LessonAttemptsController < ApplicationController
     end
   end
 
+  def by_activity
+    @activity = Activity.find params[:activity_id]
+
+    @lesson = Lesson.find @activity.doable_id
+
+    @questions = Question.for_lesson(@lesson)
+    
+    @users = User
+             .with_question_attempts_for_activity(@activity)
+             .includes(question_attempts: [:recording, question_attempt_responses: :recording])
+             .order(:name)
+  end
+
   def show
     @lesson_attempt = LessonAttempt
                       .includes(question_attempts: :question)
