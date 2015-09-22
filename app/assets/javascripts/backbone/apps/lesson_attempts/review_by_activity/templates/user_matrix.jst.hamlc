@@ -1,0 +1,11 @@
+#user-rows
+.flex-row
+  .namebox.box
+  .box.full-box.unattempted No attempt made
+.flex-row
+  .namebox.box  
+  .box.full-box.attempted Attempt made
+.flex-row
+  .namebox.box
+  .box.full-box.responded Attempt has instructor response
+  

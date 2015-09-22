@@ -241,4 +241,42 @@ h4
     border: 1px solid black
 
   td
-    padding: 3px  
+    padding: 3px
+
+.flex-row
+  display: flex
+  flex-direction: row
+  flex-wrap: wrap
+  justify-content: left
+  align-content: flex-start
+  align-items: flex-start
+  margin-top: 3px
+
+  .namebox
+    min-width: 130px
+    width: 130px
+    font-size: 130%
+    font-family: "brandon-grotesque",sans-serif    
+
+  .box
+    flex-grow: 0
+    flex-shrink: 0
+    flex-basis: auto
+    margin: 3px
+    padding: 20px 6px 20px 6px
+    border-radius: 2px
+    font-family: "brandon-grotesque",sans-serif
+    
+  .unattempted
+    background-color: #eee
+  .attempted
+    background-color: #9bb5b2
+  .responded
+    background-color: #ccc
+
+  .full-box
+    width: 100%  
+
+#matrix-region
+  @extend .row   
+

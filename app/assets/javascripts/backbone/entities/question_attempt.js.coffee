@@ -2,6 +2,8 @@
   class Entities.QuestionAttempt extends Entities.AssociatedModel
     urlRoot: -> Routes.question_attempts_path()
 
+    paramRoot: 'question_attempt'
+
     rubyClass: 'QuestionAttempt'
 
     relations: [

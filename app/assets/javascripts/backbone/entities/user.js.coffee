@@ -1,5 +1,12 @@
 @LanguageLesson.module "Entities", (Entities, App, Backbone, Marionette, $, _) ->
   class Entities.User extends Entities.AssociatedModel
+    relations: [
+      {
+        type: Backbone.Many
+        key: 'question_attempts'
+        collectionType: 'LanguageLesson.Entities.QuestionAttempts'
+      }
+    ]
 
   class Entities.UsersCollection extends Entities.Collection
     model: Entities.User
@@ -20,6 +27,9 @@
         success: ->
           cb users
 
+    getUserEntitiesFromArray: (users) ->
+      new Entities.UsersCollection users
+
   App.reqres.setHandler "get:current:user", ->
     API.getCurrentUser()
 
@@ -28,3 +38,6 @@
 
   App.reqres.setHandler "user:entities", (cb) ->
     API.getUserEntities cb
+
+  App.reqres.setHandler "user:entities:from_array", (users) ->
+    API.getUserEntitiesFromArray users

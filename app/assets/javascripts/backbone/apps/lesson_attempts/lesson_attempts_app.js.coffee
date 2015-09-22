@@ -4,6 +4,7 @@
       "lesson_attempts" : "list"
       "lesson_attempts/:id" : "show"
       "lesson_attempts/:id/review" : "review"
+      "lesson_attempts/:activity_id/review_by_activity" : "reviewByActivity"
 
   API =
     list: ->
@@ -21,8 +22,10 @@
     reviewQuestionAttempt: (question_attempt) ->
       controller = new LessonAttemptsApp.ReviewQuestionAttempt.Controller
       controller.review(question_attempt)
-      #controller = new QuestionAttemptsApp.Respond.Controller
-      #controller.respond(id)
+
+    reviewByActivity: (activity_id) ->
+      controller = new LessonAttemptsApp.ReviewByActivity.Controller
+      controller.review(activity_id)
 
   App.addInitializer ->
     new LessonAttemptsApp.Router

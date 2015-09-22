@@ -1,0 +1,13 @@
+%form.responseForm
+  .input-group.input-group-md
+    .input-group-addon
+      %button.btn.btn-default.btn-md.js-record-toggle{:data-toggle => "tooltip", :data-placement => "top", :title => "Record an audio response"} 
+        %i.glyphicon.glyphicon-record			     
+      %audio#response-recording-audio
+    .input-group-addon		
+      %button#play_button.btn.btn-default.btn-md.js-record-play{:data-toggle => "tooltip", :data-placement => "top", :title => "Play back the audio response", :disabled => true}
+        %i.glyphicon.glyphicon-play
+    .input-group-addon
+      %button#remove_button.btn.btn-default.btn-md.js-record-remove{:data-toggle => "tooltip", :data-placement => "top", :title => "Remove this response"} 
+        %i.glyphicon.glyphicon-remove
+    %textarea.note_field.form-control{'placeholder' => "Add a note"}= @note
