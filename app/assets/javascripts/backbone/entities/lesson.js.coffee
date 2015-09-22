@@ -19,13 +19,14 @@
     url: -> Routes.lessons_path()
 
   API =
-     getLessonEntity: (id, cb) ->
-       lesson = new Entities.Lesson
-         id: id
-       lesson.fetch
-         reset: true
-         success: (model, response) ->
-           cb lesson
+    getLessonEntity: (id, cb) ->
+      lesson = new Entities.Lesson
+        id: id
+      lesson.fetch
+        reset: true
+        success: (model, response) ->
+          cb lesson
+        lesson
        lesson
 
     getLessonEntity: (lesson_data) ->
