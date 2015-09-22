@@ -64,7 +64,6 @@
 
   class Entities.QuestionAttempts extends Entities.Collection
     model: Entities.QuestionAttempt
-    #@include "SingleChooser"
 
   API =
     findQuestionAttemptEntity: (lesson_attempt_id, question_id, user_id, cb) ->
@@ -72,7 +71,7 @@
 
       questionAttempt.fetch
         url: Routes.find_question_attempt_by_lesson_attempt_question_and_user_path(lesson_attempt_id, question_id, user_id)
-        #reset: true
+
         success: (model, response) ->
           cb questionAttempt
 
