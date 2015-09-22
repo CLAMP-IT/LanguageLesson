@@ -63,6 +63,16 @@
         success: ->
           cb lesson_attempts
 
+    getLessonAttemptEntities: (lesson_id, cb) ->
+      lesson_attempts = new Entities.LessonAttemptsCollection
+
+      lesson_attempts.fetch
+        url: Routes.by_lesson_lesson_attempts_path(lesson_id)
+        success: ->
+          cb lesson_attempts
+
+          lesson_attempts
+
     newLessonAttemptEntity: (lesson_id, user_id, activity_id) ->
       defer = $.Deferred()
 
@@ -87,6 +97,9 @@
 
   App.reqres.setHandler "lesson_attempt:entities", (cb) ->
     API.getLessonAttemptEntities cb
+
+  App.reqres.setHandler "lesson_attempt:entities:by_lesson_id", (lesson_id, cb) ->
+    API.getLessonAttemptEntitiesByLessonId lesson_id, cb
 
   App.reqres.setHandler "new:lesson_attempt:entity", (lesson_id, user_id, activity_id) ->
     API.newLessonAttemptEntity lesson_id, user_id, activity_id
