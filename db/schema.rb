@@ -140,7 +140,7 @@ ActiveRecord::Schema.define(version: 20150919151046) do
 
   create_table "question_attempt_responses", force: :cascade do |t|
     t.integer  "question_attempt_id"
-    t.integer  "user_id_id"
+    t.integer  "user_id"
     t.text     "note"
     t.string   "mark_start"
     t.string   "mark_end"
@@ -149,7 +149,7 @@ ActiveRecord::Schema.define(version: 20150919151046) do
   end
 
   add_index "question_attempt_responses", ["question_attempt_id"], name: "index_question_attempt_responses_on_question_attempt_id", using: :btree
-  add_index "question_attempt_responses", ["user_id_id"], name: "index_question_attempt_responses_on_user_id_id", using: :btree
+  add_index "question_attempt_responses", ["user_id"], name: "index_question_attempt_responses_on_user_id", using: :btree
 
   create_table "question_attempts", force: :cascade do |t|
     t.integer  "lesson_attempt_id"
