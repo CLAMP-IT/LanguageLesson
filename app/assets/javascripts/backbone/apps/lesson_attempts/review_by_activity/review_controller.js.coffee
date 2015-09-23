@@ -6,6 +6,9 @@
       App.reqres.setHandler 'lesson_attempt:review_by_activity:get_questions', =>
         return @questions_collection
 
+      App.vent.on 'lesson_attempt:review_by_activity:show_overview', =>
+        @showOverview()
+
       App.vent.on 'lesson_attempt:review_by_activity:show_question_attempt', (question_attempt) =>
         @question_attempt_layout = new ReviewByActivity.QuestionAttemptLayout
           model: question_attempt
@@ -19,7 +22,12 @@
 
       RecorderControls.recorder.addEventListener 'dataAvailable', @handleRecording
 
-      $.getJSON(Routes.by_activity_lesson_attempts_path(activity_id),
+      @activity_id = activity_id
+
+      @showOverview()
+
+    showOverview: =>
+      $.getJSON(Routes.by_activity_lesson_attempts_path(@activity_id),
         format: 'json').done (data) =>
           @lesson = App.request 'lesson:entity:from_data', data.lesson
 

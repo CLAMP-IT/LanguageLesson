@@ -9,6 +9,10 @@
   class ReviewByActivity.QuestionAttemptLayout extends App.Views.Layout
     template: "lesson_attempts/review_by_activity/templates/question_attempt_layout"
 
+    events:
+      "click .js-lesson-attempt-nav" : ->
+        App.vent.trigger 'lesson_attempt:review_by_activity:show_overview'
+
     regions:
       questionAttemptRegion: "#question-attempt-region"
       responsesRegion: "#responses-region"
