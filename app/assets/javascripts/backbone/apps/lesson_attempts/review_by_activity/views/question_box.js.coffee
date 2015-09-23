@@ -6,8 +6,11 @@
       'click': 'respondToQuestionAttempt'
 
     className: ->
-      App.request 'lesson_attempt:review_by_activity:determine_question_state', @model
+      @className = App.request 'lesson_attempt:review_by_activity:determine_question_state', @model
 
-    respondToQuestionAttempt: ->
-      @trigger 'find:question:attempt', @model
-      App.vent.trigger 'lesson_attempt:review_by_activity:show_question_attempt', @model.get('question_attempt')
+      @className
+
+    respondToQuestionAttempt: (iv) =>
+      if @className == 'box responded' or @className == 'box attempted'
+        @trigger 'find:question:attempt', @model
+        App.vent.trigger 'lesson_attempt:review_by_activity:show_question_attempt', @model.get('question_attempt')
