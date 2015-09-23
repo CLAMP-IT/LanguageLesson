@@ -242,7 +242,7 @@ h4
 
   td
     padding: 3px
-
+  
 .flex-row
   display: flex
   flex-direction: row
@@ -255,7 +255,7 @@ h4
   .namebox
     min-width: 130px
     width: 130px
-    font-size: 130%
+    font-size: 140%
     font-family: "brandon-grotesque",sans-serif    
 
   .box
@@ -266,16 +266,25 @@ h4
     padding: 20px 6px 20px 6px
     border-radius: 2px
     font-family: "brandon-grotesque",sans-serif
-    
-  .unattempted
-    background-color: #eee
-  .attempted
-    background-color: #9bb5b2
-  .responded
-    background-color: #ccc
 
-  .full-box
-    width: 100%  
+#key-rows
+  display: flex
+  flex-direction: column
+  font-size: 125%
+  
+.key-row
+  width: 100%
+  flex: 1
+  padding: 20px 6px 20px 6px
+  margin: 5px 0 5px 0
+  border-radius: 2px
+  
+.unattempted
+  background-color: #eee
+.attempted
+  background-color: #ccc
+.responded
+  background-color: #9bb5b2
 
 #matrix-region
   @extend .row   
