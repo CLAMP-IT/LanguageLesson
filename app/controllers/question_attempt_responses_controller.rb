@@ -1,19 +1,17 @@
 class QuestionAttemptResponsesController < ApplicationController
   def create
     @response = QuestionAttemptResponse.create(question_attempt_response_params)
-    
-    render json: @response
+
+    render :show
   end
 
   def update
     @response = QuestionAttemptResponse.find(params[:id])
     
-    respond_to do |format|
-      if @response.update_attributes(question_attempt_response_params)
-        format.json { render json: @response }
-      else
-        format.json { render json: @response.errors, status: :unprocessable_entity }
-      end
+    if @response.update_attributes(question_attempt_response_params)
+      render :show
+    else
+      format.json { render json: @response.errors, status: :unprocessable_entity }
     end
   end
 
@@ -31,6 +29,6 @@ class QuestionAttemptResponsesController < ApplicationController
     # Rewrite Backbone association to conform with Rails expectations.
     params[:question_attempt_response][:recording_attributes] = params[:question_attempt_response].delete(:recording) if params[:question_attempt_response].has_key? :recording
 
-    params.require(:question_attempt_response).permit(:question_attempt_id, :user_id, :note, :mark_start, :mark_end, recording_attributes: [:uuid, :url, :bucket_name, :file_size, :content_type])
+    params.require(:question_attempt_response).permit(:question_attempt_id, :user_id, :note, :mark_start, :mark_end, recording_attributes: [:uuid, :url, :bucket_name, :file_name, :file_size, :content_type])
   end
 end
