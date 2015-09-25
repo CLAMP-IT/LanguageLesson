@@ -10,6 +10,8 @@
   recordingInterval: null
   recordingIntervalCallback: null
   intervalFunction: null
+  recordingAcceptor: null
+  latestRecording: null
 
   initialize: ->
     if (! Recorder.isRecordingSupported())
@@ -25,7 +27,7 @@
 
     @recorder.initStream()
 
-    console.log @recorder
+    @recorder.addEventListener 'dataAvailable', @handleRecording
 
   startUserMedia: (stream) =>
     try
@@ -37,8 +39,8 @@
     zeroGain = @audio_context.createGain()
     zeroGain.gain.value = 0
 
-    Recorder.input.connect(zeroGain);
-    zeroGain.connect(@audio_context.destination);
+    Recorder.input.connect(zeroGain)
+    zeroGain.connect(@audio_context.destination)
     console.log('Input connected to muted gain node connected to audio context destination.') if @debug
 
     @recorder = new Recorder(Recorder.input)
@@ -77,3 +79,19 @@
   onRecordingInterval: (interval, callback) ->
     @recordingInterval = interval
     @recordingIntervalCallback = callback
+
+  handleRecording: (e) =>
+    @latestRecording = e.detail
+
+    if @recordingAcceptor
+      @recordingAcceptor.acceptRecording @latestRecording
+    else
+      console.log 'No object to accept recording'
+
+  getLatestRecording: =>
+    @latestRecording
+
+  setRecordingAcceptor: (object) =>
+    @recordingAcceptor = object
+
+    return
