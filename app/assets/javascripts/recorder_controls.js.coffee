@@ -12,8 +12,6 @@
   intervalFunction: null
 
   initialize: ->
-    _.bindAll(@, 'startUserMedia')
-
     if (! Recorder.isRecordingSupported())
       return screenLogger("Recording features are not supported in your browser.")
 
@@ -29,8 +27,7 @@
 
     console.log @recorder
 
-  startUserMedia: (stream) ->
-    #console.log @
+  startUserMedia: (stream) =>
     try
       Recorder.input = @audio_context.createMediaStreamSource(stream)
       console.log('Media stream created.') if @debug
