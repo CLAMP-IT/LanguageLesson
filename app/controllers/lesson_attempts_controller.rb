@@ -16,7 +16,7 @@ class LessonAttemptsController < ApplicationController
     @users = User
              .with_question_attempts_for_activity(@activity)
              .includes(question_attempts: [:recording, question_attempt_responses: :recording])
-             .order(:name)
+             .order(:name, "question_attempt_responses.mark_start")
   end
 
   def show
