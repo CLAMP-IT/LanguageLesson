@@ -19,11 +19,8 @@ class QuestionAttemptResponsesController < ApplicationController
     @question_attempt_response = QuestionAttemptResponse.find(params[:id])
     @question_attempt_response.destroy
 
-    respond_to do |format|
-      format.json { head :no_content }
-    end
+    render json: {}
   end
-
 
   def question_attempt_response_params
     # Rewrite Backbone association to conform with Rails expectations.
