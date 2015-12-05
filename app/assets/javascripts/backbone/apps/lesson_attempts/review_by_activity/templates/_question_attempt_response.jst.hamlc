@@ -10,4 +10,4 @@
     .input-group-btn
       %button#remove_button.btn.btn-default.js-record-remove{:data-toggle => "tooltip", :data-placement => "top", :title => "Remove this response"} 
         %i.glyphicon.glyphicon-remove
-    %input.note_field.form-control{'placeholder' => "Add a note"}= @note
+    %input.note_field.form-control{'type' => 'text', 'placeholder' => "Add a note", 'value' => @note}

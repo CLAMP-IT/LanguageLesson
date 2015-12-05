@@ -39,7 +39,7 @@
               # Remove the blob, it's no longer needed.
               @unset('blob')
 
-              afterUploadCallback()
+      afterUploadCallback()
 
   API =
     createRecording: (file_name) ->
