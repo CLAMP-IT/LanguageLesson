@@ -5,8 +5,6 @@ class Recording < ActiveRecord::Base
 
   after_destroy :delete_file
   
-  #attr_accessible :title, :body, :recordable
-  #attr_accessible :file
   belongs_to :recordable, polymorphic: true
 
   # Ensure appropriate lookup of LTI models
@@ -27,6 +25,6 @@ class Recording < ActiveRecord::Base
   
   private
   def delete_file
-      S3_BUCKET.objects[self.url].delete() if self.url
+    S3_BUCKET.objects[self.url].delete() if self.url
   end
 end
