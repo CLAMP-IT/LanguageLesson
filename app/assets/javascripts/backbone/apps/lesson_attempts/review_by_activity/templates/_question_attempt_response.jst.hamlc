@@ -11,3 +11,7 @@
       %button#remove_button.btn.btn-default.js-record-remove{:data-toggle => "tooltip", :data-placement => "top", :title => "Remove this response"} 
         %i.glyphicon.glyphicon-remove
     %input.note_field.form-control{'type' => 'text', 'placeholder' => "Add a note", 'value' => @note}
+    .input-group-btn
+      %button.btn.btn-default.js-play-region{:data-toggle => "tooltip", :data-placement => "top", :title => "Playback the selected region"} 
+        %i.glyphicon.glyphicon-play
+

@@ -23,6 +23,7 @@
     triggers:
       "mouseenter .responseForm": "question_attempt_response:selected"
       "mouseleave .responseForm": "question_attempt_response:deselected"
+      "click .js-play-region" : "question_attempt_response:play_region"
 
     onRender: ->
       @$('[data-toggle=tooltip]').tooltip(container: 'body')

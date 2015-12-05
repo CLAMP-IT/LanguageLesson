@@ -30,6 +30,9 @@
       @listenTo @responses_view, "childview:question_attempt_response:deselected", (iv, args) ->
         @deactivateRegion @responses_to_regions[args.model.cid]
 
+      @listenTo @responses_view, "childview:question_attempt_response:play_region", (iv, args) ->
+        @responses_to_regions[args.model.cid].play()
+
       @listenTo @responses_view, 'question_attempt_responses:child_destroyed', ->
         @initializeRegions()
 
