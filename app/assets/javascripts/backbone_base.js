@@ -20,5 +20,7 @@
 //= require_tree ./backbone/entities
 //= require_tree ./backbone/views
 //= require_tree ./backbone/apps
+//= require wavesurfer.js/src/wavesurfer.min.js
+//= require_tree ./wavesurfer.js/plugin
 //= require hamlcoffee
 //= require simple_audio_player

@@ -7,270 +7,199 @@ WaveSurfer.util.extend(WaveSurfer.Drawer.Canvas, {
         var waveCanvas = this.wrapper.appendChild(
             this.style(document.createElement('canvas'), {
                 position: 'absolute',
-                zIndex: 1
+                zIndex: 1,
+                left: 0,
+                top: 0,
+                bottom: 0
             })
         );
+        this.waveCc = waveCanvas.getContext('2d');
 
         this.progressWave = this.wrapper.appendChild(
             this.style(document.createElement('wave'), {
                 position: 'absolute',
                 zIndex: 2,
+                left: 0,
+                top: 0,
+                bottom: 0,
                 overflow: 'hidden',
                 width: '0',
-                height: this.params.height + 'px',
-                borderRight: [
-                    this.params.cursorWidth + 'px',
-                    'solid',
-                    this.params.cursorColor
-                ].join(' ')
+                display: 'none',
+                boxSizing: 'border-box',
+                borderRightStyle: 'solid',
+                borderRightWidth: this.params.cursorWidth + 'px',
+                borderRightColor: this.params.cursorColor
             })
         );
 
-        var progressCanvas = this.progressWave.appendChild(
-            document.createElement('canvas')
-        );
-
-        var selectionZIndex = 0;
-
-        if (this.params.selectionForeground) {
-            selectionZIndex = 3;
+        if (this.params.waveColor != this.params.progressColor) {
+            var progressCanvas = this.progressWave.appendChild(
+                document.createElement('canvas')
+            );
+            this.progressCc = progressCanvas.getContext('2d');
         }
-
-        var selectionCanvas = this.wrapper.appendChild(
-            this.style(document.createElement('canvas'), {
-                position: 'absolute',
-                zIndex: selectionZIndex
-            })
-        );
-
-        this.waveCc = waveCanvas.getContext('2d');
-        this.progressCc = progressCanvas.getContext('2d');
-        this.selectionCc = selectionCanvas.getContext('2d');
     },
 
-    updateWidth: function () {
-        var width = Math.round(this.width / this.pixelRatio);
-        [
-            this.waveCc,
-            this.progressCc,
-            this.selectionCc
-        ].forEach(function (cc) {
-            cc.canvas.width = this.width;
-            cc.canvas.height = this.height;
-            this.style(cc.canvas, { width: width + 'px'});
-        }, this);
+    updateSize: function () {
+        var width = Math.round(this.width / this.params.pixelRatio);
+
+        this.waveCc.canvas.width = this.width;
+        this.waveCc.canvas.height = this.height;
+        this.style(this.waveCc.canvas, { width: width + 'px'});
+
+        this.style(this.progressWave, { display: 'block'});
+
+        if (this.progressCc) {
+            this.progressCc.canvas.width = this.width;
+            this.progressCc.canvas.height = this.height;
+            this.style(this.progressCc.canvas, { width: width + 'px'});
+        }
 
         this.clearWave();
     },
 
     clearWave: function () {
         this.waveCc.clearRect(0, 0, this.width, this.height);
-        this.progressCc.clearRect(0, 0, this.width, this.height);
+        if (this.progressCc) {
+            this.progressCc.clearRect(0, 0, this.width, this.height);
+        }
     },
 
-    drawWave: function (peaks, max) {
+    drawBars: function (peaks, channelIndex) {
+        // Split channels
+        if (peaks[0] instanceof Array) {
+            var channels = peaks;
+            if (this.params.splitChannels) {
+                this.setHeight(channels.length * this.params.height * this.params.pixelRatio);
+                channels.forEach(this.drawBars, this);
+                return;
+            } else {
+                peaks = channels[0];
+            }
+        }
+
         // A half-pixel offset makes lines crisp
-        var $ = 0.5 / this.pixelRatio;
+        var $ = 0.5 / this.params.pixelRatio;
+        var width = this.width;
+        var height = this.params.height * this.params.pixelRatio;
+        var offsetY = height * channelIndex || 0;
+        var halfH = height / 2;
+        var length = ~~(peaks.length / 2);
+        var bar = this.params.barWidth * this.params.pixelRatio;
+        var gap = Math.max(this.params.pixelRatio, ~~(bar / 2));
+        var step = bar + gap;
+
+        var absmax = 1;
+        if (this.params.normalize) {
+            var min, max;
+            max = Math.max.apply(Math, peaks);
+            min = Math.min.apply(Math, peaks);
+            absmax = max;
+            if (-min > absmax) {
+                absmax = -min;
+            }
+        }
+
+        var scale = length / width;
+
         this.waveCc.fillStyle = this.params.waveColor;
-        this.progressCc.fillStyle = this.params.progressColor;
+        if (this.progressCc) {
+            this.progressCc.fillStyle = this.params.progressColor;
+        }
 
-        var halfH = this.height / 2;
-        var coef = halfH / max;
+        [ this.waveCc, this.progressCc ].forEach(function (cc) {
+            if (!cc) { return; }
+
+            if (this.params.reflection) {
+                for (var i = 0; i < width; i += step) {
+                    var h = Math.round(peaks[Math.floor(2 * i * scale)] / absmax * halfH);
+                    cc.fillRect(i + $, halfH - h + offsetY, bar + $, h * 2);
+                }
+            } else {
+                for (var i = 0; i < width; i += step) {
+                    var h = Math.round(peaks[Math.floor(2 * i * scale)] / absmax * halfH);
+                    cc.fillRect(i + $, halfH - h + offsetY, bar + $, h);
+                }
+
+                for (var i = 0; i < width; i += step) {
+                    var h = Math.round(peaks[2 * i * scale + 1] / absmax * halfH);
+                    cc.fillRect(i + $, halfH - h + offsetY, bar + $, h);
+                }
+            }
+        }, this);
+    },
+
+    drawWave: function (peaks, channelIndex) {
+        // Split channels
+        if (peaks[0] instanceof Array) {
+            var channels = peaks;
+            if (this.params.splitChannels) {
+                this.setHeight(channels.length * this.params.height * this.params.pixelRatio);
+                channels.forEach(this.drawWave, this);
+                return;
+            } else {
+                peaks = channels[0];
+            }
+        }
+
+        // A half-pixel offset makes lines crisp
+        var $ = 0.5 / this.params.pixelRatio;
+        var height = this.params.height * this.params.pixelRatio;
+        var offsetY = height * channelIndex || 0;
+        var halfH = height / 2;
+        var length = ~~(peaks.length / 2);
+
         var scale = 1;
-        if (this.params.fillParent && this.width > peaks.length) {
-            scale = this.width / peaks.length;
-        }
-        var length = peaks.length;
-
-        this.waveCc.beginPath();
-        this.waveCc.moveTo($, halfH);
-        this.progressCc.beginPath();
-        this.progressCc.moveTo($, halfH);
-        for (var i = 0; i < length; i++) {
-            var h = Math.round(peaks[i] * coef);
-            this.waveCc.lineTo(i * scale + $, halfH + h);
-            this.progressCc.lineTo(i * scale + $, halfH + h);
-        }
-        this.waveCc.lineTo(this.width + $, halfH);
-        this.progressCc.lineTo(this.width + $, halfH);
-
-        this.waveCc.moveTo($, halfH);
-        this.progressCc.moveTo($, halfH);
-        for (var i = 0; i < length; i++) {
-            var h = Math.round(peaks[i] * coef);
-            this.waveCc.lineTo(i * scale + $, halfH - h);
-            this.progressCc.lineTo(i * scale + $, halfH - h);
+        if (this.params.fillParent && this.width != length) {
+            scale = this.width / length;
         }
 
-        this.waveCc.lineTo(this.width + $, halfH);
-        this.waveCc.fill();
-        this.progressCc.lineTo(this.width + $, halfH);
-        this.progressCc.fill();
+        var absmax = 1;
+        if (this.params.normalize) {
+            var min, max;
+            max = Math.max.apply(Math, peaks);
+            min = Math.min.apply(Math, peaks);
+            absmax = max;
+            if (-min > absmax) {
+                absmax = -min;
+            }
+        }
 
-        // Always draw a median line
-        this.waveCc.fillRect(0, halfH - $, this.width, $);
+        this.waveCc.fillStyle = this.params.waveColor;
+        if (this.progressCc) {
+            this.progressCc.fillStyle = this.params.progressColor;
+        }
+
+        [ this.waveCc, this.progressCc ].forEach(function (cc) {
+            if (!cc) { return; }
+
+            cc.beginPath();
+            cc.moveTo($, halfH + offsetY);
+
+            for (var i = 0; i < length; i++) {
+                var h = Math.round(peaks[2 * i] / absmax * halfH);
+                cc.lineTo(i * scale + $, halfH - h + offsetY);
+            }
+
+            // Draw the bottom edge going backwards, to make a single
+            // closed hull to fill.
+            for (var i = length - 1; i >= 0; i--) {
+                var h = Math.round(peaks[2 * i + 1] / absmax * halfH);
+                cc.lineTo(i * scale + $, halfH - h + offsetY);
+            }
+
+            cc.closePath();
+            cc.fill();
+
+            // Always draw a median line
+            cc.fillRect(0, halfH + offsetY - $, this.width, $);
+        }, this);
     },
 
     updateProgress: function (progress) {
         var pos = Math.round(
             this.width * progress
-        ) / this.pixelRatio;
+        ) / this.params.pixelRatio;
         this.style(this.progressWave, { width: pos + 'px' });
-    },
-
-    addMark: function (mark) {
-        var my = this;
-        var markEl = document.createElement('mark');
-        markEl.id = mark.id;
-        if (mark.type && mark.type === 'selMark') {
-            markEl.className = 'selection-mark';
-        }
-        this.wrapper.appendChild(markEl);
-        var handler;
-
-        if (mark.draggable) {
-            handler = document.createElement('handler');
-            handler.id = mark.id + '-handler';
-            handler.className = mark.type === 'selMark' ?
-                'selection-wavesurfer-handler' : 'wavesurfer-handler';
-            markEl.appendChild(handler);
-        }
-
-        markEl.addEventListener('mouseover', function (e) {
-            my.fireEvent('mark-over', mark, e);
-        });
-        markEl.addEventListener('mouseleave', function (e) {
-            my.fireEvent('mark-leave', mark, e);
-        });
-        markEl.addEventListener('click', function (e) {
-            my.fireEvent('mark-click', mark, e);
-        });
-
-        mark.draggable && (function () {
-            var drag = {};
-
-            var onMouseUp = function (e) {
-                e.stopPropagation();
-                drag.startPercentage = drag.endPercentage = null;
-            };
-            document.addEventListener('mouseup', onMouseUp);
-            my.on('destroy', function () {
-                document.removeEventListener('mouseup', onMouseUp);
-            });
-
-            handler.addEventListener('mousedown', function (e) {
-                e.stopPropagation();
-                drag.startPercentage = my.handleEvent(e);
-            });
-
-            my.wrapper.addEventListener('mousemove', WaveSurfer.util.throttle(function (e) {
-                e.stopPropagation();
-                if (drag.startPercentage != null) {
-                    drag.endPercentage = my.handleEvent(e);
-                    my.fireEvent('drag-mark', drag, mark);
-                }
-            }, 30));
-        }());
-
-        this.updateMark(mark);
-
-        if (mark.draggable) {
-            this.style(handler, {
-                position: 'absolute',
-                cursor: 'col-resize',
-                width: '12px',
-                height: '15px'
-            });
-            this.style(handler, {
-                left: handler.offsetWidth / 2 * -1 + 'px',
-                top: markEl.offsetHeight / 2 - handler.offsetHeight / 2 + 'px',
-                backgroundColor: mark.color
-            });
-        }
-    },
-
-    updateMark: function (mark) {
-        var markEl = document.getElementById(mark.id);
-        markEl.title = mark.getTitle();
-        this.style(markEl, {
-            height: '100%',
-            position: 'absolute',
-            zIndex: 4,
-            width: mark.width + 'px',
-            left: Math.max(0, Math.round(
-                mark.percentage * this.scrollWidth  - mark.width / 2
-            )) + 'px',
-            backgroundColor: mark.color
-        });
-    },
-
-    removeMark: function (mark) {
-        var markEl = document.getElementById(mark.id);
-        if (markEl) {
-            this.wrapper.removeChild(markEl);
-        }
-    },
-
-    addRegion: function (region) {
-        var my = this;
-        var regionEl = document.createElement('region');
-        regionEl.id = region.id;
-        this.wrapper.appendChild(regionEl);
-
-        regionEl.addEventListener('mouseover', function (e) {
-            my.fireEvent('region-over', region, e);
-        });
-        regionEl.addEventListener('mouseleave', function (e) {
-            my.fireEvent('region-leave', region, e);
-        });
-        regionEl.addEventListener('click', function (e) {
-            my.fireEvent('region-click', region, e);
-        });
-
-        this.updateRegion(region);
-    },
-
-    updateRegion: function (region) {
-        var regionEl = document.getElementById(region.id);
-        var left = Math.max(0, Math.round(
-            region.startPercentage * this.scrollWidth));
-        var width = Math.max(0, Math.round(
-            region.endPercentage * this.scrollWidth)) - left;
-
-        this.style(regionEl, {
-            height: '100%',
-            position: 'absolute',
-            zIndex: 4,
-            left: left + 'px',
-            top: '0px',
-            width: width + 'px',
-            backgroundColor: region.color
-        });
-    },
-
-    removeRegion: function (region) {
-        var regionEl = document.getElementById(region.id);
-        if (regionEl) {
-            this.wrapper.removeChild(regionEl);
-        }
-    },
-
-    drawSelection: function () {
-        this.eraseSelection();
-
-        this.selectionCc.fillStyle = this.params.selectionColor;
-        var x = this.startPercent * this.width;
-        var width = this.endPercent * this.width - x;
-
-        this.selectionCc.fillRect(x, 0, width, this.height);
-    },
-
-    eraseSelection: function () {
-        this.selectionCc.clearRect(0, 0, this.width, this.height);
-    },
-
-    eraseSelectionMarks: function (mark0, mark1) {
-        this.removeMark(mark0);
-        this.removeMark(mark1);
     }
 });

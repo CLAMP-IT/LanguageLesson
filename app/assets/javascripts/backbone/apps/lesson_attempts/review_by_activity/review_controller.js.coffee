@@ -20,8 +20,6 @@
     review: (activity_id) ->
       RecorderControls.initialize()
 
-      RecorderControls.recorder.addEventListener 'dataAvailable', @handleRecording
-
       @activity_id = activity_id
 
       @showOverview()
@@ -48,10 +46,3 @@
             @layout.matrixRegion.show @userMatrix
 
           App.mainRegion.show @layout
-
-    handleRecording: (e) =>
-      @currentRecording = App.request "create:recording:entity"
-      @currentRecording.set('blob', e.detail)
-
-      audio = document.getElementById('response-recording-audio')
-      audio.src = @currentRecording.getUrl()

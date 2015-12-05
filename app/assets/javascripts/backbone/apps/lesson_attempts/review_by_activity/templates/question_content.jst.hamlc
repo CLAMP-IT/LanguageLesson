@@ -1,0 +1,5 @@
+.lesson_element.PromptedAudioQuestion
+  .functional-header Content
+  .title
+    %h4= @question.title
+  #element-content #{@question.content}

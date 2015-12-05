@@ -1,0 +1,13 @@
+#recording
+  .functional-header Response Recording  
+  .response_wave
+  .controls.voffset2
+    %button.btn.js-play-pause
+      %i.icon.icon-play
+      Play /
+      %i.icon.icon-pause
+      Pause
+  .voffset2
+    Select a region of the waveform to leave a comment.
+  .voffset2
+    %ul#responses

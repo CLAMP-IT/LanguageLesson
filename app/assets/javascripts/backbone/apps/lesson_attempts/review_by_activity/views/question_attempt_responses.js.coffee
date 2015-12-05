@@ -4,3 +4,6 @@
 
     modelEvents:
       "updated" : "render"
+
+    onRemoveChild: (childView) ->
+      @trigger('question_attempt_responses:child_destroyed', @)

@@ -4,12 +4,9 @@ WaveSurfer.Drawer = {
     init: function (container, params) {
         this.container = container;
         this.params = params;
-        this.pixelRatio = this.params.pixelRatio;
 
         this.width = 0;
-        this.height = params.height * this.pixelRatio;
-        this.containerWidth = this.container.clientWidth;
-        this.interact = this.params.interact;
+        this.height = params.height * this.params.pixelRatio;
 
         this.lastPos = 0;
 
@@ -21,6 +18,7 @@ WaveSurfer.Drawer = {
         this.wrapper = this.container.appendChild(
             document.createElement('wave')
         );
+
         this.style(this.wrapper, {
             display: 'block',
             position: 'relative',
@@ -32,7 +30,7 @@ WaveSurfer.Drawer = {
         if (this.params.fillParent || this.params.scrollParent) {
             this.style(this.wrapper, {
                 width: '100%',
-                overflowX: 'auto',
+                overflowX: this.params.hideScrollbar ? 'hidden' : 'auto',
                 overflowY: 'hidden'
             });
         }
@@ -43,77 +41,45 @@ WaveSurfer.Drawer = {
     handleEvent: function (e) {
         e.preventDefault();
         var bbox = this.wrapper.getBoundingClientRect();
-        return ((e.clientX - bbox.left + this.wrapper.scrollLeft) / this.scrollWidth) || 0;
+        return ((e.clientX - bbox.left + this.wrapper.scrollLeft) / this.wrapper.scrollWidth) || 0;
     },
 
     setupWrapperEvents: function () {
         var my = this;
 
-        this.wrapper.addEventListener('mousedown', function (e) {
-            if (my.interact) {
-                my.fireEvent('mousedown', my.handleEvent(e), e);
+        this.wrapper.addEventListener('click', function (e) {
+            var scrollbarHeight = my.wrapper.offsetHeight - my.wrapper.clientHeight;
+            if (scrollbarHeight != 0) {
+                // scrollbar is visible.  Check if click was on it
+                var bbox = my.wrapper.getBoundingClientRect();
+                if (e.clientY >= bbox.bottom - scrollbarHeight) {
+                    // ignore mousedown as it was on the scrollbar
+                    return;
+                }
+            }
+
+            if (my.params.interact) {
+                my.fireEvent('click', e, my.handleEvent(e));
             }
         });
 
-        this.wrapper.addEventListener('mouseup', function (e) {
-            if (my.interact) {
-                my.fireEvent('mouseup', e);
-            }
+        this.wrapper.addEventListener('scroll', function (e) {
+            my.fireEvent('scroll', e);
         });
-
-        this.wrapper.addEventListener('dblclick', function(e) {
-            if (my.interact || my.params.dragSelection) {
-                if (
-                    e.target.tagName.toLowerCase() === 'handler' &&
-                        !e.target.classList.contains('selection-wavesurfer-handler')
-                ) {
-                    my.fireEvent('mark-dblclick', e.target.parentNode.id);
-                }
-                else{
-                    my.fireEvent('drag-clear');
-                }
-            }
-        });
-
-        this.params.dragSelection && (function () {
-            var drag = {};
-
-            var onMouseUp = function () {
-                drag.startPercentage = drag.endPercentage = null;
-            };
-            document.addEventListener('mouseup', onMouseUp);
-            my.on('destroy', function () {
-                document.removeEventListener('mouseup', onMouseUp);
-            });
-
-            my.wrapper.addEventListener('mousedown', function (e) {
-                drag.startPercentage = my.handleEvent(e);
-            });
-
-            my.wrapper.addEventListener('mousemove', WaveSurfer.util.throttle(function (e) {
-                e.stopPropagation();
-                if (drag.startPercentage != null) {
-                    drag.endPercentage = my.handleEvent(e);
-                    my.fireEvent('drag', drag);
-                }
-            }, 30));
-        }());
     },
 
     drawPeaks: function (peaks, length) {
         this.resetScroll();
         this.setWidth(length);
-        if (this.params.normalize) {
-            var max = WaveSurfer.util.max(peaks);
-        } else {
-            max = 1;
-        }
-        this.drawWave(peaks, max);
+
+        this.params.barWidth ?
+            this.drawBars(peaks) :
+            this.drawWave(peaks);
     },
 
     style: function (el, styles) {
         Object.keys(styles).forEach(function (prop) {
-            if (el.style[prop] != styles[prop]) {
+            if (el.style[prop] !== styles[prop]) {
                 el.style[prop] = styles[prop];
             }
         });
@@ -121,62 +87,85 @@ WaveSurfer.Drawer = {
     },
 
     resetScroll: function () {
-        this.wrapper.scrollLeft = 0;
+        if (this.wrapper !== null) {
+            this.wrapper.scrollLeft = 0;
+        }
     },
 
     recenter: function (percent) {
-        var position = this.scrollWidth * percent;
+        var position = this.wrapper.scrollWidth * percent;
         this.recenterOnPosition(position, true);
     },
 
     recenterOnPosition: function (position, immediate) {
         var scrollLeft = this.wrapper.scrollLeft;
-        var half = ~~(this.containerWidth / 2);
+        var half = ~~(this.wrapper.clientWidth / 2);
         var target = position - half;
         var offset = target - scrollLeft;
+        var maxScroll = this.wrapper.scrollWidth - this.wrapper.clientWidth;
+
+        if (maxScroll == 0) {
+            // no need to continue if scrollbar is not there
+            return;
+        }
 
         // if the cursor is currently visible...
-        if (!immediate && offset >= -half && offset < half) {
+        if (!immediate && -half <= offset && offset < half) {
             // we'll limit the "re-center" rate.
             var rate = 5;
             offset = Math.max(-rate, Math.min(rate, offset));
             target = scrollLeft + offset;
         }
 
-        if (offset != 0) {
+        // limit target to valid range (0 to maxScroll)
+        target = Math.max(0, Math.min(maxScroll, target));
+        // no use attempting to scroll if we're not moving
+        if (target != scrollLeft) {
             this.wrapper.scrollLeft = target;
         }
+
     },
 
     getWidth: function () {
-        return Math.round(this.containerWidth * this.pixelRatio);
+        return Math.round(this.container.clientWidth * this.params.pixelRatio);
     },
 
     setWidth: function (width) {
         if (width == this.width) { return; }
 
         this.width = width;
-        this.scrollWidth = ~~(this.width / this.pixelRatio);
-        this.containerWidth = this.container.clientWidth;
 
-        if (!this.params.fillParent && !this.params.scrollParent) {
+        if (this.params.fillParent || this.params.scrollParent) {
             this.style(this.wrapper, {
-                width: this.scrollWidth + 'px'
+                width: ''
+            });
+        } else {
+            this.style(this.wrapper, {
+                width: ~~(this.width / this.params.pixelRatio) + 'px'
             });
         }
 
-        this.updateWidth();
+        this.updateSize();
+    },
+
+    setHeight: function (height) {
+        if (height == this.height) { return; }
+        this.height = height;
+        this.style(this.wrapper, {
+            height: ~~(this.height / this.params.pixelRatio) + 'px'
+        });
+        this.updateSize();
     },
 
     progress: function (progress) {
-        var minPxDelta = 1 / this.pixelRatio;
+        var minPxDelta = 1 / this.params.pixelRatio;
         var pos = Math.round(progress * this.width) * minPxDelta;
 
         if (pos < this.lastPos || pos - this.lastPos >= minPxDelta) {
             this.lastPos = pos;
 
             if (this.params.scrollParent) {
-                var newPos = ~~(this.scrollWidth * progress);
+                var newPos = ~~(this.wrapper.scrollWidth * progress);
                 this.recenterOnPosition(newPos);
             }
 
@@ -186,53 +175,22 @@ WaveSurfer.Drawer = {
 
     destroy: function () {
         this.unAll();
-        this.container.removeChild(this.wrapper);
-        this.wrapper = null;
+        if (this.wrapper) {
+            this.container.removeChild(this.wrapper);
+            this.wrapper = null;
+        }
     },
-
-    updateSelection: function (startPercent, endPercent) {
-        this.startPercent = startPercent;
-        this.endPercent = endPercent;
-
-        this.drawSelection();
-    },
-
-    clearSelection: function (mark0, mark1) {
-        this.startPercent = null;
-        this.endPercent = null;
-        this.eraseSelection();
-        this.eraseSelectionMarks(mark0, mark1);
-    },
-
 
     /* Renderer-specific methods */
     createElements: function () {},
 
-    updateWidth: function () {},
+    updateSize: function () {},
 
     drawWave: function (peaks, max) {},
 
     clearWave: function () {},
 
-    updateProgress: function (position) {},
-
-    addMark: function (mark) {},
-
-    removeMark: function (mark) {},
-
-    updateMark: function (mark) {},
-
-    addRegion: function (region) {},
-
-    removeRegion: function (region) {},
-
-    updateRegion: function (region) {},
-
-    drawSelection: function () {},
-
-    eraseSelection: function () {},
-
-    eraseSelectionMarks: function (mark0, mark1) {}
+    updateProgress: function (position) {}
 };
 
 WaveSurfer.util.extend(WaveSurfer.Drawer, WaveSurfer.Observer);

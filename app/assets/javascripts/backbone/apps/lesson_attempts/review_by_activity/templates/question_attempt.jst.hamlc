@@ -1,18 +1,28 @@
-- console.log @
-.lesson_element.PromptedAudioQuestion
-  .title
-    %h4= @question.title
-  #element-content #{@question.content}
-  #recording
-    .response_wave
-    .controls.voffset2
-      %button.btn.js-play-pause
-        %i.icon.icon-play
-        Play /
-        %i.icon.icon-pause
-        Pause
-    .voffset2
-      Select a region of the waveform to leave a comment.
-    .voffset2
-      %ul#responses
-      
+#question-attempt-data
+  .row
+    Attempt by #{@user.name} at: #{@created_at}
+  .row
+    #recording
+      .functional-header Response Recording  
+      .response_wave
+        .controls.voffset2
+          %button.btn.js-play-pause
+            %i.icon.icon-play
+            Play /
+            %i.icon.icon-pause
+            Pause
+        .voffset2
+          Select a region of the waveform to leave a comment.
+  .row
+    #response-region
+
+#question-content
+  .lesson_element.PromptedAudioQuestion
+    .functional-header Content
+    .title
+      %h4= @question.title
+    #element-content #{@question.content}
+
+  #back-button{style: 'margin-top: 300px'}
+    %button.btn.js-lesson-attempt-nav Return to Lesson Attempt Overview
+    
