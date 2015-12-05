@@ -13,6 +13,7 @@
     uploadRecording: (afterUploadCallback) =>
       unless @get('blob')
         console.log 'No blob to save!'
+        afterUploadCallback()
       else
         $.getJSON Routes.backbone_signS3put_path(format: 'json'), (data) =>
           form = new FormData()
@@ -39,7 +40,7 @@
               # Remove the blob, it's no longer needed.
               @unset('blob')
 
-      afterUploadCallback()
+              afterUploadCallback()
 
   API =
     createRecording: (file_name) ->
