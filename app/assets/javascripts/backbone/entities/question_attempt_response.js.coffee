@@ -23,9 +23,6 @@
       recording: null
 
     initialize: ->
-      @listenTo @, 'change:recording', (model) ->
-        model.save()
-
       @listenTo @, 'change:note', (model) ->
         model.save()
 
