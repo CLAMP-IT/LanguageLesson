@@ -1,10 +1,3 @@
-//= require wavesurfer.js/src/wavesurfer.js
-//= require wavesurfer.js/src/webaudio.js
-//= require wavesurfer.js/src/webaudio.buffer.js
-//= require wavesurfer.js/src/webaudio.media.js
-//= require wavesurfer.js/src/drawer.js
-//= require wavesurfer.js/src/drawer.canvas.js
-
 @LanguageLesson.module "LessonAttemptsApp.Review", (Review, App, Backbone, Marionette, $, _) ->
   class Review.QuestionAttemptLayout extends App.Views.Layout
     template: "lesson_attempts/review/templates/question_attempt_layout"
@@ -31,4 +24,4 @@
       @listenTo @responses_view, "childview:question_attempt_response:selected", (iv, args) ->
         @question_attempt_view.activateRegion args.model
 
-      @responsesRegion.show @responses_view  
+      @responsesRegion.show @responses_view
