@@ -1,10 +1,3 @@
-//= require wavesurfer.js/src/wavesurfer.js
-//= require wavesurfer.js/src/webaudio.js
-//= require wavesurfer.js/src/webaudio.buffer.js
-//= require wavesurfer.js/src/webaudio.media.js
-//= require wavesurfer.js/src/drawer.js
-//= require wavesurfer.js/src/drawer.canvas.js
-
 @LanguageLesson.module "LessonAttemptsApp.ReviewQuestionAttempt", (ReviewQuestionAttempt, App, Backbone, Marionette, $, _) ->
   class ReviewQuestionAttempt.Respond extends App.Views.ItemView
     template: "lesson_attempts/review_question_attempt/templates/respond"
@@ -69,9 +62,8 @@
       #@wavesurfer.on('ready', =>
       #  @wavesurfer.play()
       #)
-        
+
       @wavesurfer.load( url )
         # Wavesurfer.on('selection-update', (selection) ->
         #   console.log selection
         # )
-

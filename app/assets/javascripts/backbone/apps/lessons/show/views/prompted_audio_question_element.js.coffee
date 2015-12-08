@@ -1,16 +1,9 @@
-//= require wavesurfer.js/src/wavesurfer.js
-//= require wavesurfer.js/src/webaudio.js
-//= require wavesurfer.js/src/webaudio.buffer.js
-//= require wavesurfer.js/src/webaudio.media.js
-//= require wavesurfer.js/src/drawer.js
-//= require wavesurfer.js/src/drawer.canvas.js
-
 //= require ./show.element
 
 @LanguageLesson.module "LessonsApp.Show", (Show, App, Backbone, Marionette, $, _) ->
   class Show.PromptedAudioQuestionElement extends Show.Element
     template: 'lessons/show/templates/_prompted_audio_question'
-    
+
     onShow: ->
       #SimpleAudio.activate()
 
@@ -28,7 +21,7 @@
         progressColor : 'red'
         loadingColor  : 'purple'
         xcursorColor   : 'navy'
-      
+
       wavesurfer.load( $(".simple-audio-player").data('src') )
 
       wavesurfer.on('selection-update', (selection) ->
@@ -39,7 +32,7 @@
       #  id: 99
       #  percentage: 0.5322834525521346
       #  position: 1.5297336126138814
-                  
+
       wavesurfer.on('ready', ->
         timeline = Object.create(WaveSurfer.Timeline)
 
@@ -49,4 +42,3 @@
       )
 
       RecorderControls.initialize()
-      

@@ -1,7 +1,3 @@
-//= require ./wavesurfer.js/src/wavesurfer.js
-//= require ./wavesurfer.js/src/webaudio.js
-//= require ./wavesurfer.js/src/drawer.js
-//= require ./wavesurfer.js/src/drawer.canvas.js
 //= require ./simple_audio_player
 
 $ ->
@@ -20,7 +16,7 @@ $ ->
     xcursorColor   : 'navy'
 
   wavesurfer.load( $('#audio-player').data().fileurl )
-  
+
   eventHandlers =
     'play': ->
       wavesurfer.playPause()
@@ -57,4 +53,3 @@ $ ->
   document.addEventListener "click", (e) ->
     action = e.target.dataset and e.target.dataset.action
     eventHandlers[action] e  if action and action of eventHandlers
-
