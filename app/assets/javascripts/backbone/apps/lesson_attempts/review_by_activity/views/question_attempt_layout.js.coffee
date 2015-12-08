@@ -11,11 +11,17 @@
         App.vent.trigger 'lesson_attempt:review_by_activity:show_overview'
 
     regions:
+      questionAttemptInfoRegion: '#question-attempt-info-region'
       questionRegion: '#question-region'
       responseRegion: "#response-region"
       commentRegion: "#comments-region"
 
     showQuestionAttempt: (question_attempt) ->
+      @question_attempt_info_view = new ReviewByActivity.QuestionAttemptInfo
+        model: question_attempt
+
+      @questionAttemptInfoRegion.show @question_attempt_info_view
+
       @question_attempt_view = new ReviewByActivity.QuestionAttempt
         model: question_attempt
 

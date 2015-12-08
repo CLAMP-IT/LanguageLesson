@@ -28,6 +28,8 @@
     @recorder.initStream()
 
     @recorder.addEventListener 'dataAvailable', @handleRecording
+    console.log 'listener added'
+    #@analyser = @audio_context.createAnalyser()
 
   startUserMedia: (stream) =>
     try
@@ -51,9 +53,8 @@
   startRecording: ->
     @recording = true
 
-    #@analyser = @audio_context.createAnalyser()
     @recorder && @recorder.start()
-    console.log('Recording...') if @debug
+    console.log('Recorder enabled') if @debug
 
     if @recordingInterval && @recordingIntervalCallback
       @intervalFunction = setInterval(@recordingIntervalCallback, @recordingInterval)
@@ -69,8 +70,12 @@
 
   toggleRecording: ->
     unless @recording
+      console.log 'start'
+
       @startRecording()
     else
+      console.log 'stop'
+
       @stopRecording()
 
   clear: ->
@@ -81,6 +86,7 @@
     @recordingIntervalCallback = callback
 
   handleRecording: (e) =>
+    console.log 'accept it?'
     @latestRecording = e.detail
 
     if @recordingAcceptor

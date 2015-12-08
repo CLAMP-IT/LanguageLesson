@@ -1,0 +1,1 @@
+Attempt by #{@user.name} at #{@created_at}

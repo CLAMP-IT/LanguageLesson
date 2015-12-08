@@ -174,8 +174,8 @@ h4
   @extend .col-lg-6
 
 #back-button
-  @extend .col-lg-6
-
+  margin-top: 10px
+    
 #responses
   @extend .col-lg-6
 
@@ -191,7 +191,6 @@ h4
     
   li
     float: left
-    //display: inline     
     margin-right: 20px
     background-color: #898989
     padding: 20px
@@ -201,20 +200,15 @@ h4
   .responded
     background-color: orange
       
-#question-region
-  @extend .col-lg-12
+#question-column-left
+  @extend .col-sm-6
 
-#question-content
-  @extend .col-lg-6
-
-#question-attempt-data
-  @extend .col-lg-6
-  //background-color: orange
+#question-column-right
+  @extend .col-sm-6  
 
 .question-box
   background-color: #898989
   padding: 10px 
-  //width: 30px
 
 .responseForm
   margin-top: 10px
@@ -318,6 +312,5 @@ h4
 .transparent-rose
   background-color: rgba(255, 0, 0, 0.1) !important
 
-//.responseBox .glyphicon
-//  font-size: 50% !important  
-    
+.responseBox
+  margin-top: 10px

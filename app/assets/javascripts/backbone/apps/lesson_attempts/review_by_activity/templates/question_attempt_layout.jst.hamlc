@@ -1,2 +1,14 @@
-#question-region
-#question-content
+#question-column-left
+  #question-attempt-info-region
+  #question-region
+  #response-region  
+#question-column-right
+  #question-content
+    .lesson_element.PromptedAudioQuestion
+      .functional-header Content
+      .title
+        %h4= @question.title
+      #element-content #{@question.content}
+  #back-button
+    %button.btn.js-lEsson-attempt-nav Return to Lesson Attempt Overview
+    
