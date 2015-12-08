@@ -10,5 +10,5 @@
         %h4= @question.title
       #element-content #{@question.content}
   #back-button
-    %button.btn.js-lEsson-attempt-nav Return to Lesson Attempt Overview
+    %button.btn.js-lesson-attempt-nav Return to Lesson Attempt Overview
     
