@@ -21,9 +21,10 @@
         @currentRecording = recording
         document.getElementById('hidden-audio').src = @currentRecording.getUrl()
 
-    handleRecording: (e) =>
+    acceptRecording: (recording) =>
+      console.log 'received recording', recording
       @currentRecording = App.request "create:recording:entity"
-      @currentRecording.set('blob', e.detail)
+      @currentRecording.set('blob', recording)
 
       audio = document.getElementById('hidden-audio')
       audio.src = @currentRecording.getUrl()
@@ -32,8 +33,8 @@
 
     attemptLesson: (lesson_id) ->
       RecorderControls.initialize()
-
-      RecorderControls.recorder.addEventListener 'dataAvailable', @handleRecording
+      RecorderControls.setRecordingAcceptor(@)
+      #RecorderControls.recorder.addEventListener 'dataAvailable', @handleRecording
 
       create_attempt = App.request "new:lesson_attempt:entity", lesson_id, @currentUser.get('id'), @currentActivity.get('id')
 
