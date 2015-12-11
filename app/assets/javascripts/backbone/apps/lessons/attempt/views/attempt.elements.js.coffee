@@ -52,8 +52,6 @@
 
     previousView: ->
       if @currentView > 0
-        @currentElement.saveAttempt() if _.isFunction( @currentElement.saveAttempt )
-
         $('.lesson_element').fadeOut 200, ( ->
           @currentView -= 1
           @showElementView()
