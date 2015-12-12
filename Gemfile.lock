@@ -156,7 +156,7 @@ GEM
     http-cookie (1.0.2)
       domain_name (~> 0.5)
     i18n (0.7.0)
-    ims-lti (1.1.9)
+    ims-lti (1.1.10)
       builder
       oauth (~> 0.4.5)
     jbuilder (2.3.1)
