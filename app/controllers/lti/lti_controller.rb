@@ -19,8 +19,6 @@ class Lti::LtiController < ApplicationController
     @institution = Institution.find_by_hostname params[:tool_consumer_instance_guid]
     raise ::Exceptions::InstitutionNotAuthorizedError unless @institution
   
-    logger.debug params.inspect
-    
     gon.institution = @institution
     
     begin
