@@ -13,7 +13,7 @@ class Recording < ActiveRecord::Base
   end
   
   def full_url
-    "#{S3_BUCKET.url}#{self.url}"
+    "#{S3_BUCKET.url secure: true}#{self.url}"
   end
 
   def self.generate_uuid
