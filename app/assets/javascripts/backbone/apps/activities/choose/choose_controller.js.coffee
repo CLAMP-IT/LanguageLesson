@@ -8,16 +8,16 @@
         activity.set('doable_type', 'Lesson')
         activity.set('doable_id', iv.model.get('id'))
 
-        activity.save()
-
-        App.navigate("lessons/#{activity.get('doable_id')}/attempt", trigger: true)
+        activity.save(
+          null
+          success: =>
+            App.navigate("lesson_attempts/#{activity.get('id')}/review_by_activity", trigger: true)
+        )
 
       App.request "languages:entities", (lessons_by_language) =>
         @layout = @getLayoutView()
-
         @layout.on "show", =>
           @showLessonsRegion lessons_by_language
-
         App.mainRegion.show @layout
 
     getLayoutView: ->
