@@ -18,6 +18,7 @@ WaveSurfer.util.extend(WaveSurfer.MediaElement, {
 
         this.mediaType = params.mediaType.toLowerCase();
         this.elementPosition = params.elementPosition;
+        this.setPlaybackRate(this.params.audioRate);
     },
 
     load: function (url, container, peaks) {
@@ -25,7 +26,7 @@ WaveSurfer.util.extend(WaveSurfer.MediaElement, {
 
         var media = document.createElement(this.mediaType);
         media.controls = this.params.mediaControls;
-        media.autoplay = false;
+        media.autoplay = this.params.autoplay || false;
         media.preload = 'auto';
         media.src = url;
         media.style.width = '100%';
