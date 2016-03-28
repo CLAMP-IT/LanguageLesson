@@ -10,20 +10,13 @@
   - if @response_audio
     %h4 Response  
     %audio{src: @response_audio.full_url, controls: true}
-    %hr    
-  %h4 Record a Response
-  #recordingControls
-    %button.btn.btn-primary.js-record-begin
-      %i.glyphicon.glyphicon-record
-      Record
-    %button.btn.btn-primary.js-record-end
-      %i.glyphicon.glyphicon-stop
-      Stop
-    %button#playback-button.btn.btn-primary.js-record-playback.hidden
-      %i.glyphicon.glyphicon-play
-      Playback
-    #recording-success.recording-upload-alert.alert.alert-success.hidden A recording was successfully uploaded.
-    #recording-failure.recording-upload-alert.alert.alert-warning.hidden A problem occurred while uploading the recording.
-.response_wave
+    %hr
+  %h4 Your Recording
+  .response_wave
+  .controls.voffset2
+    %button.btn.js-play
+      %i.icon.icon-play
+      Play
+  #responses-list
 .lesson_navigation.PromptedAudioQuestion
   != JST['backbone/apps/lessons/attempt/templates/_buttons'](@)
