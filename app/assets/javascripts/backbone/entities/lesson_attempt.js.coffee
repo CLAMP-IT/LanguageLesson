@@ -51,6 +51,17 @@
 
       lessonAttempt
 
+    getLessonAttemptEntityByLessonAndUser: (lesson_id, user_id, cb) ->
+      lesson_attempt = new Entities.LessonAttempt
+
+      lesson_attempt.fetch
+        url: Routes.by_lesson_and_user_lesson_attempts_path(lesson_id, user_id)
+        reset: true
+        success: (model, response) ->
+          cb lesson_attempt
+
+      lesson_attempt
+
     getLessonAttemptEntities: (cb) ->
       lesson_attempts = new Entities.LessonAttemptsCollection
 
@@ -87,6 +98,14 @@
 
       defer.promise()
 
+    setCurrentLessonAttempt: (lessonAttempt) ->
+      App.currentLessonAttempt = lessonAttempt
+
+      App.currentLessonAttempt
+
+    getCurrentLessonAttempt: ->
+      App.currentLessonAttempt
+
   App.reqres.setHandler "lesson_attempt:entity", (id, cb) ->
     API.getLessonAttemptEntity id, cb
 
@@ -96,5 +115,14 @@
   App.reqres.setHandler "lesson_attempt:entities:by_lesson_id", (lesson_id, cb) ->
     API.getLessonAttemptEntitiesByLessonId lesson_id, cb
 
+  App.reqres.setHandler "lesson_attempt:entities:by_lesson_and_user", (lesson_id, user_id, cb) ->
+    API.getLessonAttemptEntityByLessonAndUser lesson_id, user_id, cb
+
   App.reqres.setHandler "new:lesson_attempt:entity", (lesson_id, user_id, activity_id) ->
     API.newLessonAttemptEntity lesson_id, user_id, activity_id
+
+  App.reqres.setHandler "set:current:lesson_attempt", (lesson_attempt) ->
+    API.setCurrentLessonAttempt lesson_attempt
+
+  App.reqres.setHandler "get:current:lesson_attempt", ->
+    API.getCurrentLessonAttempt()

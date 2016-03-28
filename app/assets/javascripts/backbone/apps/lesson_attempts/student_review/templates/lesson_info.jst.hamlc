@@ -1,5 +1,4 @@
 #lesson-name
-  #{@name}
+  (STUDENT REVIEW) #{@name}
 #elements_counter 
   #element_count 1 of
-(Attempt)

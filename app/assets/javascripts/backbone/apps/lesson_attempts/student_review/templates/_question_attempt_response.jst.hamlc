@@ -1,0 +1,5 @@
+%audio.response-recording-audio
+%button.btn.btn-primary.js-response-play
+  %i.glyphicon.glyphicon-play
+- if @note
+  Note: #{@note}

@@ -2,6 +2,7 @@
   class LessonAttemptsApp.Router extends Marionette.AppRouter
     appRoutes:
       "lesson_attempts" : "list"
+      "lesson_attempts/student_review" : "studentReview"
       "lesson_attempts/:id" : "show"
       "lesson_attempts/:id/review" : "review"
       "lesson_attempts/:activity_id/review_by_activity" : "reviewByActivity"
@@ -26,6 +27,10 @@
     reviewByActivity: (activity_id) ->
       controller = new LessonAttemptsApp.ReviewByActivity.Controller
       controller.review(activity_id)
+
+    studentReview:  ->
+      controller = new LessonAttemptsApp.StudentReview.Controller
+      controller.review()
 
   App.addInitializer ->
     new LessonAttemptsApp.Router

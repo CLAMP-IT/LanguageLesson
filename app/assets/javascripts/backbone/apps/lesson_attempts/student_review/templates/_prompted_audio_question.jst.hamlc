@@ -1,0 +1,16 @@
+.lesson_element.PromptedAudioQuestion
+  .title
+    %h3= @title
+  #element-content #{@content}
+  - if @prompt_audio
+    .playback-area
+      %audio{src: @prompt_audio.full_url, controls: true, class: 'playback-content'}
+  %h4 Your Recording
+  .response_wave
+  .controls.voffset2
+    %button.btn.js-play
+      %i.icon.icon-play
+      Play
+  #responses-list
+.Lesson_navigation.PromptedAudioQuestion
+  != JST['backbone/apps/lessons/attempt/templates/_buttons'](@)
