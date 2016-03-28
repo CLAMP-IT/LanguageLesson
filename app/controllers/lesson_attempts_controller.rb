@@ -19,6 +19,18 @@ class LessonAttemptsController < ApplicationController
              .order(:name, "question_attempt_responses.mark_start")
   end
 
+  def by_lesson_and_user
+    @lesson_attempt = LessonAttempt
+                      .includes(question_attempts: :question)
+                      .references(:question_attempts)
+                      .order('questions.row_order')
+                      .where(lesson_id: params[:lesson_id])
+                      .where(user_id: params[:user_id])
+                      .first
+
+    render json: {} unless @lesson_attempt
+  end
+  
   def show
     @lesson_attempt = LessonAttempt
                       .includes(question_attempts: :question)

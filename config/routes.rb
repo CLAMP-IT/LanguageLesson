@@ -78,7 +78,10 @@ LanguageLesson::Application.routes.draw do
 
   get 'lesson_attempts/:lesson_attempt_id/questions/:question_id/users/:user_id' => 'question_attempts#find_by_lesson_attempt_question_and_user', :as => 'find_question_attempt_by_lesson_attempt_question_and_user'
 
+  get 'lesson_attempts/by_lesson_and_user/:lesson_id/:user_id' => 'lesson_attempts#by_lesson_and_user', :as => 'by_lesson_and_user_lesson_attempts'
+  
   get 'lesson_attempts/by_activity/:activity_id' => 'lesson_attempts#by_activity', :as => 'by_activity_lesson_attempts'
+
 
   root :to => 'backbone#index'
 end
