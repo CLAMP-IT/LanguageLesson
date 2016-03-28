@@ -11,6 +11,7 @@
     %button.btn.js-play
       %i.icon.icon-play
       Play
+  %h4.top_pad_10 Instructor Feedback
   #responses-list
 .Lesson_navigation.PromptedAudioQuestion
   != JST['backbone/apps/lessons/attempt/templates/_buttons'](@)
