@@ -22,5 +22,7 @@
     %button#playback-button.btn.btn-primary.js-record-playback.hidden
       %i.glyphicon.glyphicon-play
       Playback
+    #recording-success.recording-upload-alert.alert.alert-success.hidden A recording was successfully uploaded.
+    #recording-failure.recording-upload-alert.alert.alert-warning.hidden A problem occurred while uploading the recording.
 .lesson_navigation.PromptedAudioQuestion
   != JST['backbone/apps/lessons/attempt/templates/_buttons'](@)

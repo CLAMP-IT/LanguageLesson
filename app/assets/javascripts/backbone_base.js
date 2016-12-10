@@ -24,3 +24,5 @@
 //= require_tree ./wavesurfer.js/plugin
 //= require hamlcoffee
 //= require simple_audio_player
+//= require spin
+//= require blockspin

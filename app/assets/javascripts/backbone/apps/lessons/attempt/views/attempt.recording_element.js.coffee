@@ -32,8 +32,6 @@
 
       RecorderControls.clear()
 
-      @showPlaybackButton()
-
       $('.lesson_element').removeClass('recording')
 
       $('.next').prop('disabled', false)
@@ -50,6 +48,18 @@
 
     applyRecording: (recording) =>
       @question_attempt.set('recording', recording)
+
+      $.spin('true')
+      @question_attempt.save(
+        null
+        success: (model, response) =>
+          $.spin('false')
+          @showPlaybackButton()
+          $('#recording-success').removeClass('hidden')
+        error: (model, response) =>
+          $.spin('false')
+          $('#recording-failure').removeClass('hidden')
+      )
 
     saveAttempt: =>
       @question_attempt.save()

@@ -41,8 +41,6 @@
 
     nextView: ->
       if @currentView < (@model.get('lesson_elements').length - 1)
-        @currentElement.saveAttempt() if _.isFunction( @currentElement.saveAttempt )
-
         $('.lesson_element').fadeOut 200, ( ->
           @currentView += 1
           @showElementView()
@@ -92,5 +90,4 @@
       @elements.show @currentElement
 
     applyRecording: (recording) =>
-      console.log 'applying recording', recording
       @currentElement.applyRecording(recording)
